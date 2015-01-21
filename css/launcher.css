@@ -1,0 +1,72 @@
+body {
+		background-color: #87AEC5;
+    font-family: verdana, arial;
+    font-size: 80%;
+    text-align: center;
+}
+
+button {
+	width: 45%; 
+	height: 40px; 
+	border-radius: 8px; 
+	font-size: 1.5em;
+	background-color: navy;
+	color: white;
+	margin: 5px 10px 5px 0;
+}
+
+select {
+	width: 45%; 
+	height: 40px; 
+	border-radius: 8px; 
+	font-size: 1.5em;
+	background-color: green;
+	color: white;
+	margin: 5px 10px 5px 0;
+}
+
+#launch-area, #channel-area, #message-panel {
+	border: 2px solid black;
+	padding: 5px 0 5px 0;
+	margin: 10px 5px 10px 5px;
+}
+
+.area-border {
+	width: 90%;
+	margin-left: 5%;
+	border: 1px solid black;
+}
+#bookmarkId, #channelBookmarkId, #zoom {
+	width: 15%;
+}
+
+#bookmarkUrl, #channelBookmarkUrl, #overlayUrl {
+	width: 60%;
+}
+
+.data-input {
+	width: 100%;
+	text-align: left;
+	padding-left: 20px;
+}
+
+.input-label {
+	background: grey;
+	color: white;
+}
+
+
+#message-panel {
+	font-size: 1.1em; 
+	text-align: left; 
+	margin-left: 10px;
+	display: block;
+}
+
+#error-panel {
+	display: block;
+}
+
+#map-latitude, #map-longitude, #map-zoom {
+	width: 15%;
+}
