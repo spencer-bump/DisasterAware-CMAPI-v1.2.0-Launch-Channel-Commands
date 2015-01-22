@@ -1,4 +1,5 @@
-		The files in this repository can be used to create an example widget that demonstrates the following list of commands.
+		The files in this repository can be used to create an example widget 
+		that demonstrates the following list of commands.
 
 ### list 
 #DisasterAware: OWF Command Documentation
