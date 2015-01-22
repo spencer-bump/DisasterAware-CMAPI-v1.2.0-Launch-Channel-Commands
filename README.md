@@ -1,7 +1,10 @@
-# list 
-#DisasterAware CMAPI
+		The files in this repository can be used to create an example widget that demonstrates the following list of commands.
+
+### list 
+#DisasterAware: OWF Command Documentation
+##Launch: 
 #### DisasterAware Launch with Payload: [launch](#launch) 
-#Channels
+##Channels:
 #### Set Language Translation: ["gbsp.localeChannel"](#gbsp_locale_channel)
 #### Add Layer Filter: ["layer.filter.add"](#layer_filter_add)
 #### Toggle Layer Filter:["layer.filter.toggle"](#layer_filter_toggle)
