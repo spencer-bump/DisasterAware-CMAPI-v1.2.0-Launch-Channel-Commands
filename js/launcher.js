@@ -27,8 +27,12 @@ var $overlayUrl 		      = $('#overlayUrl');
 var $latitude							= $('#map-latitude');
 var $longitude						= $('#map-longitude');
 var $zoom 					      = $('#map-zoom');
+var $zoom_zoom			      = $('#map-zoom-zoom');
 var $channelBookmarkId 	  = $('#channelBookmarkId');
 var $channelBookmarkUrl 	= $('#channelBookmarkUrl');
+var $layerId							= $('#filter-layerId');
+var $filter_fieldName			= $('#filter-fieldName');
+var $filter_text					= $('#filter-text');
 
 // launch variables
 var data = {};
@@ -205,6 +209,14 @@ $button_field.on('click', '#hide_overlay', function(){
 	cmapi_message = { "overlayId": 	"myOverlay" };
 	publishChannel(cmapi_channel, cmapi_message);
 });
+
+// Update Overlay
+$button_field.on('click', '#update_overlay', function(){ 
+	console.log("update overlay");
+	cmapi_channel = "map.overlay.update";
+	cmapi_message = { "overlayId": 	"myOverlay" };
+	publishChannel(cmapi_channel, cmapi_message);
+});
 /*** End Overlay Code ***/
 
 /*** Map Control Code ***/
@@ -214,6 +226,8 @@ var mapLongitude = -98.042;
 $longitude.val(mapLongitude);
 var zoom = 2500;
 $zoom.val(zoom);
+var zoom_zoom = 5000;
+$zoom_zoom.val(zoom_zoom);
 
 // Set Map Center
 $button_field.on('click', '#map_set_center', function(){
@@ -233,9 +247,9 @@ $button_field.on('click', '#map_set_center', function(){
 // Set Map Zoom
 $button_field.on('click', '#map_set_zoom', function(){
 	console.log("map set zoom");
-	zoom = $zoom.val();
+	zoom_zoom = $zoom_zoom.val();
 	cmapi_channel = "map.view.zoom";
-	cmapi_message = { "zoom": zoom };
+	cmapi_message = { "range": zoom_zoom };
 	publishChannel(cmapi_channel, cmapi_message);
 });
 /*** End Map Control Code ***/
@@ -272,16 +286,20 @@ $button_field.on('click', '#change_locale', function(){
 
 /*** Filter Code ***/
 // Add Filter
+$layerId.val("Recent_Earthquakes");
+$filter_fieldName.val("region");
+$filter_text.val("oklahoma");
+
 $button_field.on('click', '#add_filter', function(){ 
 	console.log("add filter");
 	cmapi_channel = "layer.filter.add";
 	// Filter 'Recent_Earthquakes' layer in the 'oklahoma' 'region'.
 	cmapi_message = { 
-		"layerId": "Recent_Earthquakes", 
+		"layerId": $layerId.val(), 
 		"filter": {
 			"region": {
-				"fieldName": "region",
-				"text": "oklahoma"
+				"fieldName": $filter_fieldName.val(),
+				"text": $filter_text.val()
 			}
 		} 
 	};

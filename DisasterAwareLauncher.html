@@ -5,9 +5,13 @@
     <h1>DisasterAware CMAPI</h1>
     
     <div id="button_field">
+        <h2>DisasterAware Channels</h2>
 
-        <h2>Widget Launcher</h2>
+        
         <div class="area-border">
+          <h3>Widget Launcher to Bookmark</h3>
+          <button id="launch_msmv" >Launch MSMV by ID</button>
+          <button id="launch_trunk" >Launch MSMV Trunk by ID</button><br>
           <div>
             <div class="data-input">
               <input type="radio" name="launch-type" id="launchWithId" value="bookmarkId" checked="checked" >
@@ -20,13 +24,37 @@
               <input type="text" id="bookmarkUrl">
             </div>
           </div>
-          <button id="launch_msmv" >Launch MSMV by ID</button>
-          <button id="launch_trunk" >Launch MSMV Trunk by ID</button><br>
         </div>
 
-        <h2>Channel Launcher</h2>
-
         <div class="area-border">
+          <select id="select-locale">
+            <option value="en_us">English: 'en_us'</option>
+            <option value="id">Indonesian: 'id'</option>
+            <option value="es" selected="selected">Spanish: 'es'</option>
+            <option value="th">Thai: 'th'</option>
+            <option value="vi">Vietnamese: 'vi'</option>
+          </select>
+          <button id="change_locale" >To Spanish</button>
+        </div>
+        
+        <div class="area-border">
+          <button id="add_filter" >Add Filter</button>
+          <button id="toggle_filter" >Toggle Filter</button>
+          <div class="data-input" >
+            <div>
+              <span>layerId: </span><input type="text" id="filter-layerId"/>
+            </div>
+            <div>
+              <span>filter.region.fieldname: </span><input type="text" id="filter-fieldName"/>
+            </div>
+            <div>
+              <span>filter.region.text: </span><input type="text" id="filter-text"/>
+            </div>
+          </div>
+        </div>
+        
+        <div class="area-border">
+          <button id="load_bookmark" >Load Bookmark by Id</button>
           <div class="data-input">
             <input type="radio" name="bookmark" id="id" value="bookmarkId" checked="checked" >
             Bookmark Id: <input type="text" id="channelBookmarkId"/>
@@ -35,46 +63,56 @@
             <input type="radio" name="bookmark" id="url" value="bookmarkUrl" >
             Bookmark Url:<input type="text" id="channelBookmarkUrl">
           </div>
-          <button id="load_bookmark" >Load Bookmark by Id</button>
+          
+        </div>
+        
+        <div class="area-border">
+          <button id="animation_time" >Set Animation Time</button>
         </div>
 
+        <h2>Overlay Channels</h2>
         <div class="area-border">
-          <div class="data-input">Overlay Url: <input type="text" id="overlayUrl"/></div>
           <button id="create_overlay" >Create Overlay</button>
           <button id="remove_overlay" >Remove Overlay</button><br>
           <button id="show_overlay" >Show Overlay</button>
-          <button id="hide_overlay" >Hide Overlay</button>
+          <button id="hide_overlay" >Hide Overlay</button><br>
+          <button id="update_overlay" >Update Overlay - pending</button>
+          <div class="data-input" style="text-align:center">Overlay Url: <input type="text" id="overlayUrl"/></div>
         </div>
 
+        <h2>Feature Channels</h2>
+
+        <h2>Map View Channels</h2>
         <div class="area-border">
-          <div class="data-input">
+          <button id="map_set_center" >Set Map Center</button>
+          <div class="data-input" style="text-align:center">
             <span>Latitude: </span> <input type="text" id="map-latitude"/>
             <span>Longitude: </span><input type="text" id="map-longitude"/>
             <span>Zoom: </span>     <input type="text" id="map-zoom"/>
           </div>
-          <button id="map_set_center" >Set Map Center</button>
+          
+        </div>
+        <div class="area-border">
           <button id="map_set_zoom" >Set Map Zoom</button>
+          <div class="data-input" style="text-align:center">
+            <span>Range: </span>     <input type="text" id="map-zoom-zoom"/>
+          </div>
+          
         </div>
 
-        <div class="area-border">
-          <select id="select-locale">
-            <option value="EN_US">English</option>
-            <option value="ID">Indonesian</option>
-            <option value="ES" selected="selected">Spanish</option>
-            <option value="TH">Thai</option>
-            <option value="VI">Vietnamese</option>
-          </select>
-          <button id="change_locale" >To Spanish</button>
-        </div>
+        <h2>Map Status Channels</h2>
 
-        <div class="area-border">
-          <button id="add_filter" >Add Filter</button>
-          <button id="toggle_filter" >Toggle Filter</button>
-        </div>
+        
 
-        <div class="area-border">
-          <button id="animation_time" >Set Animation Time</button>
-        </div>
+        
+
+        
+
+        
+
+        
+
+        
 
     </div>
     
