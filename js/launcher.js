@@ -23,16 +23,25 @@ var $launchResults 	      = $('#launchResults');
 var $error_panel 		      = $('#error-panel');
 var $bookmarkId 		      = $('#bookmarkId');
 var $bookmarkUrl 		      = $('#bookmarkUrl');
+var $layerId							= $('#filter-layerId');
+var $filter_fieldName			= $('#filter-fieldName');
+var $filter_text					= $('#filter-text');
+var $layerId_toggle				= $('#filter-layerId-toggle');
+var $channelBookmarkId 	  = $('#channelBookmarkId');
+var $channelBookmarkUrl 	= $('#channelBookmarkUrl');
+var $overlayName					= $('#overlay-name');
+var $overlayId					  = $('#overlay-overlayId');
+var $parentId					  	= $('#overlay-parentId');
+var $ovelayIdAction				= $('#overlay-overlayId-action');
+var $overlayNameUpdate		= $('#overlay-name-update');
+var $overlayIdUpdate			= $('#overlay-overlayId-update');
+var $parentIdUpdate				= $('#overlay-parentId-update');
 var $overlayUrl 		      = $('#overlayUrl');
 var $latitude							= $('#map-latitude');
 var $longitude						= $('#map-longitude');
 var $zoom 					      = $('#map-zoom');
 var $zoom_zoom			      = $('#map-zoom-zoom');
-var $channelBookmarkId 	  = $('#channelBookmarkId');
-var $channelBookmarkUrl 	= $('#channelBookmarkUrl');
-var $layerId							= $('#filter-layerId');
-var $filter_fieldName			= $('#filter-fieldName');
-var $filter_text					= $('#filter-text');
+
 
 // launch variables
 var data = {};
@@ -49,8 +58,8 @@ var bookmarkIdPayload = { "bookmarkId": 9853 };
 var bookmarkUrlPayload = { "bookmarkUrl": "http://local.msmv.pdc.org:8080/msmvng/msmvng/?bookmark=9853" };
 
 // default bookmarks for channel commands
-var channelBookmarkIdPayload = { "bookmarkId": 9944 }; // good location to test filter toggle
-var channelBookmarkUrlPayload = { "bookmarkUrl": "http://local.msmv.pdc.org:8080/msmvng/msmvng/?bookmark=9886" };
+var channelBookmarkIdPayload = { "bookmarkId": 10018 }; // good location to test filter toggle
+var channelBookmarkUrlPayload = { "bookmarkUrl": "http://local.msmv.pdc.org:8080/msmvng/msmvng/?bookmark=10017" };
 
 // default overlay url
 var overlayUrl = "http://plu.sx/kml/1.kml";
@@ -172,33 +181,30 @@ $button_field.on('click', '#load_bookmark', function(){ // Alaska
 
 /*** Overlay Code ***/
 // load overlay input field with default value
-$overlayUrl.val(overlayUrl);
 
 // Create Overlay
+$overlayUrl.val(overlayUrl);
+$overlayId.val("myOverlay");
+$overlayName.val("overlayName");
+$parentId.val("parentID");
 $button_field.on('click', '#create_overlay', function(){ 
 	console.log("create overlay");
 	overlayUrl = $overlayUrl.val();
 	cmapi_channel = "map.overlay.create";
 	cmapi_message = { 
-					"overlayId": 	"myOverlay", 
-					"url": 				overlayUrl
+					"overlayId": 	$overlayId.val(), 
+					"url": 				$overlayUrl.val()
 				};
 	publishChannel(cmapi_channel, cmapi_message);
 });
 
-// Remove Overlay
-$button_field.on('click', '#remove_overlay', function(){ 
-	console.log("remove overlay");
-	cmapi_channel = "map.overlay.remove";
-	cmapi_message = { "overlayId": 	"myOverlay" };
-	publishChannel(cmapi_channel, cmapi_message);
-});
-
+// Overlay Actions: Show, Hide, Remove
+$ovelayIdAction.val("myOverlay");
 // Show Overlay
 $button_field.on('click', '#show_overlay', function(){ 
 	console.log("show overlay");
 	cmapi_channel = "map.overlay.show";
-	cmapi_message = { "overlayId": 	"myOverlay" };
+	cmapi_message = { "overlayId": 	$ovelayIdAction.val() };
 	publishChannel(cmapi_channel, cmapi_message);
 });
 
@@ -206,11 +212,22 @@ $button_field.on('click', '#show_overlay', function(){
 $button_field.on('click', '#hide_overlay', function(){ 
 	console.log("hide overlay");
 	cmapi_channel = "map.overlay.hide";
-	cmapi_message = { "overlayId": 	"myOverlay" };
+	cmapi_message = { "overlayId": 	$ovelayIdAction.val() };
+	publishChannel(cmapi_channel, cmapi_message);
+});
+
+// Remove Overlay
+$button_field.on('click', '#remove_overlay', function(){ 
+	console.log("remove overlay");
+	cmapi_channel = "map.overlay.remove";
+	cmapi_message = { "overlayId": 	$ovelayIdAction.val() };
 	publishChannel(cmapi_channel, cmapi_message);
 });
 
 // Update Overlay
+$overlayNameUpdate.val("overlayNameUpdate");
+$overlayIdUpdate.val("overlayIdUpdate");
+$parentIdUpdate.val("parentIdUpdate");
 $button_field.on('click', '#update_overlay', function(){ 
 	console.log("update overlay");
 	cmapi_channel = "map.overlay.update";
@@ -287,6 +304,7 @@ $button_field.on('click', '#change_locale', function(){
 /*** Filter Code ***/
 // Add Filter
 $layerId.val("Recent_Earthquakes");
+$layerId_toggle.val("Recent_Earthquakes");
 $filter_fieldName.val("region");
 $filter_text.val("oklahoma");
 
@@ -311,7 +329,7 @@ $button_field.on('click', '#add_filter', function(){
 $button_field.on('click', '#toggle_filter', function(){ 
 	console.log("toggle filter");
 	cmapi_channel = "layer.filter.toggle";
-	cmapi_message = { "layerId": "Recent_Earthquakes" };
+	cmapi_message = { "layerId": $layerId_toggle.val() };
 	publishChannel(cmapi_channel, cmapi_message);
 });
 /*** End Filter Code ***/

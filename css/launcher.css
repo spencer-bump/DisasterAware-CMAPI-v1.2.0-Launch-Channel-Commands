@@ -6,13 +6,24 @@ body {
 }
 
 button {
-	width: 30%; 
 	height: 30px; 
 	border-radius: 8px; 
 	font-size: 1em;
 	background-color: navy;
 	color: white;
-	margin: 5px 10px 5px 0;
+	margin: 10px 10px 0 0;
+}
+
+.button-extralarge {
+	width: 250px; 
+}
+.button-large {
+	width: 200px; 
+}
+
+.button-medium {
+	width: 125px; 
+	
 }
 
 select {
@@ -36,25 +47,43 @@ select {
 	margin-left: 5%;
 	border: 1px solid black;
 }
-#bookmarkId, #channelBookmarkId, #zoom {
-	width: 15%;
+
+table {
+	width: 80%;
+	margin: 10px 5% 5px 10%;
+}
+
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+th,td {
+    padding: 5px;
+}
+
+.property {
+	width: 25%;
+	text-align: right;
+	font-size: .9em;
+}
+.value {
+	width: 50%;
+	text-align: left;
+	font-size: .9em;
 }
 
 #bookmarkUrl, #channelBookmarkUrl, #overlayUrl {
-	width: 60%;
+	width: 90%;
+}
+input[type="text"] {
+	width: 40%;
 }
 
-.data-input {
-	width: 100%;
-	text-align: left;
-	padding-left: 20px;
+.channel {
+	padding: 3px;
+	font-size: 1.1em;
 }
-
-.input-label {
-	background: grey;
-	color: white;
-}
-
 
 #message-panel {
 	font-size: 1.1em; 
@@ -67,7 +96,4 @@ select {
 	display: block;
 }
 
-#map-latitude, #map-longitude, #map-zoom {
-	width: 15%;
-}
 
