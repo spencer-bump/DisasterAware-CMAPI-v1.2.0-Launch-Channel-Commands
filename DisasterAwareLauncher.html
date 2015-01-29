@@ -57,15 +57,15 @@
             </tr>
             <tr>
               <td class="property">layerId</td>
-              <td class="value"><input type="text" id="filter-layerId"/></td>
+              <td class="value"><input type="text" id="filter-layerId"/> required </td>
             </tr>
             <tr>
               <td class="property">filter.region.fieldname</td>
-              <td class="value"><input type="text" id="filter-fieldName"/></td>
+              <td class="value"><input type="text" id="filter-fieldName"/> required </td>
             </tr>
             <tr>
               <td class="property">filter.region.text</td>
-              <td class="value"><input type="text" id="filter-text"/></td>
+              <td class="value"><input type="text" id="filter-text"/> required </td>
             </tr>
           </table>
           <div class="channel">Channel: "layer.filter.add"</div>
@@ -79,7 +79,7 @@
             </tr>
             <tr>
               <td class="property">layerId</td>
-              <td class="value"><input type="text" id="filter-layerId-toggle"/></td>
+              <td class="value"><input type="text" id="filter-layerId-toggle"/> required </td>
             </tr>
           </table>
           <div class="channel">Channel: "layer.filter.toggle"</div>
@@ -159,7 +159,7 @@
             </tr>
             <tr>
               <td class="property">overlayId</td>
-              <td class="value"><input type="text" id="overlay-overlayId-action"/></td>
+              <td class="value"><input type="text" id="overlay-overlayId-action"/> required </td>
             </tr>
           </table>
           <div class="channel">Channels: "map.overlay.show", "map.overlay.hide", "map.overlay.remove"</div>
@@ -188,8 +188,8 @@
         </div>
 
         <h2>Feature Channels</h2>
-        <h4>pending</h4>
         <div class="area-border">
+          <h4>pending</h4>
           <button class="button-medium" id="plot_url" >Plot URL</button>
           <table>
             <tr>
@@ -202,7 +202,7 @@
             </tr>
             <tr>
               <td class="property">featureId</td>
-              <td class="value"><input type="text" id="plot-url-featureId"/> required</td> 
+              <td class="value"><input type="text" id="plot-url-featureId"/> required </td> 
             </tr>
             <tr>
               <td class="property">name</td>
@@ -210,7 +210,7 @@
             </tr>
             <tr>
               <td class="property">url</td>
-              <td class="value"><input type="text" id="plot-url-url"/> required</td>
+              <td class="value"><input type="text" id="plot-url-url"/> required </td>
             </tr>
             <tr>
               <td class="property">zoom</td>
@@ -230,15 +230,15 @@
             </tr>
             <tr>
               <td class="property">location.lat</td>
-              <td class="value"><input type="text" id="map-latitude"/></td>
+              <td class="value"><input type="text" id="map-latitude"/> required </td>
             </tr>
             <tr>
               <td class="property">location.lon</td>
-              <td class="value"><input type="text" id="map-longitude"/></td>
+              <td class="value"><input type="text" id="map-longitude"/> required </td>
             </tr>
             <tr>
               <td class="property">zoom</td>
-              <td class="value"><input type="text" id="map-zoom"/></td>
+              <td class="value"><input type="text" id="map-zoom"/>required </td>
             </tr>
           </table>
           <div class="channel">Channel: "map.view.center.location"</div>
@@ -252,7 +252,7 @@
             </tr>
             <tr>
               <td class="property">range</td>
-              <td class="value"><input type="text" id="map-range"/></td>
+              <td class="value"><input type="text" id="map-range"/> required </td>
             </tr>
           </table>
           <div class="channel">Channel: "map.view.zoom"</div>

@@ -237,9 +237,9 @@ $button_field.on('click', '#remove_overlay', function(){
 });
 
 // Update Overlay
-$overlayNameUpdate.val("overlayNameUpdate");
-$overlayIdUpdate.val("overlayIdUpdate");
-$parentIdUpdate.val("parentIdUpdate");
+$overlayNameUpdate.val("updatedOverlayName");
+$overlayIdUpdate.val("myOverlay");
+$parentIdUpdate.val("updatedParentId");
 $button_field.on('click', '#update_overlay', function(){ 
 	console.log("update overlay");
 	cmapi_channel = "map.overlay.update";
