@@ -5,6 +5,7 @@ body {
     text-align: center;
 }
 
+/*** Start Buttons ***/
 button {
 	height: 30px; 
 	border-radius: 8px; 
@@ -13,28 +14,17 @@ button {
 	color: white;
 	margin: 10px 10px 0 0;
 }
-
-.button-extralarge {
-	width: 250px; 
+.button-medium {
+	width: 125px; 
 }
 .button-large {
 	width: 200px; 
 }
-
-.button-medium {
-	width: 125px; 
-	
+.button-extralarge {
+	width: 250px; 
 }
+/*** End Buttons ***/
 
-select {
-	width: 30%; 
-	height: 30px; 
-	border-radius: 8px; 
-	font-size: 1em;
-	background-color: green;
-	color: white;
-	margin: 5px 10px 5px 0;
-}
 
 #launch-area, #channel-area, #message-panel {
 	border: 2px solid black;
@@ -46,11 +36,15 @@ select {
 	width: 90%;
 	margin-left: 5%;
 	border: 1px solid black;
+	background-color: #F5DEB3;
 }
 
+
+/*** Start Input Area ***/
 table {
 	width: 80%;
-	margin: 10px 5% 5px 10%;
+	margin: 10px 5% 10px 10%;
+	background-color: #87AEC5;
 }
 
 table, th, td {
@@ -73,13 +67,26 @@ th,td {
 	font-size: .9em;
 }
 
+select {
+	width: 30%; 
+	height: 30px; 
+	border-radius: 8px; 
+	font-size: 1em;
+	background-color: green;
+	color: white;
+	margin: 5px 10px 5px 0;
+}
+
 #bookmarkUrl, #channelBookmarkUrl, #overlayUrl {
 	width: 90%;
 }
 input[type="text"] {
 	width: 40%;
 }
+/*** Eng Input Area ***/
 
+
+/*** Start Messages ***/
 .channel {
 	padding: 3px;
 	font-size: 1.1em;
@@ -95,5 +102,4 @@ input[type="text"] {
 #error-panel {
 	display: block;
 }
-
-
+/*** End Messages ***/

@@ -15,6 +15,7 @@ var widgetToLaunch;
 
 // jQuery variables
 var $button_field 				= $('#button_field');
+// Message Display Area
 var $isRunning  					= $('#isRunning');
 var $widgetPayload 				= $('#widgetPayload');
 var $widgetName 					= $('#widgetName');
@@ -22,6 +23,7 @@ var $widgetChannel 	      = $('#widgetChannel');
 var $launchResults 	      = $('#launchResults');
 var $error_panel 		      = $('#error-panel');
 // DisasterAware Channels
+var $widget_name					= $('#widget-name');
 var $bookmarkId 		      = $('#bookmarkId');
 var $bookmarkUrl 		      = $('#bookmarkUrl');
 var $layerId							= $('#filter-layerId');
@@ -70,12 +72,38 @@ var bookmarkUrlPayload = { "bookmarkUrl": "http://local.msmv.pdc.org:8080/msmvng
 var channelBookmarkIdPayload = { "bookmarkId": 10018 }; // good location to test filter toggle
 var channelBookmarkUrlPayload = { "bookmarkUrl": "http://local.msmv.pdc.org:8080/msmvng/msmvng/?bookmark=10017" };
 
+/******** Start DisasterAware Launch Code ********/
+/******** End DisasterAware Launch Code ********/
 
+/******** Start Channel Launch ********/
+/******** End Channel Launch ********/
+
+/******** Start DisasterAware Channels  ********/
+/******** End DisasterAware Channels ********/
+
+/******** Start Overlay Channels ********/
+/******** End Overlay Channels ********/
+
+/******** Start Feature Channels ********/
+/******** End Feature Channels ********/
+
+/******** Start Map View Channels ********/
+/******** End Map View Channels ********/
+
+/******** Start Map Status Channels ********/
+/******** End Map Status Channels ********/
+
+/******** Start  ********/
+/******** End  ********/
+
+/******** Start  ********/
+/******** End  ********/
 
 /**   Launch Code  **/
 // load bookmark launch input fields with default values
 $bookmarkId.val(bookmarkIdPayload.bookmarkId);
 $bookmarkUrl.val(bookmarkUrlPayload.bookmarkUrl);
+$widget_name.val("MSMV");
 
 // radio button to select launch type: bookmarkId or bookmarkUrl
 $("input[type='radio'][name='launch-type']").on('checked', function() {
@@ -90,16 +118,14 @@ data = {
 
 // change launch payload to use bookmarkId with radio button
 $('#launchWithId').on('change', function () {
-	$('#launch_msmv').text("Launch " + widgetOne + " by ID");
-	$('#launch_trunk').text("Launch " + widgetTwo + " by ID");
+	$('#launch-widget').text("Launch " + $widget_name.val() + " by ID" );
 	data.payload = {};
 	data.payload[$(this).val()] = $('#bookmarkId').val();
 });
 
 // change launch payload to use bookmarkUrl with radio button
 $('#launchWithUrl').on('change', function () {
-	$('#launch_msmv').text("Launch " + widgetOne + " by URL");
-	$('#launch_trunk').text("Launch " + widgetTwo + " by URL");
+	$('#launch-widget').text("Launch " + $widget_name.val() + " by URL");
 	data.payload = {};
 	data.payload[$(this).val()] = $('#bookmarkUrl').val();
 });
@@ -116,21 +142,23 @@ $('#bookmarkUrl').on('change', function () {
 	data.payload['bookmarkUrl'] = $(this).val();
 });
 
+$widget_name.on('keyup', function () {
+	var isID = new RegExp("ID");
+	if (isID.test($('#launch-widget').text()) ){
+		$('#launch-widget').text("Launch " + $widget_name.val() + " by ID" );
+	} else {
+		$('#launch-widget').text("Launch " + $widget_name.val() + " by URL");
+	}
+});
+
 // Lookup GUID for the widget whose name is set in the 'widgetOne' variable
 // launch the widget if successful
-$button_field.on('click', '#launch_msmv', function(){
-	widgetToLaunch = widgetOne; // set to "MSMV" by default
+$button_field.on('click', '#launch-widget', function(){
+	widgetToLaunch = $widget_name.val(); // set to "MSMV" by default
 	$widgetPayload.empty().append("Payload: " + JSON.stringify(data.payload));
 	lookupSecondTracker();
 });
 
-// Lookup GUID for the widget whose name is set in the 'widgetTwo' variable
-// launch the widget if successful
-$button_field.on('click', '#launch_trunk', function(){
-	widgetToLaunch = widgetTwo; // set to "MSMV Trunk" by default
-	$widgetPayload.empty().append("Payload: " + JSON.stringify(data.payload));
-	lookupSecondTracker()
-});
 /**   End Launch Code  **/
 
 /********************************/

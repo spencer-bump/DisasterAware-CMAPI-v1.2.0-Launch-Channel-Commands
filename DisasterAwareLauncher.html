@@ -6,15 +6,19 @@
     
     <div id="button_field">
         <h2>DisasterAware Channels</h2>
-        
         <div class="area-border">
           <h3>Widget Launcher to Bookmark</h3>
-          <button class="button-large" id="launch_msmv" >Launch MSMV by ID</button>
-          <button class="button-large" id="launch_trunk" >Launch MSMV Trunk by ID</button><br>
+          <button class="button-large" id="launch-widget" >Launch MSMV by ID</button>
+          <!-- <button class="button-large" id="launch_msmv" >Launch MSMV by ID</button>
+          <button class="button-large" id="launch_trunk" >Launch MSMV Trunk by ID</button><br> -->
           <table>
             <tr>
               <th class="property">Property</th>
               <th class="value">Value</th>
+            </tr>
+            <tr>
+              <td class="property">Widget Name</td>
+              <td class="value"><input type="text" id="widget-name"/> required </td>
             </tr>
             <tr>
               <td class="property">
@@ -45,11 +49,11 @@
           </select>
           <button class="button-extralarge" id="change_locale" >To Spanish</button>
           <div class="channel">Channels: "gbsp.localeChannel"</div>
-          
         </div>
         
         <div class="area-border">
            <button class="button-medium" id="add_filter" >Add Filter</button>
+           <div class="channel">Channel: "layer.filter.add"</div>
            <table>
             <tr>
               <th class="property">Property</th>
@@ -68,10 +72,11 @@
               <td class="value"><input type="text" id="filter-text"/> required </td>
             </tr>
           </table>
-          <div class="channel">Channel: "layer.filter.add"</div>
         </div>
+
         <div class="area-border">
           <button class="button-medium" id="toggle_filter" >Toggle Filter</button>
+          <div class="channel">Channel: "layer.filter.toggle"</div>
           <table>
             <tr>
               <th class="property">Property</th>
@@ -82,11 +87,11 @@
               <td class="value"><input type="text" id="filter-layerId-toggle"/> required </td>
             </tr>
           </table>
-          <div class="channel">Channel: "layer.filter.toggle"</div>
         </div>
-        
+          
         <div class="area-border">
           <button class="button-large" id="load_bookmark" >Load Bookmark by Id</button>
+          <div class="channel">Channel: "org.pdc.bookmark.load"</div>
           <table>
             <tr>
               <th class="property">Property</th>
@@ -111,9 +116,8 @@
               </td>
             </tr>
           </table>
-          <div class="channel">Channel: "org.pdc.bookmark.load"</div>
         </div>
-        
+          
         <div class="area-border">
           <h4>pending</h4>
           <button class="button-large" id="animation_time" >Set Animation Time</button>
@@ -123,6 +127,7 @@
         <h2>Overlay Channels</h2>
         <div class="area-border">
           <button class="button-medium" id="create_overlay" >Create Overlay</button>
+          <div class="channel">Channel: "map.overlay.create"</div>
           <table>
             <tr>
               <th class="property">Property</th>
@@ -145,13 +150,12 @@
               <td class="value"><input type="text" id="overlay-parentId"/></td>
             </tr>
           </table>
-          
-          <div class="channel">Channel: "map.overlay.create"</div>
         </div>
         <div class="area-border">
           <button class="button-medium" id="show_overlay" >Show Overlay</button>
           <button class="button-medium" id="hide_overlay" >Hide Overlay</button>
           <button class="button-medium" id="remove_overlay" >Remove Overlay</button>
+          <div class="channel">Channels: "map.overlay.show", "map.overlay.hide", "map.overlay.remove"</div>
           <table>
             <tr>
               <th class="property">Property</th>
@@ -162,10 +166,10 @@
               <td class="value"><input type="text" id="overlay-overlayId-action"/> required </td>
             </tr>
           </table>
-          <div class="channel">Channels: "map.overlay.show", "map.overlay.hide", "map.overlay.remove"</div>
         </div>
         <div class="area-border">
           <button class="button-medium" id="update_overlay" >Update Overlay</button>
+          <div class="channel">Channel: "map.overlay.update"</div>
           <table>
             <tr>
               <th class="property">Property</th>
@@ -184,13 +188,13 @@
               <td class="value"><input type="text" id="overlay-parentId-update"/></td>
             </tr>
           </table>
-          <div class="channel">Channel: "map.overlay.update"</div>
         </div>
 
         <h2>Feature Channels</h2>
         <div class="area-border">
           <h4>pending</h4>
           <button class="button-medium" id="plot_url" >Plot URL</button>
+          <div class="channel">Channel: "map.feature.plot.url"</div>
           <table>
             <tr>
               <th class="property">Property</th>
@@ -217,12 +221,12 @@
               <td class="value"><input type="text" id="plot-url-zoom"/></td> 
             </tr>
           </table>
-          <div class="channel">Channel: "map.feature.plot.url"</div>
         </div>
 
         <h2>Map View Channels</h2>
         <div class="area-border">
           <button class="button-medium" id="map_set_center" >Set Map Center</button>
+          <div class="channel">Channel: "map.view.center.location"</div>
           <table>
             <tr>
               <th class="property">Property</th>
@@ -241,10 +245,10 @@
               <td class="value"><input type="text" id="map-zoom"/>required </td>
             </tr>
           </table>
-          <div class="channel">Channel: "map.view.center.location"</div>
         </div>
         <div class="area-border">
           <button class="button-medium" id="map_set_zoom" >Set Map Zoom</button>
+          <div class="channel">Channel: "map.view.zoom"</div>
           <table>
             <tr>
               <th class="property">Property</th>
@@ -255,7 +259,6 @@
               <td class="value"><input type="text" id="map-range"/> required </td>
             </tr>
           </table>
-          <div class="channel">Channel: "map.view.zoom"</div>
         </div>
 
         <h2>Map Status Channels</h2>
