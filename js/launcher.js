@@ -11,8 +11,6 @@ var widgetNameLaunched 		= "";
 var widgetChannel 				= "";
 var launchResultsMessage 	= "";
 
-var widgetToLaunch;
-
 // jQuery variables
 var $button_field 				= $('#button_field');
 // Message Display Area
@@ -22,377 +20,367 @@ var $widgetName 					= $('#widgetName');
 var $widgetChannel 	      = $('#widgetChannel');
 var $launchResults 	      = $('#launchResults');
 var $error_panel 		      = $('#error-panel');
-// DisasterAware Channels
-var $widget_name					= $('#widget-name');
-var $bookmarkId 		      = $('#bookmarkId');
-var $bookmarkUrl 		      = $('#bookmarkUrl');
-var $layerId							= $('#filter-layerId');
-var $filter_fieldName			= $('#filter-fieldName');
-var $filter_text					= $('#filter-text');
-var $layerId_toggle				= $('#filter-layerId-toggle');
-var $channelBookmarkId 	  = $('#channelBookmarkId');
-var $channelBookmarkUrl 	= $('#channelBookmarkUrl');
-// Overlay Channels
-var $overlayName					= $('#overlay-name');
-var $overlayId					  = $('#overlay-overlayId');
-var $parentId					  	= $('#overlay-parentId');
-var $ovelayIdAction				= $('#overlay-overlayId-action');
-var $overlayNameUpdate		= $('#overlay-name-update');
-var $overlayIdUpdate			= $('#overlay-overlayId-update');
-var $parentIdUpdate				= $('#overlay-parentId-update');
-var $overlayUrl 		      = $('#overlayUrl');
-// Feature Channels
-var $plotUrlOverlayId			= $('#plot-url-overlayId');
-var $plotUrlFeatureId			= $('#plot-url-featureId');
-var $plotUrlName					= $('#plot-url-name');
-var $plotUrlUrl 					= $('#plot-url-url');
-var $plotUrlZoom					= $('#plot-url-zoom');
-// Map View Channels
-var $latitude							= $('#map-latitude');
-var $longitude						= $('#map-longitude');
-var $zoom 					      = $('#map-zoom');
-var $range			  		    = $('#map-range');
 
 
-// launch variables
-var data = {};
-var cmapi_channel;
-var cmapi_message;
-var bookmarkLaunchType = "";
+/************************ Start DisasterAware Launch Code ************************/
+	// launch variables
+	var widgetToLaunch;
+	var data = {};
+	var cmapi_channel;
+	var cmapi_message;
+	var bookmarkLaunchType = "";
+	// widget names used for the GUID lookup
+	var widgetOne = "MSMV";
+	var widgetTwo = "MSMV Trunk";
+	// default launch bookmark 
+	var bookmarkIdPayload = { "bookmarkId": 9853 };
+	var bookmarkUrlPayload = { "bookmarkUrl": "http://local.msmv.pdc.org:8080/msmvng/msmvng/?bookmark=9853" };
+	var $widget_name					= $('#widget-name');
+	var $bookmarkId 		      = $('#bookmarkId');
+	var $bookmarkUrl 		      = $('#bookmarkUrl');
+	/**   Launch Code  **/
+	// load bookmark launch input fields with default values
+	$bookmarkId.val(bookmarkIdPayload.bookmarkId);
+	$bookmarkUrl.val(bookmarkUrlPayload.bookmarkUrl);
+	$widget_name.val("MSMV");
 
-// widget names used for the GUID lookup
-var widgetOne = "MSMV";
-var widgetTwo = "MSMV Trunk";
+	// radio button to select launch type: bookmarkId or bookmarkUrl
+	$("input[type='radio'][name='launch-type']").on('checked', function() {
+		console.log("radio button change was detected");
+	});
 
-// default launch bookmark 
-var bookmarkIdPayload = { "bookmarkId": 9853 };
-var bookmarkUrlPayload = { "bookmarkUrl": "http://local.msmv.pdc.org:8080/msmvng/msmvng/?bookmark=9853" };
+	// initial data value for launch channel and payload - default setting
+	data = {
+		  channel: "org.pdc.bookmark.load",
+		  payload: bookmarkIdPayload
+		};
 
-// default bookmarks for channel commands
-var channelBookmarkIdPayload = { "bookmarkId": 10018 }; // good location to test filter toggle
-var channelBookmarkUrlPayload = { "bookmarkUrl": "http://local.msmv.pdc.org:8080/msmvng/msmvng/?bookmark=10017" };
-
-/******** Start DisasterAware Launch Code ********/
-/******** End DisasterAware Launch Code ********/
-
-/******** Start Channel Launch ********/
-/******** End Channel Launch ********/
-
-/******** Start DisasterAware Channels  ********/
-/******** End DisasterAware Channels ********/
-
-/******** Start Overlay Channels ********/
-/******** End Overlay Channels ********/
-
-/******** Start Feature Channels ********/
-/******** End Feature Channels ********/
-
-/******** Start Map View Channels ********/
-/******** End Map View Channels ********/
-
-/******** Start Map Status Channels ********/
-/******** End Map Status Channels ********/
-
-/******** Start  ********/
-/******** End  ********/
-
-/******** Start  ********/
-/******** End  ********/
-
-/**   Launch Code  **/
-// load bookmark launch input fields with default values
-$bookmarkId.val(bookmarkIdPayload.bookmarkId);
-$bookmarkUrl.val(bookmarkUrlPayload.bookmarkUrl);
-$widget_name.val("MSMV");
-
-// radio button to select launch type: bookmarkId or bookmarkUrl
-$("input[type='radio'][name='launch-type']").on('checked', function() {
-	console.log("radio button change was detected");
-});
-
-// initial data value for launch channel and payload - default setting
-data = {
-	  channel: "org.pdc.bookmark.load",
-	  payload: bookmarkIdPayload
-	};
-
-// change launch payload to use bookmarkId with radio button
-$('#launchWithId').on('change', function () {
-	$('#launch-widget').text("Launch " + $widget_name.val() + " by ID" );
-	data.payload = {};
-	data.payload[$(this).val()] = $('#bookmarkId').val();
-});
-
-// change launch payload to use bookmarkUrl with radio button
-$('#launchWithUrl').on('change', function () {
-	$('#launch-widget').text("Launch " + $widget_name.val() + " by URL");
-	data.payload = {};
-	data.payload[$(this).val()] = $('#bookmarkUrl').val();
-});
-
-// change launch payload if input field changes after radio button selected
-$('#bookmarkId').on('change', function () {
-	data.payload ={};
-	data.payload['bookmarkId'] = $(this).val();
-});
-
-// change launch payload if input field changes after radio button selected
-$('#bookmarkUrl').on('change', function () {
-	data.payload ={};
-	data.payload['bookmarkUrl'] = $(this).val();
-});
-
-$widget_name.on('keyup', function () {
-	var isID = new RegExp("ID");
-	if (isID.test($('#launch-widget').text()) ){
+	// change launch payload to use bookmarkId with radio button
+	$('#launchWithId').on('change', function () {
 		$('#launch-widget').text("Launch " + $widget_name.val() + " by ID" );
-	} else {
+		data.payload = {};
+		data.payload[$(this).val()] = $('#bookmarkId').val();
+	});
+
+	// change launch payload to use bookmarkUrl with radio button
+	$('#launchWithUrl').on('change', function () {
 		$('#launch-widget').text("Launch " + $widget_name.val() + " by URL");
+		data.payload = {};
+		data.payload[$(this).val()] = $('#bookmarkUrl').val();
+	});
+
+	// change launch payload if input field changes after radio button selected
+	$('#bookmarkId').on('change', function () {
+		data.payload ={};
+		data.payload['bookmarkId'] = $(this).val();
+	});
+
+	// change launch payload if input field changes after radio button selected
+	$('#bookmarkUrl').on('change', function () {
+		data.payload ={};
+		data.payload['bookmarkUrl'] = $(this).val();
+	});
+
+	$widget_name.on('keyup', function () {
+		var isID = new RegExp("ID");
+		if (isID.test($('#launch-widget').text()) ){
+			$('#launch-widget').text("Launch " + $widget_name.val() + " by ID" );
+		} else {
+			$('#launch-widget').text("Launch " + $widget_name.val() + " by URL");
+		}
+	});
+
+	// Lookup GUID for the widget whose name is set in the 'widgetOne' variable
+	// launch the widget if successful
+	$button_field.on('click', '#launch-widget', function(){
+		widgetToLaunch = $widget_name.val(); // set to "MSMV" by default
+		$widgetPayload.empty().append("Payload: " + JSON.stringify(data.payload));
+		lookupSecondTracker();
+	});
+
+	/**   End Launch Code  **/
+/************************ End DisasterAware Launch Code ************************/
+
+
+/************************ Start Publish Channel Function ************************/
+	var publishChannel = function (channel, message) {
+		$widgetChannel.empty().append("Channel: " + channel);
+		$widgetPayload.empty().append("Payload: " + JSON.stringify(message));
+		$launchResults.empty(); // clear display
+		OWF.Eventing.publish(channel, message);
 	}
-});
+/************************ End Publish Channel Function ************************/
 
-// Lookup GUID for the widget whose name is set in the 'widgetOne' variable
-// launch the widget if successful
-$button_field.on('click', '#launch-widget', function(){
-	widgetToLaunch = $widget_name.val(); // set to "MSMV" by default
-	$widgetPayload.empty().append("Payload: " + JSON.stringify(data.payload));
-	lookupSecondTracker();
-});
 
-/**   End Launch Code  **/
-
-/********************************/
-/*** Publish Channel Function ***/
-var publishChannel = function (channel, message) {
-	$widgetChannel.empty().append("Channel: " + channel);
-	$widgetPayload.empty().append("Payload: " + JSON.stringify(message));
-	$launchResults.empty();
-	OWF.Eventing.publish(channel, message);
-}
-/********************************/
-
-/*** Bookmark Code ***/
-// load bookmark channel input fields with default values
-$channelBookmarkId.val(channelBookmarkIdPayload.bookmarkId);
-$channelBookmarkUrl.val(channelBookmarkUrlPayload.bookmarkUrl);
-
-// change channel payload to use bookmarkId with radio button
-$('#id').on('change', function () {
-	channelBookmarkIdPayload = {};
-	channelBookmarkIdPayload[$(this).val()] = $('#channelBookmarkId').val();
-	console.log(channelBookmarkIdPayload);
-	$('#load_bookmark').text("Load Bookmark by ID");
+/************************ Start DisasterAware Channels  ************************/
+	// DisasterAware Channels
 	
-});
+	var $layerId							= $('#filter-layerId');
+	var $filter_fieldName			= $('#filter-fieldName');
+	var $filter_text					= $('#filter-text');
+	var $layerId_toggle				= $('#filter-layerId-toggle');
+	var $channelBookmarkId 	  = $('#channelBookmarkId');
+	var $channelBookmarkUrl 	= $('#channelBookmarkUrl');
+	 /*** Locale Translation Code ***/
+	 // Initialize Translation Locale default to Spanish 
+	 var locale_selected = "ES";
+	 var locale_button_text = "Spanish"
 
-// change channel payload to use bookmarkUrl with radio button
-$('#url').on('change', function () {
-	channelBookmarkIdPayload = {};
-	channelBookmarkIdPayload[$(this).val()] = $('#channelBookmarkUrl').val();
-	console.log(channelBookmarkIdPayload);
-	$('#load_bookmark').text("Load Bookmark by URL");
-});
+	 // Select Language to Translate to
+	 $( "#select-locale" )
+	  .change(function () {
+	  	locale_selected = "";
+	    $( "#select-locale option:selected" ).each(function() {
+	      locale_selected = $( this ).val();
+	      locale_button_text = $( this ).text();
+	    });
+	    console.log(locale_button_text+ ": "+ locale_selected);
+	    $('#change_locale').text("Translate To "+ locale_button_text);
+	    var str = $('#change_locale').text();
+	    console.log(str);
+	  })
+	  .change();
 
-// change channel payload if input field changes after radio button selected
-$('#channelBookmarkId').on('change', function () {
-	channelBookmarkIdPayload ={};
-	channelBookmarkIdPayload['bookmarkId'] = $(this).val();
-});
+	// Translate language based on selection
+	$button_field.on('click', '#change_locale', function(){
+		console.log("change locale");
+		cmapi_channel = "gbsp.localeChannel";
+		cmapi_message = { "locale": locale_selected };
+		publishChannel(cmapi_channel, cmapi_message);
+	});
 
-// change channel payload if input field changes after radio button selected
-$('#channelBookmarkUrl').on('change', function () {
-	channelBookmarkIdPayload ={};
-	channelBookmarkIdPayload['bookmarkUrl'] = $(this).val();
-});
+	 /*** End Locale Translation Code ***/
 
-// Load Bookmark
-$button_field.on('click', '#load_bookmark', function(){ // Alaska
-	console.log("load bookmark");
-	cmapi_channel = "org.pdc.bookmark.load";
-	cmapi_message = channelBookmarkIdPayload;
-	publishChannel(cmapi_channel, cmapi_message);
-});
-/*** End Bookmark Code ***/
+	/*** Filter Code ***/
+	// Add Filter
+	$layerId.val("Recent_Earthquakes");
+	$layerId_toggle.val("Recent_Earthquakes");
+	$filter_fieldName.val("region");
+	$filter_text.val("oklahoma");
 
-/*** Overlay Code ***/
-// load overlay input field with default value
+	$button_field.on('click', '#add_filter', function(){ 
+		console.log("add filter");
+		cmapi_channel = "layer.filter.add";
+		// Filter 'Recent_Earthquakes' layer in the 'oklahoma' 'region'.
+		cmapi_message = { 
+			"layerId": $layerId.val(), 
+			"filter": {
+				"region": {
+					"fieldName": $filter_fieldName.val(),
+					"text": $filter_text.val()
+				}
+			} 
+		};
+		publishChannel(cmapi_channel, cmapi_message);
+	});
 
-// Create Overlay
-// default overlay url
-var overlayUrl = "http://plu.sx/kml/1.kml";
-// var overlayUrl = "plu.sx/kml/1.kml";
-$overlayName.val("myOverlayName");
-$overlayId.val("myOverlay");
-$parentId.val("myParentID");
-$overlayUrl.val(overlayUrl);
-$button_field.on('click', '#create_overlay', function(){ 
-	console.log("create overlay");
-	overlayUrl = $overlayUrl.val();
-	cmapi_channel = "map.overlay.create";
-	cmapi_message = { 
-					"name":  			$overlayName.val(),
-					"overlayId": 	$overlayId.val(),
-					"parentId":   $parentId.val(),
-					"url": 				$overlayUrl.val()
-				};
-	publishChannel(cmapi_channel, cmapi_message);
-});
+	// Toggle Filter
+	// Use the programmed "map.view.center.location" to position map to view toggle results.
+	$button_field.on('click', '#toggle_filter', function(){ 
+		console.log("toggle filter");
+		cmapi_channel = "layer.filter.toggle";
+		cmapi_message = { "layerId": $layerId_toggle.val() };
+		publishChannel(cmapi_channel, cmapi_message);
+	});
+	/*** End Filter Code ***/
 
-// Overlay Actions: Show, Hide, Remove
-$ovelayIdAction.val("myOverlay");
-// Show Overlay
-$button_field.on('click', '#show_overlay', function(){ 
-	console.log("show overlay");
-	cmapi_channel = "map.overlay.show";
-	cmapi_message = { "overlayId": 	$ovelayIdAction.val() };
-	publishChannel(cmapi_channel, cmapi_message);
-});
+	/*** Bookmark Code ***/
+	// default bookmarks for channel commands
+	var channelBookmarkIdPayload = { "bookmarkId": 10018 }; // good location to test filter toggle
+	var channelBookmarkUrlPayload = { "bookmarkUrl": "http://local.msmv.pdc.org:8080/msmvng/msmvng/?bookmark=10017" };
+	// load bookmark channel input fields with default values
+	$channelBookmarkId.val(channelBookmarkIdPayload.bookmarkId);
+	$channelBookmarkUrl.val(channelBookmarkUrlPayload.bookmarkUrl);
 
-// Hide Overlay
-$button_field.on('click', '#hide_overlay', function(){ 
-	console.log("hide overlay");
-	cmapi_channel = "map.overlay.hide";
-	cmapi_message = { "overlayId": 	$ovelayIdAction.val() };
-	publishChannel(cmapi_channel, cmapi_message);
-});
+	// change channel payload to use bookmarkId with radio button
+	$('#id').on('change', function () {
+		channelBookmarkIdPayload = {};
+		channelBookmarkIdPayload[$(this).val()] = $('#channelBookmarkId').val();
+		console.log(channelBookmarkIdPayload);
+		$('#load_bookmark').text("Load Bookmark by ID");
+		
+	});
 
-// Remove Overlay
-$button_field.on('click', '#remove_overlay', function(){ 
-	console.log("remove overlay");
-	cmapi_channel = "map.overlay.remove";
-	cmapi_message = { "overlayId": 	$ovelayIdAction.val() };
-	publishChannel(cmapi_channel, cmapi_message);
-});
+	// change channel payload to use bookmarkUrl with radio button
+	$('#url').on('change', function () {
+		channelBookmarkIdPayload = {};
+		channelBookmarkIdPayload[$(this).val()] = $('#channelBookmarkUrl').val();
+		console.log(channelBookmarkIdPayload);
+		$('#load_bookmark').text("Load Bookmark by URL");
+	});
 
-// Update Overlay
-$overlayNameUpdate.val("updatedOverlayName");
-$overlayIdUpdate.val("myOverlay");
-$parentIdUpdate.val("updatedParentId");
-$button_field.on('click', '#update_overlay', function(){ 
-	console.log("update overlay");
-	cmapi_channel = "map.overlay.update";
-	cmapi_message = { 
-					"name":  			$overlayNameUpdate.val(),
-					"overlayId": 	$overlayIdUpdate.val(),
-					"parentId":   $parentIdUpdate.val()
-				};
-	publishChannel(cmapi_channel, cmapi_message);
-});
-/*** End Overlay Code ***/
+	// change channel payload if input field changes after radio button selected
+	$('#channelBookmarkId').on('change', function () {
+		channelBookmarkIdPayload ={};
+		channelBookmarkIdPayload['bookmarkId'] = $(this).val();
+	});
 
-/*** Start Feature Channels ***/
-$plotUrlOverlayId.val("plotUrlOverlayId");
-$plotUrlFeatureId.val("plotUrlFeatureId");
-$plotUrlName.val("plotUrlName");
-$plotUrlUrl.val("plotUrlUrl");
-$plotUrlZoom.val("plotUrlZoom");
-/*** End Feature Channels ***/
+	// change channel payload if input field changes after radio button selected
+	$('#channelBookmarkUrl').on('change', function () {
+		channelBookmarkIdPayload ={};
+		channelBookmarkIdPayload['bookmarkUrl'] = $(this).val();
+	});
 
-/*** Map Control Code ***/
-$latitude.val(38.186);
-$longitude.val( -98.042);
-$zoom.val(2500);
-// Set Map Center
-$button_field.on('click', '#map_set_center', function(){
-	console.log("map set center clicked");
-	cmapi_channel = "map.view.center.location";
-	cmapi_message = {  
-		// Default location is Oklahoma to view filter toggling
-		"location": { "lat": $latitude.val(), "lon": $longitude.val() },
-		"zoom": $zoom.val()
-	};
-	publishChannel(cmapi_channel, cmapi_message);
-});
+	// Load Bookmark
+	$button_field.on('click', '#load_bookmark', function(){ // Alaska
+		console.log("load bookmark");
+		cmapi_channel = "org.pdc.bookmark.load";
+		cmapi_message = channelBookmarkIdPayload;
+		publishChannel(cmapi_channel, cmapi_message);
+	});
+	/*** End Bookmark Code ***/
 
-// Set Map Zoom
-$range.val(5000);
-$button_field.on('click', '#map_set_zoom', function(){
-	console.log("map set zoom");
-	cmapi_channel = "map.view.zoom";
-	cmapi_message = { "range": $range.val() };
-	publishChannel(cmapi_channel, cmapi_message);
-});
-/*** End Map Control Code ***/
 
- /*** Locale Translation Code ***/
- // Initialize Translation Locale default to Spanish 
- var locale_selected = "ES";
- var locale_button_text = "Spanish"
+	/*** Animation Code ***/
+	/* 
+		not functional yet
+		TODO:
+			set up an animation sequence
+			add animation to configService
+			create time object within the animation window
+			set message with the time object
+	 */
+	$button_field.on('click', '#animation_time', function(){ 
+		console.log("animation time");
+		cmapi_channel = "map.view.animation.time";
+		cmapi_message = { "time": "time object" };
+		publishChannel(cmapi_channel, cmapi_message);
+	});
+	/*** End Animation Code ***/
+/************************ End DisasterAware Channels ************************/
 
- // Select Language to Translate to
- $( "#select-locale" )
-  .change(function () {
-  	locale_selected = "";
-    $( "#select-locale option:selected" ).each(function() {
-      locale_selected = $( this ).val();
-      locale_button_text = $( this ).text();
-    });
-    console.log(locale_button_text+ ": "+ locale_selected);
-    $('#change_locale').text("Translate To "+ locale_button_text);
-    var str = $('#change_locale').text();
-    console.log(str);
-  })
-  .change();
 
-// Translate language based on selection
-$button_field.on('click', '#change_locale', function(){
-	console.log("change locale");
-	cmapi_channel = "gbsp.localeChannel";
-	cmapi_message = { "locale": locale_selected };
-	publishChannel(cmapi_channel, cmapi_message);
-});
+/************************ Start Overlay Channels ************************/
+// Overlay Channels
+	var $overlayName					= $('#overlay-name');
+	var $overlayId					  = $('#overlay-overlayId');
+	var $parentId					  	= $('#overlay-parentId');
+	var $ovelayIdAction				= $('#overlay-overlayId-action');
+	var $overlayNameUpdate		= $('#overlay-name-update');
+	var $overlayIdUpdate			= $('#overlay-overlayId-update');
+	var $parentIdUpdate				= $('#overlay-parentId-update');
+	var $overlayUrl 		      = $('#overlayUrl');
 
- /*** End Locale Translation Code ***/
+	// default overlay url
+	var overlayUrl = "http://plu.sx/kml/1.kml";
+	// var overlayUrl = "plu.sx/kml/1.kml";
+	$overlayName.val("myOverlayName");
+	$overlayId.val("myOverlay");
+	$parentId.val("myParentID");
+	$overlayUrl.val(overlayUrl);
+	$button_field.on('click', '#create_overlay', function(){ 
+		console.log("create overlay");
+		overlayUrl = $overlayUrl.val();
+		cmapi_channel = "map.overlay.create";
+		cmapi_message = { 
+						"name":  			$overlayName.val(),
+						"overlayId": 	$overlayId.val(),
+						"parentId":   $parentId.val(),
+						"url": 				$overlayUrl.val()
+					};
+		publishChannel(cmapi_channel, cmapi_message);
+	});
 
-/*** Filter Code ***/
-// Add Filter
-$layerId.val("Recent_Earthquakes");
-$layerId_toggle.val("Recent_Earthquakes");
-$filter_fieldName.val("region");
-$filter_text.val("oklahoma");
+	// Set input field for Overlay Actions: Show, Hide, Remove
+	$ovelayIdAction.val("myOverlay");
+	// Show Overlay
+	$button_field.on('click', '#show_overlay', function(){ 
+		console.log("show overlay");
+		cmapi_channel = "map.overlay.show";
+		cmapi_message = { "overlayId": 	$ovelayIdAction.val() };
+		publishChannel(cmapi_channel, cmapi_message);
+	});
 
-$button_field.on('click', '#add_filter', function(){ 
-	console.log("add filter");
-	cmapi_channel = "layer.filter.add";
-	// Filter 'Recent_Earthquakes' layer in the 'oklahoma' 'region'.
-	cmapi_message = { 
-		"layerId": $layerId.val(), 
-		"filter": {
-			"region": {
-				"fieldName": $filter_fieldName.val(),
-				"text": $filter_text.val()
-			}
-		} 
-	};
-	publishChannel(cmapi_channel, cmapi_message);
-});
+	// Hide Overlay
+	$button_field.on('click', '#hide_overlay', function(){ 
+		console.log("hide overlay");
+		cmapi_channel = "map.overlay.hide";
+		cmapi_message = { "overlayId": 	$ovelayIdAction.val() };
+		publishChannel(cmapi_channel, cmapi_message);
+	});
 
-// Toggle Filter
-// Use the programmed "map.view.center.location" to position map to view toggle results.
-$button_field.on('click', '#toggle_filter', function(){ 
-	console.log("toggle filter");
-	cmapi_channel = "layer.filter.toggle";
-	cmapi_message = { "layerId": $layerId_toggle.val() };
-	publishChannel(cmapi_channel, cmapi_message);
-});
-/*** End Filter Code ***/
+	// Remove Overlay
+	$button_field.on('click', '#remove_overlay', function(){ 
+		console.log("remove overlay");
+		cmapi_channel = "map.overlay.remove";
+		cmapi_message = { "overlayId": 	$ovelayIdAction.val() };
+		publishChannel(cmapi_channel, cmapi_message);
+	});
 
-/*** Animation Code ***/
-/* 
-	not functional yet
-	TODO:
-		set up an animation sequence
-		add animation to configService
-		create time object within the animation window
-		set message with the time object
- */
-$button_field.on('click', '#animation_time', function(){ 
-	console.log("animation time");
-	cmapi_channel = "map.view.animation.time";
-	cmapi_message = { "time": "time object" };
-	publishChannel(cmapi_channel, cmapi_message);
-});
-/*** End Animation Code ***/
+	// Update Overlay
+	$overlayNameUpdate.val("updatedOverlayName");
+	$overlayIdUpdate.val("myOverlay");
+	$parentIdUpdate.val("updatedParentId");
+	$button_field.on('click', '#update_overlay', function(){ 
+		console.log("update overlay");
+		cmapi_channel = "map.overlay.update";
+		cmapi_message = { 
+						"name":  			$overlayNameUpdate.val(),
+						"overlayId": 	$overlayIdUpdate.val(),
+						"parentId":   $parentIdUpdate.val()
+					};
+		publishChannel(cmapi_channel, cmapi_message);
+	});
+/************************ End Overlay Channels ************************/
+
+
+/************************ Start Feature Channels ************************/
+	// feature input field variables
+	var $plotUrlOverlayId			= $('#plot-url-overlayId');
+	var $plotUrlFeatureId			= $('#plot-url-featureId');
+	var $plotUrlName					= $('#plot-url-name');
+	var $plotUrlUrl 					= $('#plot-url-url');
+	var $plotUrlZoom					= $('#plot-url-zoom');
+	// initialize input fields
+	$plotUrlOverlayId.val("plotUrlOverlayId");
+	$plotUrlFeatureId.val("plotUrlFeatureId");
+	$plotUrlName.val("plotUrlName");
+	$plotUrlUrl.val("plotUrlUrl");
+	$plotUrlZoom.val("plotUrlZoom");
+/************************ End Feature Channels ************************/
+
+
+/************************ Start Map View Channels ************************/
+	// map input field variables
+	var $latitude							= $('#map-latitude');
+	var $longitude						= $('#map-longitude');
+	var $zoom 					      = $('#map-zoom');
+	var $range			  		    = $('#map-range');
+	// initialize map input fields, default location is Oklahoma to view filter toggling
+	$latitude.val(38.186);
+	$longitude.val( -98.042);
+	$zoom.val(2500);
+	$range.val(5000);
+	// Set Map Center
+	$button_field.on('click', '#map_set_center', function(){
+		console.log("map set center clicked");
+		cmapi_channel = "map.view.center.location";
+		cmapi_message = {  
+			"location": { "lat": $latitude.val(), "lon": $longitude.val() },
+			"zoom": $zoom.val()
+		};
+		publishChannel(cmapi_channel, cmapi_message);
+	});
+
+	// Set Map Zoom
+	$button_field.on('click', '#map_set_zoom', function(){
+		console.log("map set zoom");
+		cmapi_channel = "map.view.zoom";
+		cmapi_message = { "range": $range.val() };
+		publishChannel(cmapi_channel, cmapi_message);
+	});
+/************************ End Map View Channels ************************/
+
+
+/************************ Start Map Status Channels ************************/
+/************************ End Map Status Channels ************************/
+
+
+/************************ Start  ************************/
+/************************ End  ************************/
+
+
+/************************ Start Launch Related Functions & Status Display  ************************/
 
 // Search for the GUID corresponding to the 'widgetToLaunch' name
 // if successful call the launchSecondTracker function
@@ -504,6 +492,7 @@ owfdojo.addOnLoad(function() {
   OWF.ready(initPage);
 });
 
+/************************ End Launch Related Functions & Status Display  ************************/
 
 
 
