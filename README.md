@@ -1,11 +1,10 @@
-		The files in this repository can be used to create an example widget 
-		that demonstrates the following list of commands.
+The files in this repository can be used to create an example widget 
+that demonstrates the following list of commands.
 
-### list 
-#DisasterAware: OWF Command Documentation
-##Launch: 
+# list 
+#DisasterAware CMAPI
 #### DisasterAware Launch with Payload: [launch](#launch) 
-##Channels:
+#Channels
 #### Set Language Translation: ["gbsp.localeChannel"](#gbsp_locale_channel)
 #### Add Layer Filter: ["layer.filter.add"](#layer_filter_add)
 #### Toggle Layer Filter:["layer.filter.toggle"](#layer_filter_toggle)
@@ -471,7 +470,7 @@ Set the DisasterAware map zoom to the value provided.
 ###Payload:
 
 	{
-		zoom: number
+		range: number
 	}
 
 ###Properties
@@ -480,7 +479,7 @@ Set the DisasterAware map zoom to the value provided.
 		<th>Properties</th><th>Required</th><th>Type</th><th>Default</th><th>Description</th>
 	</tr>
 	<tr>
-		<td>zoom</td><td>true</td><td>integer</td><td>N/A</td><td>Submit a zoom value based on the zoom ranges specified in the notes section.</td>
+		<td>range</td><td>true</td><td>integer</td><td>N/A</td><td>Submit a zoom value based on the zoom ranges specified in the notes section.</td>
 	</tr>
 </table>
 
