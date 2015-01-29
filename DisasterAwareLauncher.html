@@ -165,7 +165,6 @@
           <div class="channel">Channels: "map.overlay.show", "map.overlay.hide", "map.overlay.remove"</div>
         </div>
         <div class="area-border">
-          <h4>pending</h4>
           <button class="button-medium" id="update_overlay" >Update Overlay</button>
           <table>
             <tr>
@@ -189,6 +188,37 @@
         </div>
 
         <h2>Feature Channels</h2>
+        <h4>pending</h4>
+        <div class="area-border">
+          <button class="button-medium" id="plot_url" >Plot URL</button>
+          <table>
+            <tr>
+              <th class="property">Property</th>
+              <th class="value">Value</th>
+            </tr>
+            <tr>
+              <td class="property">overlayId</td>
+              <td class="value"><input type="text" id="plot-url-overlayId"/></td>
+            </tr>
+            <tr>
+              <td class="property">featureId</td>
+              <td class="value"><input type="text" id="plot-url-featureId"/> required</td> 
+            </tr>
+            <tr>
+              <td class="property">name</td>
+              <td class="value"><input type="text" id="plot-url-name"/></td>
+            </tr>
+            <tr>
+              <td class="property">url</td>
+              <td class="value"><input type="text" id="plot-url-url"/> required</td>
+            </tr>
+            <tr>
+              <td class="property">zoom</td>
+              <td class="value"><input type="text" id="plot-url-zoom"/></td> 
+            </tr>
+          </table>
+          <div class="channel">Channel: "map.feature.plot.url"</div>
+        </div>
 
         <h2>Map View Channels</h2>
         <div class="area-border">
@@ -222,7 +252,7 @@
             </tr>
             <tr>
               <td class="property">range</td>
-              <td class="value"><input type="text" id="map-zoom-zoom"/></td>
+              <td class="value"><input type="text" id="map-range"/></td>
             </tr>
           </table>
           <div class="channel">Channel: "map.view.zoom"</div>

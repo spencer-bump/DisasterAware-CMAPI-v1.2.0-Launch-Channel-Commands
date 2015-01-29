@@ -21,6 +21,7 @@ var $widgetName 					= $('#widgetName');
 var $widgetChannel 	      = $('#widgetChannel');
 var $launchResults 	      = $('#launchResults');
 var $error_panel 		      = $('#error-panel');
+// DisasterAware Channels
 var $bookmarkId 		      = $('#bookmarkId');
 var $bookmarkUrl 		      = $('#bookmarkUrl');
 var $layerId							= $('#filter-layerId');
@@ -29,6 +30,7 @@ var $filter_text					= $('#filter-text');
 var $layerId_toggle				= $('#filter-layerId-toggle');
 var $channelBookmarkId 	  = $('#channelBookmarkId');
 var $channelBookmarkUrl 	= $('#channelBookmarkUrl');
+// Overlay Channels
 var $overlayName					= $('#overlay-name');
 var $overlayId					  = $('#overlay-overlayId');
 var $parentId					  	= $('#overlay-parentId');
@@ -37,10 +39,17 @@ var $overlayNameUpdate		= $('#overlay-name-update');
 var $overlayIdUpdate			= $('#overlay-overlayId-update');
 var $parentIdUpdate				= $('#overlay-parentId-update');
 var $overlayUrl 		      = $('#overlayUrl');
+// Feature Channels
+var $plotUrlOverlayId			= $('#plot-url-overlayId');
+var $plotUrlFeatureId			= $('#plot-url-featureId');
+var $plotUrlName					= $('#plot-url-name');
+var $plotUrlUrl 					= $('#plot-url-url');
+var $plotUrlZoom					= $('#plot-url-zoom');
+// Map View Channels
 var $latitude							= $('#map-latitude');
 var $longitude						= $('#map-longitude');
 var $zoom 					      = $('#map-zoom');
-var $zoom_zoom			      = $('#map-zoom-zoom');
+var $range			  		    = $('#map-range');
 
 
 // launch variables
@@ -61,9 +70,7 @@ var bookmarkUrlPayload = { "bookmarkUrl": "http://local.msmv.pdc.org:8080/msmvng
 var channelBookmarkIdPayload = { "bookmarkId": 10018 }; // good location to test filter toggle
 var channelBookmarkUrlPayload = { "bookmarkUrl": "http://local.msmv.pdc.org:8080/msmvng/msmvng/?bookmark=10017" };
 
-// default overlay url
-var overlayUrl = "http://plu.sx/kml/1.kml";
-// var overlayUrl = "plu.sx/kml/1.kml";
+
 
 /**   Launch Code  **/
 // load bookmark launch input fields with default values
@@ -183,16 +190,21 @@ $button_field.on('click', '#load_bookmark', function(){ // Alaska
 // load overlay input field with default value
 
 // Create Overlay
-$overlayUrl.val(overlayUrl);
+// default overlay url
+var overlayUrl = "http://plu.sx/kml/1.kml";
+// var overlayUrl = "plu.sx/kml/1.kml";
+$overlayName.val("myOverlayName");
 $overlayId.val("myOverlay");
-$overlayName.val("overlayName");
-$parentId.val("parentID");
+$parentId.val("myParentID");
+$overlayUrl.val(overlayUrl);
 $button_field.on('click', '#create_overlay', function(){ 
 	console.log("create overlay");
 	overlayUrl = $overlayUrl.val();
 	cmapi_channel = "map.overlay.create";
 	cmapi_message = { 
-					"overlayId": 	$overlayId.val(), 
+					"name":  			$overlayName.val(),
+					"overlayId": 	$overlayId.val(),
+					"parentId":   $parentId.val(),
 					"url": 				$overlayUrl.val()
 				};
 	publishChannel(cmapi_channel, cmapi_message);
@@ -231,42 +243,45 @@ $parentIdUpdate.val("parentIdUpdate");
 $button_field.on('click', '#update_overlay', function(){ 
 	console.log("update overlay");
 	cmapi_channel = "map.overlay.update";
-	cmapi_message = { "overlayId": 	"myOverlay" };
+	cmapi_message = { 
+					"name":  			$overlayNameUpdate.val(),
+					"overlayId": 	$overlayIdUpdate.val(),
+					"parentId":   $parentIdUpdate.val()
+				};
 	publishChannel(cmapi_channel, cmapi_message);
 });
 /*** End Overlay Code ***/
 
-/*** Map Control Code ***/
-var mapLatitude = 38.186;
-$latitude.val(mapLatitude);
-var mapLongitude = -98.042;
-$longitude.val(mapLongitude);
-var zoom = 2500;
-$zoom.val(zoom);
-var zoom_zoom = 5000;
-$zoom_zoom.val(zoom_zoom);
+/*** Start Feature Channels ***/
+$plotUrlOverlayId.val("plotUrlOverlayId");
+$plotUrlFeatureId.val("plotUrlFeatureId");
+$plotUrlName.val("plotUrlName");
+$plotUrlUrl.val("plotUrlUrl");
+$plotUrlZoom.val("plotUrlZoom");
+/*** End Feature Channels ***/
 
+/*** Map Control Code ***/
+$latitude.val(38.186);
+$longitude.val( -98.042);
+$zoom.val(2500);
 // Set Map Center
 $button_field.on('click', '#map_set_center', function(){
 	console.log("map set center clicked");
-	mapLatitude = $latitude.val();
-	mapLongitude = $longitude.val();
-	zoom = $zoom.val();
 	cmapi_channel = "map.view.center.location";
 	cmapi_message = {  
 		// Default location is Oklahoma to view filter toggling
-		"location": { "lat": mapLatitude, "lon": mapLongitude },
-		"zoom": zoom
+		"location": { "lat": $latitude.val(), "lon": $longitude.val() },
+		"zoom": $zoom.val()
 	};
 	publishChannel(cmapi_channel, cmapi_message);
 });
 
 // Set Map Zoom
+$range.val(5000);
 $button_field.on('click', '#map_set_zoom', function(){
 	console.log("map set zoom");
-	zoom_zoom = $zoom_zoom.val();
 	cmapi_channel = "map.view.zoom";
-	cmapi_message = { "range": zoom_zoom };
+	cmapi_message = { "range": $range.val() };
 	publishChannel(cmapi_channel, cmapi_message);
 });
 /*** End Map Control Code ***/
