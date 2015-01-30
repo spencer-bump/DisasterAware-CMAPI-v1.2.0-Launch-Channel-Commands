@@ -331,12 +331,26 @@ var $error_panel 		      = $('#error-panel');
 	var $plotUrlName					= $('#plot-url-name');
 	var $plotUrlUrl 					= $('#plot-url-url');
 	var $plotUrlZoom					= $('#plot-url-zoom');
+	// var overlayUrl = "http://plu.sx/kml/1.kml";
 	// initialize input fields
 	$plotUrlOverlayId.val("plotUrlOverlayId");
 	$plotUrlFeatureId.val("plotUrlFeatureId");
-	$plotUrlName.val("plotUrlName");
-	$plotUrlUrl.val("plotUrlUrl");
-	$plotUrlZoom.val("plotUrlZoom");
+	$plotUrlName.val("myPlotUrl");
+	$plotUrlUrl.val(overlayUrl);
+	$plotUrlZoom.val("true");
+	// Feature Plot URL
+	$button_field.on('click', '#plot_url', function(){
+		console.log("map feature plot url");
+		cmapi_channel = "map.feature.plot.url";
+		cmapi_message = {  
+			"overlayId": $plotUrlOverlayId.val(),
+			"featureId": $plotUrlFeatureId.val(),
+			"name": $plotUrlName.val(),
+			"url": $plotUrlUrl.val(),
+			"zoom": true
+		};
+		publishChannel(cmapi_channel, cmapi_message);
+	});
 /************************ End Feature Channels ************************/
 
 
