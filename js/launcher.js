@@ -325,6 +325,19 @@ var $error_panel 		      = $('#error-panel');
 
 
 /************************ Start Feature Channels ************************/
+	// Plot Feature - pass an object
+	var $plotFeatureOverlayId			= $('#plot-feature-overlayId');
+	var $plotFeatureFeatureId			= $('#plot-feature-featureId');
+	var $plotFeatureName					= $('#plot-feature-name');
+	var $plotFeatureUrl 					= $('#plot-feature-url');
+	var $plotFeatureZoom					= $('#plot-feature-zoom');
+	$plotFeatureOverlayId.val("plotFeatureOverlayId");
+	$plotFeatureFeatureId.val("plotFeatureFeatureId");
+	$plotFeatureName.val("plotFeatureName");
+	$plotFeatureUrl.val("plotFeatureUrl");
+	$plotFeatureZoom.val("plotFeatureZoom");
+
+	// Plot URL Feature - send a URL
 	// feature input field variables
 	var $plotUrlOverlayId			= $('#plot-url-overlayId');
 	var $plotUrlFeatureId			= $('#plot-url-featureId');
@@ -338,7 +351,6 @@ var $error_panel 		      = $('#error-panel');
 	$plotUrlName.val("myPlotUrl");
 	$plotUrlUrl.val(overlayUrl);
 	$plotUrlZoom.val("true");
-	// Feature Plot URL
 	$button_field.on('click', '#plot_url', function(){
 		console.log("map feature plot url");
 		cmapi_channel = "map.feature.plot.url";
@@ -351,6 +363,26 @@ var $error_panel 		      = $('#error-panel');
 		};
 		publishChannel(cmapi_channel, cmapi_message);
 	});
+	// Unplot Feature
+	var $unplotOverlayId			= $('#unplot-feature-overlayId');
+	var $unplotFeatureId			= $('#unplot-feature-featureId');
+	$unplotOverlayId.val("unplotOverlayId");
+	$unplotFeatureId.val("unplotFeatureId");
+
+	// Hide Feature 
+	var $hideOverlayId				= $('#hide-feature-overlayId');
+	var $hideFeatureId				= $('#hide-feature-featureId');
+	$hideOverlayId.val("hideOverlayId");	
+	$hideFeatureId.val("hideFeatureId");
+
+	// Show Feature 
+	var $showOverlayId				= $('#show-feature-overlayId');
+	var $showFeatureId				= $('#show-feature-featureId');
+	var $showZoom							= $('#show-feature-zoom');
+	$showOverlayId.val("showOverlayId");
+	$showFeatureId.val("showFeatureId");
+	$showZoom.val("showZoom");	
+
 /************************ End Feature Channels ************************/
 
 

@@ -193,6 +193,36 @@
         <h2>Feature Channels</h2>
         <div class="area-border">
           <h4>pending</h4>
+          <button class="button-medium" id="plot_feature" >Plot Feature</button>
+          <div class="channel">Channel: "map.feature.plot"</div>
+          <table>
+            <tr>
+              <th class="property">Property</th>
+              <th class="value">Value</th>
+            </tr>
+            <tr>
+              <td class="property">overlayId</td>
+              <td class="value"><input type="text" id="plot-feature-overlayId"/></td>
+            </tr>
+            <tr>
+              <td class="property">featureId</td>
+              <td class="value"><input type="text" id="plot-feature-featureId"/> required </td> 
+            </tr>
+            <tr>
+              <td class="property">name</td>
+              <td class="value"><input type="text" id="plot-feature-name"/></td>
+            </tr>
+            <tr>
+              <td class="property">feature</td>
+              <td class="value"><input type="text" id="plot-feature-url"/> required </td>
+            </tr>
+            <tr>
+              <td class="property">zoom</td>
+              <td class="value"><input type="text" id="plot-feature-zoom"/></td> 
+            </tr>
+          </table>
+        </div>
+        <div class="area-border">
           <button class="button-medium" id="plot_url" >Plot URL</button>
           <div class="channel">Channel: "map.feature.plot.url"</div>
           <table>
@@ -219,6 +249,67 @@
             <tr>
               <td class="property">zoom</td>
               <td class="value"><input type="text" id="plot-url-zoom"/></td> 
+            </tr>
+          </table>
+        </div>
+        <div class="area-border">
+          <h4>pending</h4>
+          <button class="button-medium" id="feature-unplot" >Unplot URL</button>
+          <div class="channel">Channel: "map.feature.unplot"</div>
+          <table>
+            <tr>
+              <th class="property">Property</th>
+              <th class="value">Value</th>
+            </tr>
+            <tr>
+              <td class="property">overlayId</td>
+              <td class="value"><input type="text" id="unplot-feature-overlayId"/></td>
+            </tr>
+            <tr>
+              <td class="property">featureId</td>
+              <td class="value"><input type="text" id="unplot-feature-featureId"/> required </td> 
+            </tr>
+          </table>
+        </div>
+        <div class="area-border">
+          <h4>pending</h4>
+          <button class="button-medium" id="feature_hide" >Hide Feature</button>
+          <div class="channel">Channel: "map.feature.hide"</div>
+          <table>
+            <tr>
+              <th class="property">Property</th>
+              <th class="value">Value</th>
+            </tr>
+            <tr>
+              <td class="property">overlayId</td>
+              <td class="value"><input type="text" id="hide-feature-overlayId"/></td>
+            </tr>
+            <tr>
+              <td class="property">featureId</td>
+              <td class="value"><input type="text" id="hide-feature-featureId"/> required </td> 
+            </tr>
+          </table>
+        </div>
+        <div class="area-border">
+          <h4>pending</h4>
+          <button class="button-medium" id="feature_show" >Show Feature</button>
+          <div class="channel">Channel: "map.feature.show"</div>
+          <table>
+            <tr>
+              <th class="property">Property</th>
+              <th class="value">Value</th>
+            </tr>
+            <tr>
+              <td class="property">overlayId</td>
+              <td class="value"><input type="text" id="show-feature-overlayId"/></td>
+            </tr>
+            <tr>
+              <td class="property">featureId</td>
+              <td class="value"><input type="text" id="show-feature-featureId"/> required </td> 
+            </tr>
+            <tr>
+              <td class="property">zoom</td>
+              <td class="value"><input type="text" id="show-feature-zoom"/></td> 
             </tr>
           </table>
         </div>
