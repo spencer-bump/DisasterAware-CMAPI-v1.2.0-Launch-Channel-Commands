@@ -214,7 +214,7 @@
             </tr>
             <tr>
               <td class="property">feature</td>
-              <td class="value"><input type="text" id="plot-feature-url"/> required </td>
+              <td class="value"><input type="text" id="plot-feature"/> required </td>
             </tr>
             <tr>
               <td class="property">zoom</td>
@@ -353,6 +353,24 @@
         </div>
 
         <h2>Map Status Channels</h2>
+        <div class="area-border">
+          <button class="button-extralarge" id="map_status_request_all" >
+            Request Map Status - All</button>
+
+          <button class="button-extralarge" id="map_status_request_view" >
+            Request Map Status - View</button>
+
+          <button class="button-extralarge" id="map_status_request_format" >
+            Request Map Status - Format</button>
+
+          <button class="button-extralarge" id="map_status_request_about" >
+            Request Map Status - About</button>
+
+          <button class="button-extralarge" id="map_status_request_selected" >
+            Request Map Status - Selected</button>
+
+          <div class="channel">Channel: "map.status.request"</div>
+        </div>
 
 
     </div>

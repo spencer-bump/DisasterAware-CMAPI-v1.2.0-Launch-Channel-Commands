@@ -329,13 +329,25 @@ var $error_panel 		      = $('#error-panel');
 	var $plotFeatureOverlayId			= $('#plot-feature-overlayId');
 	var $plotFeatureFeatureId			= $('#plot-feature-featureId');
 	var $plotFeatureName					= $('#plot-feature-name');
-	var $plotFeatureUrl 					= $('#plot-feature-url');
+	var $plotFeature 							= $('#plot-feature');
 	var $plotFeatureZoom					= $('#plot-feature-zoom');
 	$plotFeatureOverlayId.val("plotFeatureOverlayId");
 	$plotFeatureFeatureId.val("plotFeatureFeatureId");
 	$plotFeatureName.val("plotFeatureName");
-	$plotFeatureUrl.val("plotFeatureUrl");
+	$plotFeature.val("plotFeature");
 	$plotFeatureZoom.val("plotFeatureZoom");
+	$button_field.on('click', '#plot_feature', function(){
+		console.log("plot feature");
+		cmapi_channel = "map.feature.plot";
+		cmapi_message = {  
+			"overlayId": $plotFeatureOverlayId.val(),
+			"featureId": $plotFeatureFeatureId.val(),
+			"name": $plotFeatureName.val(),
+			"feature": $plotFeature.val(),
+			"zoom": true
+		};
+		publishChannel(cmapi_channel, cmapi_message);
+	});
 
 	// Plot URL Feature - send a URL
 	// feature input field variables
@@ -346,13 +358,13 @@ var $error_panel 		      = $('#error-panel');
 	var $plotUrlZoom					= $('#plot-url-zoom');
 	// var overlayUrl = "http://plu.sx/kml/1.kml";
 	// initialize input fields
-	$plotUrlOverlayId.val("plotUrlOverlayId");
-	$plotUrlFeatureId.val("plotUrlFeatureId");
+	$plotUrlOverlayId.val("plotOverlayId");
+	$plotUrlFeatureId.val("plotFeatureId");
 	$plotUrlName.val("myPlotUrl");
 	$plotUrlUrl.val(overlayUrl);
 	$plotUrlZoom.val("true");
 	$button_field.on('click', '#plot_url', function(){
-		console.log("map feature plot url");
+		console.log("plot url");
 		cmapi_channel = "map.feature.plot.url";
 		cmapi_message = {  
 			"overlayId": $plotUrlOverlayId.val(),
@@ -363,25 +375,54 @@ var $error_panel 		      = $('#error-panel');
 		};
 		publishChannel(cmapi_channel, cmapi_message);
 	});
-	// Unplot Feature
+
+	// Unplot Feature - removes feature
 	var $unplotOverlayId			= $('#unplot-feature-overlayId');
 	var $unplotFeatureId			= $('#unplot-feature-featureId');
-	$unplotOverlayId.val("unplotOverlayId");
-	$unplotFeatureId.val("unplotFeatureId");
+	$unplotOverlayId.val("plotOverlayId");
+	$unplotFeatureId.val("plotFeatureId");
+	$button_field.on('click', '#feature-unplot', function(){
+		console.log("unplot feature");
+		cmapi_channel = "map.feature.unplot";
+		cmapi_message = {  
+			"overlayId": $unplotOverlayId.val(),
+			"featureId": $unplotFeatureId.val()
+		};
+		publishChannel(cmapi_channel, cmapi_message);
+	});
 
 	// Hide Feature 
 	var $hideOverlayId				= $('#hide-feature-overlayId');
 	var $hideFeatureId				= $('#hide-feature-featureId');
-	$hideOverlayId.val("hideOverlayId");	
-	$hideFeatureId.val("hideFeatureId");
+	$hideOverlayId.val("plotOverlayId");	
+	$hideFeatureId.val("plotFeatureId");
+	$button_field.on('click', '#feature_hide', function(){
+		console.log("hide feature");
+		cmapi_channel = "map.feature.hide";
+		cmapi_message = {  
+			"overlayId": $hideOverlayId.val(),
+			"featureId": $hideFeatureId.val()
+		};
+		publishChannel(cmapi_channel, cmapi_message);
+	});
 
 	// Show Feature 
 	var $showOverlayId				= $('#show-feature-overlayId');
 	var $showFeatureId				= $('#show-feature-featureId');
 	var $showZoom							= $('#show-feature-zoom');
-	$showOverlayId.val("showOverlayId");
-	$showFeatureId.val("showFeatureId");
-	$showZoom.val("showZoom");	
+	$showOverlayId.val("plotOverlayId");
+	$showFeatureId.val("plotFeatureId");
+	$showZoom.val("showZoom");
+	$button_field.on('click', '#feature_show', function(){
+		console.log("show feature");
+		cmapi_channel = "map.feature.show";
+		cmapi_message = {  
+			"overlayId": $showOverlayId.val(),
+			"featureId": $showFeatureId.val(),
+			"zoom": true
+		};
+		publishChannel(cmapi_channel, cmapi_message);
+	});	
 
 /************************ End Feature Channels ************************/
 
@@ -418,12 +459,47 @@ var $error_panel 		      = $('#error-panel');
 /************************ End Map View Channels ************************/
 
 
-/************************ Start Map Status Channels ************************/
-/************************ End Map Status Channels ************************/
+/************************ Start Map Status Channels - Request Status  ************************/
+	// map.status.request
+	// payload: { types: array, enum (optional)}
+	var statusTypes = ['view', 'format', 'about', 'selected'];
+	// Request Map Status
+	$button_field.on('click', '#map_status_request_all', function(){
+		console.log("map status request all");
+		cmapi_channel = "map.status.request";
+		cmapi_message = { "types": statusTypes };
+		publishChannel(cmapi_channel, cmapi_message);
+	});
 
+	$button_field.on('click', '#map_status_request_view', function(){
+		console.log("map status request view");
+		cmapi_channel = "map.status.request";
+		cmapi_message = { "types": ["view"] };
+		publishChannel(cmapi_channel, cmapi_message);
+	});
 
-/************************ Start  ************************/
-/************************ End  ************************/
+	$button_field.on('click', '#map_status_request_format', function(){
+		console.log("map status request format");
+		cmapi_channel = "map.status.request";
+		cmapi_message = { "types": ["format"] };
+		publishChannel(cmapi_channel, cmapi_message);
+	});
+
+	$button_field.on('click', '#map_status_request_about', function(){
+		console.log("map status request about");
+		cmapi_channel = "map.status.request";
+		cmapi_message = { "types": ["about"] };
+		publishChannel(cmapi_channel, cmapi_message);
+	});
+
+	$button_field.on('click', '#map_status_request_selected', function(){
+		console.log("map status request selected");
+		cmapi_channel = "map.status.request";
+		cmapi_message = { "types": ["selected"]       };
+		publishChannel(cmapi_channel, cmapi_message);
+	});
+
+/************************ End Map Status Channels - Request Status ************************/
 
 
 /************************ Start Launch Related Functions & Status Display  ************************/
@@ -497,6 +573,55 @@ function callbackOnLaunch (resultJson) {
    $widgetPayload.empty().append("Payload: " + JSON.stringify(data.payload));
    $widgetChannel.empty().append(widgetChannel);
 	 $launchResults.empty().append(launchResultsMessage);
+	 /************************ Start Map Status Listener Channels ************************/
+// var publishChannel = function (channel, message) {
+// 		$widgetChannel.empty().append("Channel: " + channel);
+// 		$widgetPayload.empty().append("Payload: " + JSON.stringify(message));
+// 		$launchResults.empty(); // clear display
+// 		OWF.Eventing.publish(channel, message);
+// 	}
+	// var catchMessage = true;
+
+	var prepareMessage = function (message) {
+	    if (typeof message === 'string') {
+	        message = angular.fromJson(message);
+	    }
+	    // console.log("here is the payload message prepared from JSON: ");
+	    // console.log(message);
+	    return message;
+	};
+	
+	OWF.Eventing.subscribe("map.status.view", function (sender, message) {
+			message = prepareMessage(message);
+			console.log("map.status.view - southWest: %O, northEast: %O", message.bounds.southWest, message.bounds.northEast);
+			console.log("map.status.view - latitude: %O, longitude %O", message.center.lat, message.center.lon);
+			console.log("map.status.view - range: %O", message.range);
+			console.log("map.status.view - sender GUID: %O", sender);
+	});
+
+	OWF.Eventing.subscribe("map.status.format", function (sender, message) {
+			message = prepareMessage(message);
+			for (var i = 0; i < message.formats.length; i++) {
+				console.log("map.status.format - valid format: ", message.formats[i]);
+			}
+			// console.log(sender);
+	});
+
+	OWF.Eventing.subscribe("map.status.about", function (sender, message) {
+			message = prepareMessage(message);
+			console.log("map.status.about - version: %O", message.version);
+			console.log("map.status.about - type: %O", message.type);
+			console.log("map.status.about - widgetName: %O", message.widgetName);
+			// console.log(sender);
+	});
+
+	OWF.Eventing.subscribe("map.status.selected", function (sender, message) {
+			message = prepareMessage(message);
+			console.log("inside map.status.selected message %O", message);
+			// console.log(sender);
+	});
+
+/************************ End Map Status Listener Channels ************************/
 }
 
 function logInit() {
