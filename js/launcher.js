@@ -21,6 +21,42 @@ var $widgetChannel 	      = $('#widgetChannel');
 var $launchResults 	      = $('#launchResults');
 var $error_panel 		      = $('#error-panel');
 
+/************************ Start Navigation ************************/
+	var clearAll = function () {
+		$('#launch').hide();
+ 		$('#disaster').hide();
+ 		$('#overlay').hide();
+ 		$('#feature').hide();
+ 		$('#view').hide();
+ 		$('#status').hide();
+	};
+	
+  $('#launch-nav').on('click',function() {
+  	clearAll();
+  	$('#launch').show();
+  });
+  $('#disaster-nav').on('click',function() {
+  	clearAll();
+  	$('#disaster').show();
+  });
+  $('#overlay-nav').on('click',function() {
+  	clearAll();
+  	$('#overlay').show();
+  });
+  $('#feature-nav').on('click',function() {
+  	clearAll();
+  	$('#feature').show();
+  });
+  $('#view-nav').on('click',function() {
+  	clearAll();
+  	$('#view').show();
+  });
+  $('#status-nav').on('click',function() {
+  	clearAll();
+  	$('#status').show();
+  });
+  
+/************************ End Navigation ************************/
 
 /************************ Start DisasterAware Launch Code ************************/
 	// launch variables
@@ -134,10 +170,10 @@ var $error_panel 		      = $('#error-panel');
 	      locale_selected = $( this ).val();
 	      locale_button_text = $( this ).text();
 	    });
-	    console.log(locale_button_text+ ": "+ locale_selected);
+	    // console.log(locale_button_text+ ": "+ locale_selected);
 	    $('#change_locale').text("Translate To "+ locale_button_text);
 	    var str = $('#change_locale').text();
-	    console.log(str);
+	    // console.log(str);
 	  })
 	  .change();
 
@@ -385,7 +421,7 @@ var $error_panel 		      = $('#error-panel');
 		console.log("unplot feature");
 		cmapi_channel = "map.feature.unplot";
 		cmapi_message = {  
-			"overlayId": $unplotOverlayId.val(),
+			// "overlayId": $unplotOverlayId.val(),
 			"featureId": $unplotFeatureId.val()
 		};
 		publishChannel(cmapi_channel, cmapi_message);
@@ -400,7 +436,7 @@ var $error_panel 		      = $('#error-panel');
 		console.log("hide feature");
 		cmapi_channel = "map.feature.hide";
 		cmapi_message = {  
-			"overlayId": $hideOverlayId.val(),
+			// "overlayId": $hideOverlayId.val(),
 			"featureId": $hideFeatureId.val()
 		};
 		publishChannel(cmapi_channel, cmapi_message);
@@ -417,7 +453,7 @@ var $error_panel 		      = $('#error-panel');
 		console.log("show feature");
 		cmapi_channel = "map.feature.show";
 		cmapi_message = {  
-			"overlayId": $showOverlayId.val(),
+			// "overlayId": $showOverlayId.val(),
 			"featureId": $showFeatureId.val(),
 			"zoom": true
 		};
@@ -429,33 +465,73 @@ var $error_panel 		      = $('#error-panel');
 
 /************************ Start Map View Channels ************************/
 	// map input field variables
-	var $latitude							= $('#map-latitude');
-	var $longitude						= $('#map-longitude');
-	var $zoom 					      = $('#map-zoom');
-	var $range			  		    = $('#map-range');
+	
+	
 	// initialize map input fields, default location is Oklahoma to view filter toggling
-	$latitude.val(38.186);
-	$longitude.val( -98.042);
-	$zoom.val(2500);
-	$range.val(5000);
-	// Set Map Center
-	$button_field.on('click', '#map_set_center', function(){
-		console.log("map set center clicked");
-		cmapi_channel = "map.view.center.location";
-		cmapi_message = {  
-			"location": { "lat": $latitude.val(), "lon": $longitude.val() },
-			"zoom": $zoom.val()
-		};
-		publishChannel(cmapi_channel, cmapi_message);
-	});
-
+	
 	// Set Map Zoom
+	var $range			  		    = $('#map-range');
+	$range.val(5000);
 	$button_field.on('click', '#map_set_zoom', function(){
 		console.log("map set zoom");
 		cmapi_channel = "map.view.zoom";
 		cmapi_message = { "range": $range.val() };
 		publishChannel(cmapi_channel, cmapi_message);
 	});
+	// Set Center on Location
+	var $latitude							= $('#map-latitude');
+	var $longitude						= $('#map-longitude');
+	var $zoom 					      = $('#map-zoom');
+	$latitude.val(38.186);
+	$longitude.val( -98.042);
+	$zoom.val(2500);
+	$button_field.on('click', '#map_center_location', function(){
+		console.log("map center on location");
+		cmapi_channel = "map.view.center.location";
+		cmapi_message = {  
+			"location": { "lat": parseInt( $latitude.val() ), "lon": parseInt( $longitude.val() )},
+			"zoom": parseInt( $zoom.val() )
+		};
+		publishChannel(cmapi_channel, cmapi_message);
+	});
+	//Set Center on Bounds
+	// Washington state
+	// southWest: lat: 45.219775279334364, lon: -130.3802490234375 
+	//northEast: lat: 50.67296494038485, lon: -116.4385986328125 
+	var $bounds_sw_lat				= $('#bounds-sw-lat');
+	var $bounds_sw_lon				= $('#bounds-sw-lon');
+	var $bounds_ne_lat				= $('#bounds-ne-lat');
+	var $bounds_ne_lon				= $('#bounds-ne-lon');
+	var $bounds_zoom 			    = $('#bounds-zoom');
+	$bounds_sw_lat.val(  45.21977527);
+	$bounds_sw_lon.val(-130.38024902);
+	$bounds_ne_lat.val(  50.67296494);
+	$bounds_ne_lon.val(-116.43859863);
+	$bounds_zoom.val("auto");
+
+	// { "bounds": {
+	// 	"southWest": {"lat": 45.219775279334364, "lon": -130.3802490234375},
+	// 	"northEast": {"lat": 50.67296494038485, "lon": -116.4385986328125}
+	// 	}
+	// }
+	$button_field.on('click', '#map_center_bounds', function(){
+		console.log("map center on bounds");
+		cmapi_channel = "map.view.center.bounds";
+		// cmapi_message = { "bounds": {
+		// 	"southWest": {"lat": 45.219775279334364, "lon": -130.3802490234375},
+		// 	"northEast": {"lat": 50.67296494038485, "lon": -116.4385986328125}
+		// 	}
+		// };
+		cmapi_message = { "bounds": {
+					"southWest": {"lat": parseInt( $bounds_sw_lat.val() ), "lon": parseInt( $bounds_sw_lon.val() )},
+					"northEast": {"lat": parseInt( $bounds_ne_lat.val() ), "lon": parseInt( $bounds_ne_lon.val() )}
+			},
+			"zoom": $bounds_zoom.val()
+		};
+		publishChannel(cmapi_channel, cmapi_message);
+	});
+
+	
 /************************ End Map View Channels ************************/
 
 
@@ -498,6 +574,13 @@ var $error_panel 		      = $('#error-panel');
 		cmapi_message = { "types": ["selected"]       };
 		publishChannel(cmapi_channel, cmapi_message);
 	});
+
+	$button_field.on('click', '#clear_map_status', function(){
+		console.log("clear map status");
+		$('#map-status-display').empty();
+	});
+
+
 
 /************************ End Map Status Channels - Request Status ************************/
 
@@ -573,14 +656,17 @@ function callbackOnLaunch (resultJson) {
    $widgetPayload.empty().append("Payload: " + JSON.stringify(data.payload));
    $widgetChannel.empty().append(widgetChannel);
 	 $launchResults.empty().append(launchResultsMessage);
+
+	 
+
+
+
 	 /************************ Start Map Status Listener Channels ************************/
-// var publishChannel = function (channel, message) {
-// 		$widgetChannel.empty().append("Channel: " + channel);
-// 		$widgetPayload.empty().append("Payload: " + JSON.stringify(message));
-// 		$launchResults.empty(); // clear display
-// 		OWF.Eventing.publish(channel, message);
-// 	}
-	// var catchMessage = true;
+	var mapStatus 		= "";
+	var viewStatus   = "";
+	var formatStatus = "";
+	var aboutStatus  = "";
+	var $mapStatusDisplay = $('#map-status-display');
 
 	var prepareMessage = function (message) {
 	    if (typeof message === 'string') {
@@ -590,6 +676,7 @@ function callbackOnLaunch (resultJson) {
 	    // console.log(message);
 	    return message;
 	};
+
 	
 	OWF.Eventing.subscribe("map.status.view", function (sender, message) {
 			message = prepareMessage(message);
@@ -597,14 +684,35 @@ function callbackOnLaunch (resultJson) {
 			console.log("map.status.view - latitude: %O, longitude %O", message.center.lat, message.center.lon);
 			console.log("map.status.view - range: %O", message.range);
 			console.log("map.status.view - sender GUID: %O", sender);
+			mapStatus  = "<div><h3>Map View Status</h3><ul>";
+			mapStatus += "<li>southWest.lat: " + message.bounds.southWest.lat + "</li>";
+			mapStatus += "<li>southWest.lon: " + message.bounds.southWest.lon + "</li>";
+			mapStatus += "<li>northEast.lat: " + message.bounds.northEast.lat + "</li>";
+			mapStatus += "<li>northEast.lon: " + message.bounds.northEast.lon + "</li>";
+			mapStatus += "<li>center.lat: " + message.center.lat + "</li>";
+			mapStatus += "<li>center.lon: " + message.center.lon + "</li>";
+			mapStatus += "<li>range: " + message.range + "</li>";
+			mapStatus += "<li>sender: " + sender + "</li>";
+			mapStatus += "</ul></div>"
+			$mapStatusDisplay.append(mapStatus);
+			$mapStatusDisplay.css('text-align','left');
+			$mapStatusDisplay.css('padding-left','10%');
+			$('#map-status-display h3').css('padding-left','10%');
 	});
 
 	OWF.Eventing.subscribe("map.status.format", function (sender, message) {
 			message = prepareMessage(message);
+			mapStatus  = "<div><h3>Map Format Status</h3><ul>";
 			for (var i = 0; i < message.formats.length; i++) {
 				console.log("map.status.format - valid format: ", message.formats[i]);
+				mapStatus += "<li>format: " + message.formats[i] + "</li>";
 			}
-			// console.log(sender);
+			mapStatus += "<li>sender: " + sender + "</li>";
+			mapStatus += "</ul></div>"
+			$mapStatusDisplay.append(mapStatus);
+			$mapStatusDisplay.css('text-align','left');
+			$mapStatusDisplay.css('padding-left','10%');
+			$('#map-status-display h3').css('padding-left','10%');
 	});
 
 	OWF.Eventing.subscribe("map.status.about", function (sender, message) {
@@ -612,13 +720,21 @@ function callbackOnLaunch (resultJson) {
 			console.log("map.status.about - version: %O", message.version);
 			console.log("map.status.about - type: %O", message.type);
 			console.log("map.status.about - widgetName: %O", message.widgetName);
-			// console.log(sender);
+			mapStatus  = "<div><h3>Map About Status</h3><ul>";
+			mapStatus += "<li>version: " + message.version + "</li>";
+			mapStatus += "<li>type: " + message.type + "</li>";
+			mapStatus += "<li>widgetName.: " + message.widgetName + "</li>";
+			mapStatus += "<li>sender: " + sender + "</li>";
+			mapStatus += "</ul></div>"
+			$mapStatusDisplay.append(mapStatus);
+			$mapStatusDisplay.css('text-align','left');
+			$mapStatusDisplay.css('padding-left','10%');
+			$('#map-status-display h3').css('padding-left','10%');
 	});
 
 	OWF.Eventing.subscribe("map.status.selected", function (sender, message) {
 			message = prepareMessage(message);
 			console.log("inside map.status.selected message %O", message);
-			// console.log(sender);
 	});
 
 /************************ End Map Status Listener Channels ************************/
@@ -654,9 +770,14 @@ function onGetFailure(error,status) {
 }
 
 function initPage() { 
-   logInit();
-   initPrefs();
-   $isRunning.empty().append('Running in OWF: ' + (OWF.Util.isRunningInOWF()?"Yes":"No"));
+ 	logInit();
+ 	initPrefs();
+ 	$('#disaster').hide();
+	$('#overlay').hide();
+	$('#feature').hide();
+	$('#view').hide();
+	$('#status').hide();
+  $isRunning.empty().append('Running in OWF: ' + (OWF.Util.isRunningInOWF()?"Yes":"No"));
 }
 
 owfdojo.addOnLoad(function() {
