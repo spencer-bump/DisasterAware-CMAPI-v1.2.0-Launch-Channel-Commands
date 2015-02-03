@@ -149,6 +149,10 @@ var $error_panel 		      = $('#error-panel');
 		$widgetChannel.empty().append("Channel: " + channel);
 		$widgetPayload.empty().append("Payload: " + JSON.stringify(message));
 		$launchResults.empty(); // clear display
+		$('#error-sender').html("sender: ");
+		$('#error-type').html("type: ");
+		$('#error-message').html("message: ");
+		$('#error-error').html("error: ");
 		OWF.Eventing.publish(channel, message);
 	}
 /************************ End Publish Channel Function ************************/
@@ -817,16 +821,10 @@ function callbackOnLaunch (resultJson) {
 		OWF.Eventing.subscribe("map.error", function (sender, message) {
 			console.log("inside map.error subscribe - message %O", message);
 			message = prepareMessage(message);
-			mapError  = "<div><h3>Map Error</h3><div class='channel'>Channel: \"map.error\"</div><ul>";
-			mapError += "<li>sender: " + message.sender + "</li>";
-			mapError += "<li>type: " + message.type + "</li>";
-			mapError += "<li>message: " + message.msg + "</li>";
-			mapError += "<li>error: " + message.error + "</li>";
-			mapError += "</ul></div>"
-			$mapErrorDisplay.empty().append(mapError);
-			$mapErrorDisplay.css('text-align','left');
-			$mapErrorDisplay.css('padding-left','10%');
-			$('#view-clicked-display h3').css('padding-left','10%');
+			$('#error-sender').html("sender: "+ message.sender);
+			$('#error-type').html("type: "+ message.type);
+			$('#error-message').html("message: "+ message.msg);
+			$('#error-error').html("error: "+ message.error);
 		});
 		/************************ End Map Error ************************/
 
@@ -839,18 +837,12 @@ function callbackOnLaunch (resultJson) {
 		OWF.Eventing.subscribe("map.view.clicked", function (sender, message) {
 			console.log("inside map.view.clicked subscribe - message %O", message);
 			message = prepareMessage(message);
-			viewClicked  = "<div><ul>";
-			viewClicked += "<li>lat: " + message.lat + "</li>";
-			viewClicked += "<li>lon: " + message.lon + "</li>";
-			viewClicked += "<li>button: " + message.button + "</li>";
-			viewClicked += "<li>type: " + message.type + "</li>";
-			viewClicked += "<li>keys: " + message.keys + "</li>";
-			viewClicked += "<li>sender: " + sender + "</li>";
-			viewClicked += "</ul></div>"
-			$viewClickedDisplay.empty().append(viewClicked);
-			$viewClickedDisplay.css('text-align','left');
-			$viewClickedDisplay.css('padding-left','10%');
-			$('#view-clicked-display h3').css('padding-left','10%');
+			$('#clicked-lat').html("lat: " + message.lat);
+			$('#clicked-lon').html("lon: " + message.lon);
+			$('#clicked-button').html("button: " + message.button);
+			$('#clicked-type').html("type: " + message.type);
+			$('#clicked-keys').html("keys: " + message.keys);
+			$('#clicked-sender').html("sender: " + message.sender);
 		});
 
 	   /************************ End Map View Clicked ************************/

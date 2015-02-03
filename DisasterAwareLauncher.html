@@ -546,9 +546,20 @@
           </table>
         </div>
         <div class="area-border">
-          <h3>Map View Clicked</h3>
-          <div class="channel">Channel: "map.view.clicked"</div>
-          <div id="view-clicked-display"></div> 
+          <div id="view-clicked-display">
+            <div>
+              <h3>Map View Clicked</h3>
+              <div class="channel">Channel: "map.view.clicked"</div>
+              <ul>
+                <li id="clicked-lat">lat: </li>
+                <li id="clicked-lon">lon: </li>
+                <li id="clicked-button">button: </li>
+                <li id="clicked-type">type: </li>
+                <li id="clicked-keys">keys: </li>
+                <li id="clicked-sender">sender: </li>
+              </ul>
+            </div>"
+          </div> 
         </div>
       </div>
 
@@ -593,7 +604,18 @@
 
     <div id="error-panel" class="error-panel"></div>
     <div class="area-border">
-      <div id="map-error"></div> 
+      <div id="map-error">
+        <div>
+          <h3>Map Error</h3>
+          <div class='channel'>Channel: "map.error"</div>
+          <ul>
+            <li id="error-sender">sender: </li>
+            <li id="error-type">type: </li>
+            <li id="error-message">message: </li>
+            <li id="error-error">error: </li>
+          </ul>
+        </div>
+      </div> 
     </div>
 
     <script type="text/javascript" src="js/owf-widget-min.js"></script>

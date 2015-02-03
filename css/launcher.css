@@ -125,4 +125,15 @@ input[type="text"] {
 #error-panel {
 	display: block;
 }
+
+#map-error, #view-clicked-display {
+	display: block;
+	text-align: left;
+	padding-left: 10%;
+}
+
+#map-error h3, #view-clicked-display h3 {
+	padding-left: 10%;
+}
+
 /*** End Messages ***/
