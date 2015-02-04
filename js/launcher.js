@@ -21,6 +21,8 @@ var $widgetChannel 	      = $('#widgetChannel');
 var $launchResults 	      = $('#launchResults');
 var $error_panel 		      = $('#error-panel');
 
+
+
 /************************ Start Navigation ************************/
 	var clearAll = function () {
 		$('#launch').hide();
@@ -149,6 +151,7 @@ var $error_panel 		      = $('#error-panel');
 		$widgetChannel.empty().append("Channel: " + channel);
 		$widgetPayload.empty().append("Payload: " + JSON.stringify(message));
 		$launchResults.empty(); // clear display
+		console.log(JSON.stringify(message));
 		$('#error-sender').html("sender: ");
 		$('#error-type').html("type: ");
 		$('#error-message').html("message: ");
@@ -371,25 +374,65 @@ var $error_panel 		      = $('#error-panel');
 
 
 /************************ Start Feature Channels ************************/
+/************** data *******************/
+
+var feature_data = { 
+	"type": "FeatureCollection",
+    "features": [
+      { "type": "Feature",
+        "geometry": {"type": "Point", "coordinates": [102.0, 0.5]},
+        "properties": {"prop0": "value0"}
+        },
+      { "type": "Feature",
+        "geometry": {
+          "type": "LineString",
+          "coordinates": [
+            [102.0, 0.0], [103.0, 1.0], [104.0, 0.0], [105.0, 1.0]
+            ]
+          },
+        "properties": {
+          "prop0": "value0",
+          "prop1": 0.0
+          }
+        },
+      { "type": "Feature",
+         "geometry": {
+           "type": "Polygon",
+           "coordinates": [
+             [ [100.0, 0.0], [101.0, 0.0], [101.0, 1.0],
+               [100.0, 1.0], [100.0, 0.0] ]
+             ]
+         },
+         "properties": {
+           "prop0": "value0",
+           "prop1": {"this": "that"}
+           }
+         }
+       ]
+     };
+
+/************** data *******************/
 	// Plot Feature - pass an object
 	var $plotFeatureOverlayId			= $('#plot-feature-overlayId');
 	var $plotFeatureFeatureId			= $('#plot-feature-featureId');
 	var $plotFeatureName					= $('#plot-feature-name');
 	var $plotFeature 							= $('#plot-feature');
 	var $plotFeatureZoom					= $('#plot-feature-zoom');
-	$plotFeatureOverlayId.val("plotFeatureOverlayId");
-	$plotFeatureFeatureId.val("plotFeatureFeatureId");
+	$plotFeatureOverlayId.val("plotOverlayId");
+	$plotFeatureFeatureId.val("plotFeatureId");
 	$plotFeatureName.val("plotFeatureName");
-	$plotFeature.val("plotFeature");
-	$plotFeatureZoom.val("plotFeatureZoom");
+	$plotFeature.val("feature_data");
+	$plotFeatureZoom.val("true");
 	$button_field.on('click', '#plot_feature', function(){
 		console.log("plot feature");
+		console.log(feature_data);
 		cmapi_channel = "map.feature.plot";
 		cmapi_message = {  
 			"overlayId": $plotFeatureOverlayId.val(),
 			"featureId": $plotFeatureFeatureId.val(),
 			"name": $plotFeatureName.val(),
-			"feature": $plotFeature.val(),
+			"format": "geojson",
+			"feature": feature_data,
 			"zoom": true
 		};
 		publishChannel(cmapi_channel, cmapi_message);
@@ -431,7 +474,7 @@ var $error_panel 		      = $('#error-panel');
 		console.log("unplot feature");
 		cmapi_channel = "map.feature.unplot";
 		cmapi_message = {  
-			// "overlayId": $unplotOverlayId.val(),
+			"overlayId": $unplotOverlayId.val(),
 			"featureId": $unplotFeatureId.val()
 		};
 		publishChannel(cmapi_channel, cmapi_message);
@@ -446,7 +489,7 @@ var $error_panel 		      = $('#error-panel');
 		console.log("hide feature");
 		cmapi_channel = "map.feature.hide";
 		cmapi_message = {  
-			// "overlayId": $hideOverlayId.val(),
+			"overlayId": $hideOverlayId.val(),
 			"featureId": $hideFeatureId.val()
 		};
 		publishChannel(cmapi_channel, cmapi_message);
@@ -458,12 +501,12 @@ var $error_panel 		      = $('#error-panel');
 	var $showZoom							= $('#show-feature-zoom');
 	$showOverlayId.val("plotOverlayId");
 	$showFeatureId.val("plotFeatureId");
-	$showZoom.val("showZoom");
+	$showZoom.val("true");
 	$button_field.on('click', '#feature_show', function(){
 		console.log("show feature");
 		cmapi_channel = "map.feature.show";
 		cmapi_message = {  
-			// "overlayId": $showOverlayId.val(),
+			"overlayId": $showOverlayId.val(),
 			"featureId": $showFeatureId.val(),
 			"zoom": true
 		};
@@ -477,18 +520,18 @@ var $error_panel 		      = $('#error-panel');
 	var $selected_overlayId				= $('#feature-selected-overlayId');
 	$feature_selectedId.val("feature_selectedId");
 	$feature_selectedName.val("feature_selectedName");
-	$selected_featureId.val("selected_featureId");
-	$selected_overlayId.val("selected_overlayId");
+	$selected_featureId.val("plotFeatureId");
+	$selected_overlayId.val("plotOverlayId");
 	$button_field.on('click', '#feature_selected', function(){
 		console.log("feature selected");
-		// cmapi_channel = "map.feature.selected";
-		// cmapi_message = {  
-		// 	"selectedId": 	$feature_selectedId.val(),
-		// 	"selectedName": $feature_selectedName.val(),
-		// 	"featureId": 		$selected_featureId.val(),
-		// 	"overlayId": 		$selected_overlayId.val()
-		// };
-		// publishChannel(cmapi_channel, cmapi_message);
+		cmapi_channel = "map.feature.selected";
+		cmapi_message = {  
+			"selectedId": 	$feature_selectedId.val(),
+			"selectedName": $feature_selectedName.val(),
+			"featureId": 		$selected_featureId.val(),
+			"overlayId": 		$selected_overlayId.val()
+		};
+		publishChannel(cmapi_channel, cmapi_message);
 	});	
 
 	// Feature De-Selected
@@ -496,20 +539,20 @@ var $error_panel 		      = $('#error-panel');
 	var $feature_deSelectedName			= $('#feature-deSelectedName');
 	var $deSelected_featureId				= $('#feature-deSelected-featureId');
 	var $deSelected_overlayId				= $('#feature-deSelected-overlayId');
-	$feature_deSelectedId.val("feature_deSelectedId");
-	$feature_deSelectedName.val("feature_deSelectedName");
-	$deSelected_featureId.val("deSelected_featureId");
-	$deSelected_overlayId.val("deSelected_overlayId");
+	$feature_deSelectedId.val("feature_selectedId");
+	$feature_deSelectedName.val("feature_selectedName");
+	$deSelected_featureId.val("plotFeatureId");
+	$deSelected_overlayId.val("plotOverlayId");
 	$button_field.on('click', '#feature_deselected', function(){
 		console.log("feature deSelected");
-		// cmapi_channel = "map.feature.selected";
-		// cmapi_message = {  
-		// 	"deSelectedId": 	$feature_deSelectedId.val(),
-		// 	"deSelectedName": $feature_deSelectedName.val(),
-		// 	"featureId": 		$deSelected_featureId.val(),
-		// 	"overlayId": 		$deSelected_overlayId.val()
-		// };
-		// publishChannel(cmapi_channel, cmapi_message);
+		cmapi_channel = "map.feature.deselected";
+		cmapi_message = {  
+			"deSelectedId": 	$feature_deSelectedId.val(),
+			"deSelectedName": $feature_deSelectedName.val(),
+			"featureId": 		$deSelected_featureId.val(),
+			"overlayId": 		$deSelected_overlayId.val()
+		};
+		publishChannel(cmapi_channel, cmapi_message);
 	});	
 
 	// Update Feature Data
@@ -575,39 +618,34 @@ var $error_panel 		      = $('#error-panel');
 	// Set Center on Overlay
 	var $center_overlay_overlayId				= $('#center-overlay-overlayId');
 	var $center_overlay_zoom						= $('#center-overlay-zoom');
-	$center_overlay_overlayId.val("center_overlay_overlayId");
-	$center_overlay_zoom.val("center_overlay_zoom");
+	$center_overlay_overlayId.val("plotOverlayId");
+	$center_overlay_zoom.val("auto");
 	$button_field.on('click', '#map_center_overlay', function(){
 		console.log("map view center overlay");
-		// cmapi_channel = "map.view.clicked";
-		// cmapi_message = {
-		// 	"lat": 		$map_clicked_lat.val(),
-		// 	"lon": 		$map_clicked_lon.val(),
-		// 	"button": $map_clicked_button.val(),
-		// 	"type": 	$map_clicked_type.val(),
-		// 	"keys": 	$map_clicked_keys.val()
-		// };
-		// publishChannel(cmapi_channel, cmapi_message);
+		cmapi_channel = "map.view.center.overlay";
+		cmapi_message = {
+			"overlayId": 		$center_overlay_overlayId.val(),
+			"zoom": 		$center_overlay_zoom.val()
+		};
+		publishChannel(cmapi_channel, cmapi_message);
 	});
 
 	// Set Center on Feature
 	var $center_feature_overlayId			= $('#center-feature-overlayId');
 	var $center_feature_featureId			= $('#center-feature-featureId');
 	var $center_feature_zoom					= $('#center-feature-zoom');
-	$center_feature_overlayId.val("center_feature_overlayId");
-	$center_feature_featureId.val("center_feature_featureId");
-	$center_feature_zoom.val("center_feature_zoom");
+	$center_feature_overlayId.val("plotOverlayId");
+	$center_feature_featureId.val("plotFeatureId");
+	$center_feature_zoom.val("auto");
 	$button_field.on('click', '#map_center_feature', function(){
 		console.log("map view center feature");
-		// cmapi_channel = "map.view.clicked";
-		// cmapi_message = {
-		// 	"lat": 		$map_clicked_lat.val(),
-		// 	"lon": 		$map_clicked_lon.val(),
-		// 	"button": $map_clicked_button.val(),
-		// 	"type": 	$map_clicked_type.val(),
-		// 	"keys": 	$map_clicked_keys.val()
-		// };
-		// publishChannel(cmapi_channel, cmapi_message);
+		cmapi_channel = "map.view.center.feature";
+		cmapi_message = {
+			"overlayId": 		$center_feature_overlayId.val(),
+			"featureId": 		$center_feature_featureId.val(),
+			"zoom": $center_feature_zoom.val()
+		};
+		publishChannel(cmapi_channel, cmapi_message);
 	});
 
 	// Set Center on Location
@@ -718,7 +756,7 @@ var $error_panel 		      = $('#error-panel');
 	$button_field.on('click', '#map_status_request_selected', function(){
 		console.log("map status request selected");
 		cmapi_channel = "map.status.request";
-		cmapi_message = { "types": ["selected"]       };
+		cmapi_message = { "types": ["selected"] };
 		publishChannel(cmapi_channel, cmapi_message);
 	});
 
@@ -905,7 +943,16 @@ function callbackOnLaunch (resultJson) {
 	OWF.Eventing.subscribe("map.status.selected", function (sender, message) {
 			message = prepareMessage(message);
 			console.log("inside map.status.selected message %O", message);
-	});
+			mapStatus  = "<div><h3>Map Selected Feature Status</h3><ul>";
+			mapStatus += "<li>overlayId: " + message.overlayId + "</li>";
+			mapStatus += "<li>selectedFeatures: " + message.selectedFeatures + "</li>";
+			mapStatus += "<li>sender: " + sender + "</li>";
+			mapStatus += "</ul></div>"
+			$mapStatusDisplay.append(mapStatus);
+			$mapStatusDisplay.css('text-align','left');
+			$mapStatusDisplay.css('padding-left','10%');
+			$('#map-status-display h3').css('padding-left','10%');
+		});
 
 /************************ End Map Status Listener Channels ************************/
 }
