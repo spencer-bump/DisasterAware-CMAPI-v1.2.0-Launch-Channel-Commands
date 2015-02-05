@@ -418,9 +418,9 @@ var feature_data = {
 	var $plotFeatureName					= $('#plot-feature-name');
 	var $plotFeature 							= $('#plot-feature');
 	var $plotFeatureZoom					= $('#plot-feature-zoom');
-	$plotFeatureOverlayId.val("plotOverlayId");
-	$plotFeatureFeatureId.val("plotFeatureId");
-	$plotFeatureName.val("plotFeatureName");
+	$plotFeatureOverlayId.val("myOverlay");
+	$plotFeatureFeatureId.val("myFeature");
+	$plotFeatureName.val("myFeatureName");
 	$plotFeature.val("feature_data");
 	$plotFeatureZoom.val("true");
 	$button_field.on('click', '#plot_feature', function(){
@@ -447,8 +447,8 @@ var feature_data = {
 	var $plotUrlZoom					= $('#plot-url-zoom');
 	// var overlayUrl = "http://plu.sx/kml/1.kml";
 	// initialize input fields
-	$plotUrlOverlayId.val("plotOverlayId");
-	$plotUrlFeatureId.val("plotFeatureId");
+	$plotUrlOverlayId.val("myOverlay");
+	$plotUrlFeatureId.val("myFeature");
 	$plotUrlName.val("myPlotUrl");
 	$plotUrlUrl.val(overlayUrl);
 	$plotUrlZoom.val("true");
@@ -468,8 +468,8 @@ var feature_data = {
 	// Unplot Feature - removes feature
 	var $unplotOverlayId			= $('#unplot-feature-overlayId');
 	var $unplotFeatureId			= $('#unplot-feature-featureId');
-	$unplotOverlayId.val("plotOverlayId");
-	$unplotFeatureId.val("plotFeatureId");
+	$unplotOverlayId.val("myOverlay");
+	$unplotFeatureId.val("myFeature");
 	$button_field.on('click', '#feature-unplot', function(){
 		console.log("unplot feature");
 		cmapi_channel = "map.feature.unplot";
@@ -483,8 +483,8 @@ var feature_data = {
 	// Hide Feature 
 	var $hideOverlayId				= $('#hide-feature-overlayId');
 	var $hideFeatureId				= $('#hide-feature-featureId');
-	$hideOverlayId.val("plotOverlayId");	
-	$hideFeatureId.val("plotFeatureId");
+	$hideOverlayId.val("myOverlay");	
+	$hideFeatureId.val("myFeature");
 	$button_field.on('click', '#feature_hide', function(){
 		console.log("hide feature");
 		cmapi_channel = "map.feature.hide";
@@ -499,8 +499,8 @@ var feature_data = {
 	var $showOverlayId				= $('#show-feature-overlayId');
 	var $showFeatureId				= $('#show-feature-featureId');
 	var $showZoom							= $('#show-feature-zoom');
-	$showOverlayId.val("plotOverlayId");
-	$showFeatureId.val("plotFeatureId");
+	$showOverlayId.val("myOverlay");
+	$showFeatureId.val("myFeature");
 	$showZoom.val("true");
 	$button_field.on('click', '#feature_show', function(){
 		console.log("show feature");
@@ -520,8 +520,8 @@ var feature_data = {
 	var $selected_overlayId				= $('#feature-selected-overlayId');
 	$feature_selectedId.val("feature_selectedId");
 	$feature_selectedName.val("feature_selectedName");
-	$selected_featureId.val("plotFeatureId");
-	$selected_overlayId.val("plotOverlayId");
+	$selected_featureId.val("myFeature");
+	$selected_overlayId.val("myOverlay");
 	$button_field.on('click', '#feature_selected', function(){
 		console.log("feature selected");
 		cmapi_channel = "map.feature.selected";
@@ -541,8 +541,8 @@ var feature_data = {
 	var $deSelected_overlayId				= $('#feature-deSelected-overlayId');
 	$feature_deSelectedId.val("feature_selectedId");
 	$feature_deSelectedName.val("feature_selectedName");
-	$deSelected_featureId.val("plotFeatureId");
-	$deSelected_overlayId.val("plotOverlayId");
+	$deSelected_featureId.val("myFeature");
+	$deSelected_overlayId.val("myOverlay");
 	$button_field.on('click', '#feature_deselected', function(){
 		console.log("feature deSelected");
 		cmapi_channel = "map.feature.deselected";
@@ -560,29 +560,29 @@ var feature_data = {
 	var $feature_updated_featureId				= $('#feature-updated-featureId');
 	var $feature_updated_name							= $('#feature-updated-name');
 	var $feature_updated_newOverlayId			= $('#feature-updated-newOverlayId');
-	$feature_updated_overlayId.val("feature_updated_overlayId");
-	$feature_updated_featureId.val("feature_updated_featureId");
-	$feature_updated_name.val("feature_updated_name");
-	$feature_updated_newOverlayId.val("feature_updated_newOverlayId");
+	$feature_updated_overlayId.val("myOverlay");
+	$feature_updated_featureId.val("myFeature");
+	$feature_updated_name.val("newFeatureName");
+	$feature_updated_newOverlayId.val("newOverlayId");
 	
 	$button_field.on('click', '#feature_updated', function(){
 		console.log("feature updated");
-		// cmapi_channel = "map.feature.updated";
-		// cmapi_message = {  
-		// 	"overlayId": 		$feature_updated_overlayId.val(),
-		// 	"featureId": 		$feature_updated_featureId.val(),
-		// 	"name": 				$feature_updated_name.val(),
-		// 	"newOverlayId": $feature_updated_newOverlayId.val()
-		// };
-		// publishChannel(cmapi_channel, cmapi_message);
+		cmapi_channel = "map.feature.update";
+		cmapi_message = {  
+			"overlayId": 		$feature_updated_overlayId.val(),
+			"featureId": 		$feature_updated_featureId.val(),
+			"name": 				$feature_updated_name.val(),
+			"newOverlayId": $feature_updated_newOverlayId.val()
+		};
+		publishChannel(cmapi_channel, cmapi_message);
 	});	
 
 	// Edit Feature Data
 	var $feature_edit_overlayId				= $('#feature-edit-overlayId');
 	var $feature_edit_featureId				= $('#feature-edit-featureId');
 	var $feature_edit_messageId				= $('#feature-edit-messageId');
-	$feature_edit_overlayId.val("feature_edit_overlayId");
-	$feature_edit_featureId.val("feature_edit_featureId");
+	$feature_edit_overlayId.val("myOverlay");
+	$feature_edit_featureId.val("myFeature");
 	$feature_edit_messageId.val("feature_edit_messageId");
 	
 	$button_field.on('click', '#feature_edit', function(){

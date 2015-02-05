@@ -1,4 +1,8 @@
-	DisasterAware is CMAPI v1.2.0 compliant. Additional channel commands that are specific to the DisasterAware application are also provided and documented below. The files in this repository can be used to create an example widget that demonstrates the CMAPI v1.2.0 compliant commands and the additional DisasterAware specific commands.
+	DisasterAware is CMAPI v1.2.0 compliant. Additional channel commands 
+	that are specific to the DisasterAware application are also provided 
+	and documented below. The files in this repository can be used to create 
+	an example widget that demonstrates the CMAPI v1.2.0 compliant commands 
+	and the additional DisasterAware specific commands.
 
 # list 
 #DisasterAware - CMAPI v1.2.0
@@ -9,7 +13,8 @@
 #### Toggle Layer Filter:["layer.filter.toggle"](#layer_filter_toggle)
 #### Load Bookmark: ["org.pdc.bookmark.load"](#org_pdc_bookmark_load)
 #### Set Animation Time: ["map.view.animation.time"](#map_view_animation_time)
-## [CMAPI v1.2.0 API Core](http://cmapi.org/versions/v1.2.0/index.html)
+## [CMAPI v1.2.0 API Core Specification](http://cmapi.org/versions/v1.2.0/index.html)
+### [DisasterAware Errata to CMAPI v1.2.0 Specification](#Errata)
 <br>
 <hr>
 
@@ -312,3 +317,34 @@ as the time given is within that animation's time window.
 	}
 
 <hr>
+
+#### Errata
+#DisasterAware Errata to CMAPI v1.2.0 Specification
+#map.feature.selected 
+
+###Properties not supported
+<table>
+<tr>
+<th>Properties</th><th>Required</th><th>Type</th><th>Default</th><th>Description</th>
+</tr>
+<tr>
+<td>selectedId</td><td>false</td><td>string</td><td>N/A</td><td>Specify id of sub-feature.</td>
+</tr>
+<tr>
+<td>selectedName</td><td>false</td><td>string</td><td>N/A</td><td>Specify the feature name.</td>
+</tr>
+</table>
+
+#map.feature.deselected
+###Properties not supported
+<table>
+<tr>
+<th>Properties</th><th>Required</th><th>Type</th><th>Default</th><th>Description</th>
+</tr>
+<tr>
+<td>deselectedId</td><td>false</td><td>string</td><td>N/A</td><td>Specify id of sub-feature.</td>
+</tr>
+<tr>
+<td>deselectedName</td><td>false</td><td>string</td><td>N/A</td><td>Specify the feature name.</td>
+</tr>
+</table>
