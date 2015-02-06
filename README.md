@@ -12,7 +12,7 @@
 #### Add Layer Filter: ["layer.filter.add"](#layer_filter_add)
 #### Toggle Layer Filter:["layer.filter.toggle"](#layer_filter_toggle)
 #### Load Bookmark: ["org.pdc.bookmark.load"](#org_pdc_bookmark_load)
-#### Set Animation Time: ["map.view.animation.time"](#map_view_animation_time)
+#### Set Animation Time: ["map.animation.time"](#map_animation_time)
 ## [CMAPI v1.2.0 API Core Specification](http://cmapi.org/versions/v1.2.0/index.html)
 ### [DisasterAware Errata to CMAPI v1.2.0 Specification](#Errata)
 <br>
@@ -275,8 +275,8 @@ Load DisasterAware at specified bookmark location.
 	}
 <hr>
 
-#### map_view_animation_time
-#map.view.animation.time 
+#### map_animation_time
+#map.animation.time 
 ####[back to list](#list)
 ###Purpose:
 
