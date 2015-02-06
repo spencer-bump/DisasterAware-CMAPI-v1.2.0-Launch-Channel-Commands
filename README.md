@@ -281,7 +281,8 @@ Load DisasterAware at specified bookmark location.
 ###Purpose:
 
 To set the time to start or resume the animation. The animation will start at the given time as long 
-as the time given is within that animation's time window.
+as the time given is within that animation's time window. The start time must be specified as a
+UNIX timestamp in milliseconds.
 
 ###Channel:
 
@@ -291,7 +292,7 @@ as the time given is within that animation's time window.
 ###Payload:
 
 	{
-		time: date object
+		time: string
 	}
 
 
@@ -302,7 +303,7 @@ as the time given is within that animation's time window.
 </tr>
 
 <tr>
-<td>time</td><td>true</td><td>date object</td><td>N/A</td><td>Specify the animation start time with the date object.</td>
+<td>time</td><td>true</td><td>string</td><td>N/A</td><td>Specify the animation start time with UNIX timestamp in milliseconds.</td>
 </tr>
 </table>
 
@@ -313,8 +314,10 @@ as the time given is within that animation's time window.
 
 ###Example Payloads
 	{
-		"time": Date()
+		"time": "1414270861000"
 	}
+	
+	would result in a date of: 2014-10-25T21:00:00.000Z
 
 <hr>
 

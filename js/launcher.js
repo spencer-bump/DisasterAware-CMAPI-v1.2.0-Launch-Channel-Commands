@@ -281,18 +281,13 @@ var $error_panel 		      = $('#error-panel');
 
 
 	/*** Animation Code ***/
-	/* 
-		not functional yet
-		TODO:
-			set up an animation sequence
-			add animation to configService
-			create time object within the animation window
-			set message with the time object
-	 */
+	
+	var $startTime 					= $('#start-time');
+	$startTime.val("1414270861000");
 	$button_field.on('click', '#animation_time', function(){ 
 		console.log("animation time");
-		cmapi_channel = "map.view.animation.time";
-		cmapi_message = { "time": "time object" };
+		cmapi_channel = "map.animation.time";
+		cmapi_message = { "time": $startTime.val() };
 		publishChannel(cmapi_channel, cmapi_message);
 	});
 	/*** End Animation Code ***/
