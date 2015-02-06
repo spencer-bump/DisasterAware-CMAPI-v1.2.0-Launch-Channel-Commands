@@ -641,7 +641,7 @@ var feature_data = {
 	// Set Center on Overlay
 	var $center_overlay_overlayId				= $('#center-overlay-overlayId');
 	var $center_overlay_zoom						= $('#center-overlay-zoom');
-	$center_overlay_overlayId.val("plotOverlayId");
+	$center_overlay_overlayId.val("myOverlay");
 	$center_overlay_zoom.val("auto");
 	$button_field.on('click', '#map_center_overlay', function(){
 		console.log("map view center overlay");
@@ -657,8 +657,8 @@ var feature_data = {
 	var $center_feature_overlayId			= $('#center-feature-overlayId');
 	var $center_feature_featureId			= $('#center-feature-featureId');
 	var $center_feature_zoom					= $('#center-feature-zoom');
-	$center_feature_overlayId.val("plotOverlayId");
-	$center_feature_featureId.val("plotFeatureId");
+	$center_feature_overlayId.val("myOverlay");
+	$center_feature_featureId.val("myFeature");
 	$center_feature_zoom.val("auto");
 	$button_field.on('click', '#map_center_feature', function(){
 		console.log("map view center feature");
