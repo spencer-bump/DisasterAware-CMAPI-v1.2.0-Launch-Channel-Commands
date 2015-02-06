@@ -316,7 +316,7 @@ var $error_panel 		      = $('#error-panel');
 	$overlayName.val("myOverlayName");
 	$overlayId.val("myOverlay");
 	$parentId.val("myParentID");
-	$overlayUrl.val(overlayUrl);
+	// $overlayUrl.val(overlayUrl);
 	$button_field.on('click', '#create_overlay', function(){ 
 		console.log("create overlay");
 		overlayUrl = $overlayUrl.val();
@@ -324,8 +324,9 @@ var $error_panel 		      = $('#error-panel');
 		cmapi_message = { 
 						"name":  			$overlayName.val(),
 						"overlayId": 	$overlayId.val(),
-						"parentId":   $parentId.val(),
-						"url": 				$overlayUrl.val()
+						"parentId":   $parentId.val()
+						// ,
+						// "url": 				$overlayUrl.val()
 					};
 		publishChannel(cmapi_channel, cmapi_message);
 	});
@@ -417,14 +418,23 @@ var feature_data = {
 	var $plotFeatureFeatureId			= $('#plot-feature-featureId');
 	var $plotFeatureName					= $('#plot-feature-name');
 	var $plotFeature 							= $('#plot-feature');
-	var $plotFeatureZoom					= $('#plot-feature-zoom');
 	$plotFeatureOverlayId.val("myOverlay");
 	$plotFeatureFeatureId.val("myFeature");
 	$plotFeatureName.val("myFeatureName");
 	$plotFeature.val("feature_data");
-	$plotFeatureZoom.val("true");
+	var plotZoom = true;
+	// change zoom value for Plot Feature - true zoom map to feature
+	$('#plot_feature_true').on('change', function () {
+		plotZoom = true;
+		console.log("plotZoom set to: " + plotZoom);
+	});
+	// change zoom value for Plot Feature - false does not zoom map to feature
+	$('#plot_feature_false').on('change', function () {
+		plotZoom = false;
+		console.log("plotZoom set to: " + plotZoom);
+	});
 	$button_field.on('click', '#plot_feature', function(){
-		console.log("plot feature");
+		console.log("plot feature, zoom: " + plotZoom) ;
 		console.log(feature_data);
 		cmapi_channel = "map.feature.plot";
 		cmapi_message = {  
@@ -433,7 +443,7 @@ var feature_data = {
 			"name": $plotFeatureName.val(),
 			"format": "geojson",
 			"feature": feature_data,
-			"zoom": true
+			"zoom": plotZoom
 		};
 		publishChannel(cmapi_channel, cmapi_message);
 	});
@@ -444,14 +454,23 @@ var feature_data = {
 	var $plotUrlFeatureId			= $('#plot-url-featureId');
 	var $plotUrlName					= $('#plot-url-name');
 	var $plotUrlUrl 					= $('#plot-url-url');
-	var $plotUrlZoom					= $('#plot-url-zoom');
 	// var overlayUrl = "http://plu.sx/kml/1.kml";
 	// initialize input fields
 	$plotUrlOverlayId.val("myOverlay");
-	$plotUrlFeatureId.val("myFeature");
+	$plotUrlFeatureId.val("myURLFeature");
 	$plotUrlName.val("myPlotUrl");
 	$plotUrlUrl.val(overlayUrl);
-	$plotUrlZoom.val("true");
+	var urlZoom = true;
+	// change zoom value for Plot Feature - true zoom map to feature
+	$('#plot_url_true').on('change', function () {
+		urlZoom = true;
+		console.log("urlZoom set to: " + urlZoom);
+	});
+	// change zoom value for Plot Feature - false does not zoom map to feature
+	$('#plot_url_false').on('change', function () {
+		urlZoom = false;
+		console.log("urlZoom set to: " + urlZoom);
+	});
 	$button_field.on('click', '#plot_url', function(){
 		console.log("plot url");
 		cmapi_channel = "map.feature.plot.url";
@@ -460,7 +479,7 @@ var feature_data = {
 			"featureId": $plotUrlFeatureId.val(),
 			"name": $plotUrlName.val(),
 			"url": $plotUrlUrl.val(),
-			"zoom": true
+			"zoom": urlZoom
 		};
 		publishChannel(cmapi_channel, cmapi_message);
 	});
@@ -498,17 +517,26 @@ var feature_data = {
 	// Show Feature 
 	var $showOverlayId				= $('#show-feature-overlayId');
 	var $showFeatureId				= $('#show-feature-featureId');
-	var $showZoom							= $('#show-feature-zoom');
 	$showOverlayId.val("myOverlay");
 	$showFeatureId.val("myFeature");
-	$showZoom.val("true");
+	var showZoom = true;
+	// change zoom value for Plot Feature - true zoom map to feature
+	$('#plot_show_true').on('change', function () {
+		showZoom = true;
+		console.log("showZoom set to: " + showZoom);
+	});
+	// change zoom value for Plot Feature - false does not zoom map to feature
+	$('#plot_show_false').on('change', function () {
+		showZoom = false;
+		console.log("showZoom set to: " + showZoom);
+	});
 	$button_field.on('click', '#feature_show', function(){
 		console.log("show feature");
 		cmapi_channel = "map.feature.show";
 		cmapi_message = {  
 			"overlayId": $showOverlayId.val(),
 			"featureId": $showFeatureId.val(),
-			"zoom": true
+			"zoom": showZoom
 		};
 		publishChannel(cmapi_channel, cmapi_message);
 	});	
@@ -943,9 +971,17 @@ function callbackOnLaunch (resultJson) {
 	OWF.Eventing.subscribe("map.status.selected", function (sender, message) {
 			message = prepareMessage(message);
 			console.log("inside map.status.selected message %O", message);
+			var featuresSelected = "";
+			for (i = 0; i < message.selectedFeatures.length; i++) {
+				if (i < message.selectedFeatures.length -1 ){
+					featuresSelected += message.selectedFeatures[i].featureId + ", ";
+				} else {
+					featuresSelected += message.selectedFeatures[i].featureId;
+				}
+			}
 			mapStatus  = "<div><h3>Map Selected Feature Status</h3><ul>";
 			mapStatus += "<li>overlayId: " + message.overlayId + "</li>";
-			mapStatus += "<li>selectedFeatures: " + message.selectedFeatures + "</li>";
+			mapStatus += "<li>selectedFeatures: " + featuresSelected + "</li>";
 			mapStatus += "<li>sender: " + sender + "</li>";
 			mapStatus += "</ul></div>"
 			$mapStatusDisplay.append(mapStatus);
