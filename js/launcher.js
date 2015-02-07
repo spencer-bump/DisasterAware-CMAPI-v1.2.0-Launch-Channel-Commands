@@ -31,6 +31,7 @@ var $error_panel 		      = $('#error-panel');
  		$('#feature').hide();
  		$('#view').hide();
  		$('#status').hide();
+ 		$('#listeners').hide();
 	};
 
 	// $('#nav').on('click', this, function (evt) {
@@ -62,6 +63,10 @@ var $error_panel 		      = $('#error-panel');
   $('#status-nav').on('click',function() {
   	clearAll();
   	$('#status').show();
+  });
+  $('#listeners-nav').on('click',function() {
+  	clearAll();
+  	$('#listeners').show();
   });
   
 /************************ End Navigation ************************/
@@ -986,6 +991,59 @@ function callbackOnLaunch (resultJson) {
 		});
 
 /************************ End Map Status Listener Channels ************************/
+
+/************************ Start Event Listener Channels ************************/
+
+		/************************ Start Map Overlay Show ************************/
+			OWF.Eventing.subscribe("jpeo.map.overlay.show", function (sender, message) {
+				console.log("inside jpeo.map.overlay.show subscribe - message %O", message);
+				message = prepareMessage(message);
+				$('#listen-overlay-show-layerId').empty().html("layerId: " + message.layerId);
+				$('#listen-overlay-show-layerDescription').empty().html("layerDescription: " + message.layerDescription);
+				$('#listen-overlay-show-layerState').empty().html("layerState: " + message.layerState);
+				$('#listen-overlay-show-sender').empty().html("sender: " + sender);
+			});
+	   /************************ End Map Overlay Show ************************/
+
+		/************************ Start Map Overlay Hide ************************/
+			OWF.Eventing.subscribe("jpeo.map.overlay.hide", function (sender, message) {
+				console.log("inside jpeo.map.overlay.hide subscribe - message %O", message);
+				message = prepareMessage(message);
+        $('#listen-overlay-hide-layerId').empty().html("layerId: " + message.layerId);
+				$('#listen-overlay-hide-layerDescription').empty().html("layerDescription: " + message.layerDescription);
+				$('#listen-overlay-hide-layerState').empty().html("layerState: " + message.layerState);
+				$('#listen-overlay-hide-sender').empty().html("sender: " + sender);
+			});
+	   /************************ End Map Overlay Hide ************************/
+
+ 		/************************ Start Map Center on Hazard ************************/
+			OWF.Eventing.subscribe("jpeo.map.view.center.hazard", function (sender, message) {
+				console.log("inside jpeo.map.view.center.hazard subscribe - message %O", message);
+				message = prepareMessage(message);
+				$('#listen-center-on-hazard-hazardId').empty().html("hazardId: " + message.hazardId);
+				$('#listen-center-on-hazard-zoom').empty().html("zoom: " + message.zoom);
+				$('#listen-center-on-hazard-lon').empty().html("location.lon: " + message.location.lon);
+				$('#listen-center-on-hazard-lat').empty().html("location.lat: " + message.location.lat);
+				$('#listen-center-on-hazard-sender').empty().html("sender: " + sender);
+			});
+	   /************************ End Map Center on Hazard ************************/
+
+ 		// /************************ Start Map Center on Bounds ************************/
+			OWF.Eventing.subscribe("map.view.center.bounds", function (sender, message) {
+				console.log("inside map.view.center.bounds subscribe - message %O", message);
+				message = prepareMessage(message);
+				$('#listen-center-on-bounds-southWest-lat').empty().html("southWest.lat: " + message.southWest.lat);
+				$('#listen-center-on-bounds-southWest-lon').empty().html("southWest.lon: " + message.southWest.lon);
+				$('#listen-center-on-bounds-northEast-lat').empty().html("northEast.lat: " + message.northEast.lat);
+				$('#listen-center-on-bounds-northEast-lon').empty().html("northEast.lon: " + message.northEast.lon);
+				$('#listen-center-on-bounds-zoom').empty().html("zoom: " + message.zoom);
+				$('#listen-center-on-bounds-sender').empty().html("sender: " + sender);
+			});
+	   /************************ End Map Center on Bounds ************************/
+
+/************************ End Event Listener Channels ************************/
+
+
 }
 
 function logInit() {
@@ -1025,6 +1083,7 @@ function initPage() {
 	$('#feature').hide();
 	$('#view').hide();
 	$('#status').hide();
+	$('#listeners').hide();
   $isRunning.empty().append('Running in OWF: ' + (OWF.Util.isRunningInOWF()?"Yes":"No"));
 }
 

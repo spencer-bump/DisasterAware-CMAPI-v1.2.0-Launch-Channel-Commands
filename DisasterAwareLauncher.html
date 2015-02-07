@@ -11,6 +11,7 @@
         <li class="nav-item" id="feature-nav">Feature</li>
         <li class="nav-item" id="view-nav">Map View</li>
         <li class="nav-item" id="status-nav">Status</li>
+        <li class="nav-item" id="listeners-nav">Listeners</li>
         <li></li>
       </ul>
     </div>
@@ -601,6 +602,64 @@
       </div>
 
     </div>
+
+    <div id="listeners">
+      <h2>Map Channel Listeners</h2>
+        <div class="area-border">
+          <div class="listener">
+            <div>Add Layer</div>
+            <div class="channel">Channel: "jpeo.map.overlay.show"</div>
+            <ul>
+              <li id="listen-overlay-show-layerId">layerId: </li>
+              <li id="listen-overlay-show-layerDescription">layerDescription: </li>
+              <li id="listen-overlay-show-layerState">layerState: </li>
+              <li id="listen-overlay-show-sender">sender: </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="area-border">
+          <div class="listener">
+            <div>Hide Layer</div>
+            <div class="channel">Channel: "jpeo.map.overlay.hide"</div>
+            <ul>
+              <li id="listen-overlay-hide-layerId">layerId: </li>
+              <li id="listen-overlay-hide-layerDescription">layerDescription: </li>
+              <li id="listen-overlay-hide-layerState">layerState: </li>
+              <li id="listen-overlay-hide-sender">sender: </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="area-border">
+          <div class="listener">
+            <div>Map Center on Hazard</div>
+            <div class="channel">Channel: "jpeo.view.center.hazard"</div>
+            <ul>
+              <li id="listen-center-on-hazard-hazardId">hazardId: </li>
+              <li id="listen-center-on-hazard-zoom">zoom: </li>
+              <li id="listen-center-on-hazard-lon">location.lon: </li>
+              <li id="listen-center-on-hazard-lat">location.lat: </li>
+              <li id="listen-center-on-hazard-sender">sender: </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="area-border">
+          <div class="listener">
+            <div>Map Center on Bounds</div>
+            <div class="channel">Channel: "map.view.center.bounds"</div>
+            <ul>
+              <li id="listen-center-on-bounds-southWest-lat">southWest.lat: </li>
+              <li id="listen-center-on-bounds-southWest-lon">southWest.lon: </li>
+              <li id="listen-center-on-bounds-northEast-lat">northEast.lat: </li>
+              <li id="listen-center-on-bounds-northEast-lon">northEast.lon: </li>
+              <li id="listen-center-on-bounds-zoom">zoom: </li>
+              <li id="listen-center-on-bounds-sender">sender: </li>
+            </ul>
+          </div>
+        </div>
+      </div>
     
     <div id="message-panel" class="message-panel" >
       <h3>Message Panel</h3>
