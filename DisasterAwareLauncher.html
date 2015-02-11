@@ -604,7 +604,9 @@
     </div>
 
     <div id="listeners">
+
       <h2>Map Channel Listeners</h2>
+      <button class="button-large" id="clear-listeners" >Clear Listeners</button>
         <div class="area-border">
           <div class="listener">
             <div>Add Layer</div>
@@ -647,6 +649,19 @@
 
         <div class="area-border">
           <div class="listener">
+            <div>Map Center on Location</div>
+            <div class="channel">Channel: "map.view.center.location"</div>
+            <ul>
+              <li id="listen-center-on-location-lat">location.lat: </li>
+              <li id="listen-center-on-location-lon">location.lon: </li>
+              <li id="listen-center-on-location-zoom">zoom: </li>
+              <li id="listen-center-on-location-sender">sender: </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="area-border">
+          <div class="listener">
             <div>Map Center on Bounds</div>
             <div class="channel">Channel: "map.view.center.bounds"</div>
             <ul>
@@ -675,6 +690,7 @@
       <div id="map-error">
         <div>
           <h3>Map Error</h3>
+          <button class="button-large" id="clear-map-errors" >Clear Map Errors</button>
           <div class='channel'>Channel: "map.error"</div>
           <ul>
             <li id="error-sender">sender: </li>

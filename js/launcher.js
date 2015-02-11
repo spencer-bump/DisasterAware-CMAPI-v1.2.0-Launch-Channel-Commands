@@ -892,6 +892,13 @@ function callbackOnLaunch (resultJson) {
 			$('#error-message').html("message: "+ message.msg);
 			$('#error-error').html("error: "+ message.error);
 		});
+
+		$('#map-error').on('click', '#clear-map-errors', function (){
+			$('#error-sender').html("sender: ");
+			$('#error-type').html("type: ");
+			$('#error-message').html("message: ");
+			$('#error-error').html("error: ");
+		});
 		/************************ End Map Error ************************/
 
 
@@ -994,6 +1001,32 @@ function callbackOnLaunch (resultJson) {
 
 /************************ Start Event Listener Channels ************************/
 
+		$('#listeners').on('click', '#clear-listeners', function () {
+			$('#listen-overlay-show-layerId').empty().html("layerId: " );
+				$('#listen-overlay-show-layerDescription').empty().html("layerDescription: ");
+				$('#listen-overlay-show-layerState').empty().html("layerState: ");
+				$('#listen-overlay-show-sender').empty().html("sender: ");
+				$('#listen-overlay-hide-layerId').empty().html("layerId: " );
+				$('#listen-overlay-hide-layerDescription').empty().html("layerDescription: " );
+				$('#listen-overlay-hide-layerState').empty().html("layerState: " );
+				$('#listen-overlay-hide-sender').empty().html("sender: " );
+				$('#listen-center-on-hazard-hazardId').empty().html("hazardId: " );
+				$('#listen-center-on-hazard-zoom').empty().html("zoom: " );
+				$('#listen-center-on-hazard-lon').empty().html("location.lon: " );
+				$('#listen-center-on-hazard-lat').empty().html("location.lat: " );
+				$('#listen-center-on-hazard-sender').empty().html("sender: " );
+				$('#listen-center-on-location-lat').empty().html("location.lat: " );
+				$('#listen-center-on-location-lon').empty().html("location.lon: " );
+				$('#listen-center-on-location-zoom').empty().html("zoom: " );
+				$('#listen-center-on-location-sender').empty().html("sender: " );
+				$('#listen-center-on-bounds-southWest-lat').empty().html("southWest.lat: " );
+				$('#listen-center-on-bounds-southWest-lon').empty().html("southWest.lon: " );
+				$('#listen-center-on-bounds-northEast-lat').empty().html("northEast.lat: " );
+				$('#listen-center-on-bounds-northEast-lon').empty().html("northEast.lon: " );
+				$('#listen-center-on-bounds-zoom').empty().html("zoom: " );
+				$('#listen-center-on-bounds-sender').empty().html("sender: ");
+		});
+
 		/************************ Start Map Overlay Show ************************/
 			OWF.Eventing.subscribe("jpeo.map.overlay.show", function (sender, message) {
 				console.log("inside jpeo.map.overlay.show subscribe - message %O", message);
@@ -1027,6 +1060,17 @@ function callbackOnLaunch (resultJson) {
 				$('#listen-center-on-hazard-sender').empty().html("sender: " + sender);
 			});
 	   /************************ End Map Center on Hazard ************************/
+
+	   // /************************ Start Map Center on Location ************************/
+			OWF.Eventing.subscribe("map.view.center.location", function (sender, message) {
+				console.log("inside map.view.center.location subscribe - message %O", message);
+				message = prepareMessage(message);
+				$('#listen-center-on-location-lat').empty().html("location.lat: " + message.location.lat);
+				$('#listen-center-on-location-lon').empty().html("location.lon: " + message.location.lon);
+				$('#listen-center-on-location-zoom').empty().html("zoom: " + message.zoom);
+				$('#listen-center-on-location-sender').empty().html("sender: " + sender);
+			});
+	   /************************ End Map Center on Bounds ************************/
 
  		// /************************ Start Map Center on Bounds ************************/
 			OWF.Eventing.subscribe("map.view.center.bounds", function (sender, message) {
