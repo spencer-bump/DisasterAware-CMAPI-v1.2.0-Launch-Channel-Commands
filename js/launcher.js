@@ -63,80 +63,7 @@ var $error_panel 		      = $('#error-panel');
   
 /************************ End Navigation ************************/
 
-/************************ Start DisasterAware Launch Code ************************/
-	// launch variables
-	var widgetToLaunch;
-	var data = {};
-	var cmapi_channel;
-	var cmapi_message;
-	var bookmarkLaunchType = "";
-	// default launch bookmark 
-	var bookmarkIdPayload = { "bookmarkId": 9853 };
-	var bookmarkUrlPayload = { "bookmarkUrl": "http://local.msmv.pdc.org:8080/msmvng/msmvng/?bookmark=9853" };
-	var $widget_name					= $('#widget-name');
-	var $bookmarkId 		      = $('#bookmarkId');
-	var $bookmarkUrl 		      = $('#bookmarkUrl');
-	/**   Launch Code  **/
-	// load bookmark launch input fields with default values
-	$bookmarkId.val(bookmarkIdPayload.bookmarkId);
-	$bookmarkUrl.val(bookmarkUrlPayload.bookmarkUrl);
-	$widget_name.val("MSMV");
 
-	// radio button to select launch type: bookmarkId or bookmarkUrl
-	$("input[type='radio'][name='launch-type']").on('checked', function() {
-		console.log("radio button change was detected");
-	});
-
-	// initial data value for launch channel and payload - default setting
-	data = {
-		  channel: "org.pdc.bookmark.load",
-		  payload: bookmarkIdPayload
-		};
-
-	// change launch payload to use bookmarkId with radio button
-	$('#launchWithId').on('change', function () {
-		$('#launch-widget').text("Launch " + $widget_name.val() + " by ID" );
-		data.payload = {};
-		data.payload[$(this).val()] = $('#bookmarkId').val();
-	});
-
-	// change launch payload to use bookmarkUrl with radio button
-	$('#launchWithUrl').on('change', function () {
-		$('#launch-widget').text("Launch " + $widget_name.val() + " by URL");
-		data.payload = {};
-		data.payload[$(this).val()] = $('#bookmarkUrl').val();
-	});
-
-	// change launch payload if input field changes after radio button selected
-	$('#bookmarkId').on('change', function () {
-		data.payload ={};
-		data.payload['bookmarkId'] = $(this).val();
-	});
-
-	// change launch payload if input field changes after radio button selected
-	$('#bookmarkUrl').on('change', function () {
-		data.payload ={};
-		data.payload['bookmarkUrl'] = $(this).val();
-	});
-
-	$widget_name.on('keyup', function () {
-		var isID = new RegExp("ID");
-		if (isID.test($('#launch-widget').text()) ){
-			$('#launch-widget').text("Launch " + $widget_name.val() + " by ID" );
-		} else {
-			$('#launch-widget').text("Launch " + $widget_name.val() + " by URL");
-		}
-	});
-
-	// Lookup GUID for the widget whose name is set in the widget name text input field
-	// launch the widget if successful
-	$button_field.on('click', '#launch-widget', function(){
-		widgetToLaunch = $widget_name.val(); // set to "MSMV" by default
-		$widgetPayload.empty().append("Payload: " + JSON.stringify(data.payload));
-		lookupSecondTracker();
-	});
-
-/************************ End DisasterAware Launch Code ************************/
 
 
 /************************ Start Publish Channel Function ************************/
@@ -769,8 +696,83 @@ var feature_data = {
 
 /************************ End Map Status Channels - Request Status ************************/
 
+/************************ Start DisasterAware Launch Code ************************/
+	// launch variables
+	var widgetToLaunch;
+	var data = {};
+	var cmapi_channel;
+	var cmapi_message;
+	var bookmarkLaunchType = "";
+	// default launch bookmark 
+	var bookmarkIdPayload = { "bookmarkId": 9853 };
+	var bookmarkUrlPayload = { "bookmarkUrl": "http://local.msmv.pdc.org:8080/msmvng/msmvng/?bookmark=9853" };
+	var $widget_name					= $('#widget-name');
+	var $bookmarkId 		      = $('#bookmarkId');
+	var $bookmarkUrl 		      = $('#bookmarkUrl');
+	/**   Launch Code  **/
+	// load bookmark launch input fields with default values
+	$bookmarkId.val(bookmarkIdPayload.bookmarkId);
+	$bookmarkUrl.val(bookmarkUrlPayload.bookmarkUrl);
+	$widget_name.val("MSMV");
 
-/************************ Start Launch Related Functions & Status Display  ************************/
+	// radio button to select launch type: bookmarkId or bookmarkUrl
+	$("input[type='radio'][name='launch-type']").on('checked', function() {
+		console.log("radio button change was detected");
+	});
+
+	// initial data value for launch channel and payload - default setting
+	data = {
+		  channel: "org.pdc.bookmark.load",
+		  payload: bookmarkIdPayload
+		};
+
+	// change launch payload to use bookmarkId with radio button
+	$('#launchWithId').on('change', function () {
+		$('#launch-widget').text("Launch " + $widget_name.val() + " by ID" );
+		data.payload = {};
+		data.payload[$(this).val()] = $('#bookmarkId').val();
+	});
+
+	// change launch payload to use bookmarkUrl with radio button
+	$('#launchWithUrl').on('change', function () {
+		$('#launch-widget').text("Launch " + $widget_name.val() + " by URL");
+		data.payload = {};
+		data.payload[$(this).val()] = $('#bookmarkUrl').val();
+	});
+
+	// change launch payload if input field changes after radio button selected
+	$('#bookmarkId').on('change', function () {
+		data.payload ={};
+		data.payload['bookmarkId'] = $(this).val();
+	});
+
+	// change launch payload if input field changes after radio button selected
+	$('#bookmarkUrl').on('change', function () {
+		data.payload ={};
+		data.payload['bookmarkUrl'] = $(this).val();
+	});
+
+	$widget_name.on('keyup', function () {
+		var isID = new RegExp("ID");
+		if (isID.test($('#launch-widget').text()) ){
+			$('#launch-widget').text("Launch " + $widget_name.val() + " by ID" );
+		} else {
+			$('#launch-widget').text("Launch " + $widget_name.val() + " by URL");
+		}
+	});
+
+	// Lookup GUID for the widget whose name is set in the widget name text input field
+	// launch the widget if successful
+	$button_field.on('click', '#launch-widget', function(){
+		widgetToLaunch = $widget_name.val(); // set to "MSMV" by default
+		$widgetPayload.empty().append("Payload: " + JSON.stringify(data.payload));
+		lookupSecondTracker();
+	});
+
+/************************ End DisasterAware Launch Code ************************/
+
+
+/************************ Start Launch Related Functions ************************/
 
 // Search for the GUID corresponding to the 'widgetToLaunch' name
 // if successful call the launchSecondTracker function
@@ -812,21 +814,11 @@ var launchSecondTracker = function  (findResultsResponseJSON) {
    }
 }
 
-var prepareMessage = function (message) {
-  if (typeof message === 'string') {
-      message = JSON.parse(message);
-  }
-  console.log("inside widget: JSON.parse(message): ");
-  console.log(message);
-  return message;
-};
-
 // Display an error when a widget cannot be located
 var failWidgetLookupError= function (widgetLookupErrorMessage) {
 	errorMessage = "Launch Failure: [" + widgetToLaunch +"]: " + widgetLookupErrorMessage;
 	$error_panel.empty().append(errorMessage);
 }
-
 
 // Widget Launching callback function indicating success or failure
 function callbackOnLaunch (resultJson) {
@@ -851,11 +843,23 @@ function callbackOnLaunch (resultJson) {
    $widgetPayload.empty().append("Payload: " + JSON.stringify(data.payload));
    $widgetChannel.empty().append(widgetChannel);
 	 $launchResults.empty().append(launchResultsMessage);
-
 	
 }
 
-function startListeners() {
+/************************ End Launch Related Functions ************************/
+
+/************************ Start Initialize Functions  ************************/
+
+	var prepareMessage = function (message) {
+	  if (typeof message === 'string') {
+	      message = JSON.parse(message);
+	  }
+	  console.log("inside widget: JSON.parse(message): ");
+	  console.log(message);
+	  return message;
+	};
+
+	function startListeners() {
 
 		/************************ Start Map Error ************************/
 		var mapError 		= "";
@@ -1025,9 +1029,9 @@ function startListeners() {
 				console.log("inside widget jpeo.map.view.center.hazard subscribe - message %O", message);
 				message = prepareMessage(message);
 				$('#listen-center-on-hazard-hazardId').empty().html("hazardId: " + message.hazardId);
-				$('#listen-center-on-hazard-zoom').empty().html("zoom: " + message.zoom);
-				$('#listen-center-on-hazard-lon').empty().html("location.lon: " + message.location.lon);
 				$('#listen-center-on-hazard-lat').empty().html("location.lat: " + message.location.lat);
+				$('#listen-center-on-hazard-lon').empty().html("location.lon: " + message.location.lon);
+				$('#listen-center-on-hazard-zoom').empty().html("zoom: " + message.zoom);
 				$('#listen-center-on-hazard-sender').empty().html("sender: " + sender);
 			});
 	   /************************ End Map Center on Hazard ************************/
@@ -1112,7 +1116,8 @@ owfdojo.addOnLoad(function() {
   OWF.ready(initPage);
 });
 
-/************************ End Launch Related Functions & Status Display  ************************/
+/************************ End Initialize Functions  ************************/
+
 
 
 
