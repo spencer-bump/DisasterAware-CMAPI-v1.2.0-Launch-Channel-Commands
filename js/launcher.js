@@ -21,8 +21,6 @@ var $widgetChannel 	      = $('#widgetChannel');
 var $launchResults 	      = $('#launchResults');
 var $error_panel 		      = $('#error-panel');
 
-
-
 /************************ Start Navigation ************************/
 	var clearAll = function () {
 		$('#launch').hide();
@@ -33,12 +31,6 @@ var $error_panel 		      = $('#error-panel');
  		$('#status').hide();
  		$('#listeners').hide();
 	};
-
-	// $('#nav').on('click', this, function (evt) {
-	// 	clearAll();
-	// 	console.log(evt);
-	// 	$(this).show();
-	// });
 	
   $('#launch-nav').on('click',function() {
   	clearAll();
@@ -78,9 +70,6 @@ var $error_panel 		      = $('#error-panel');
 	var cmapi_channel;
 	var cmapi_message;
 	var bookmarkLaunchType = "";
-	// widget names used for the GUID lookup
-	var widgetOne = "MSMV";
-	var widgetTwo = "MSMV Trunk";
 	// default launch bookmark 
 	var bookmarkIdPayload = { "bookmarkId": 9853 };
 	var bookmarkUrlPayload = { "bookmarkUrl": "http://local.msmv.pdc.org:8080/msmvng/msmvng/?bookmark=9853" };
@@ -139,7 +128,7 @@ var $error_panel 		      = $('#error-panel');
 		}
 	});
 
-	// Lookup GUID for the widget whose name is set in the 'widgetOne' variable
+	// Lookup GUID for the widget whose name is set in the widget name text input field
 	// launch the widget if successful
 	$button_field.on('click', '#launch-widget', function(){
 		widgetToLaunch = $widget_name.val(); // set to "MSMV" by default
@@ -147,7 +136,6 @@ var $error_panel 		      = $('#error-panel');
 		lookupSecondTracker();
 	});
 
-	/**   End Launch Code  **/
 /************************ End DisasterAware Launch Code ************************/
 
 
@@ -188,10 +176,8 @@ var $error_panel 		      = $('#error-panel');
 	      locale_selected = $( this ).val();
 	      locale_button_text = $( this ).text();
 	    });
-	    // console.log(locale_button_text+ ": "+ locale_selected);
 	    $('#change_locale').text("Translate To "+ locale_button_text);
 	    var str = $('#change_locale').text();
-	    // console.log(str);
 	  })
 	  .change();
 
@@ -311,12 +297,9 @@ var $error_panel 		      = $('#error-panel');
 	var $overlayUrl 		      = $('#overlayUrl');
 
 	// default overlay url
-	var overlayUrl = "http://plu.sx/kml/1.kml";
-	// var overlayUrl = "plu.sx/kml/1.kml";
 	$overlayName.val("myOverlayName");
 	$overlayId.val("myOverlay");
 	$parentId.val("myParentID");
-	// $overlayUrl.val(overlayUrl);
 	$button_field.on('click', '#create_overlay', function(){ 
 		console.log("create overlay");
 		overlayUrl = $overlayUrl.val();
@@ -325,8 +308,6 @@ var $error_panel 		      = $('#error-panel');
 						"name":  			$overlayName.val(),
 						"overlayId": 	$overlayId.val(),
 						"parentId":   $parentId.val()
-						// ,
-						// "url": 				$overlayUrl.val()
 					};
 		publishChannel(cmapi_channel, cmapi_message);
 	});
@@ -449,17 +430,14 @@ var feature_data = {
 	});
 
 	// Plot URL Feature - send a URL
-	// feature input field variables
 	var $plotUrlOverlayId			= $('#plot-url-overlayId');
 	var $plotUrlFeatureId			= $('#plot-url-featureId');
 	var $plotUrlName					= $('#plot-url-name');
 	var $plotUrlUrl 					= $('#plot-url-url');
-	// var overlayUrl = "http://plu.sx/kml/1.kml";
-	// initialize input fields
 	$plotUrlOverlayId.val("myOverlay");
 	$plotUrlFeatureId.val("myURLFeature");
 	$plotUrlName.val("myPlotUrl");
-	$plotUrlUrl.val(overlayUrl);
+	$plotUrlUrl.val("http://plu.sx/kml/1.kml");
 	var urlZoom = true;
 	// change zoom value for Plot Feature - true zoom map to feature
 	$('#plot_url_true').on('change', function () {
@@ -628,9 +606,6 @@ var feature_data = {
 
 
 /************************ Start Map View Channels ************************/
-	// map input field variables
-	
-	
 	// initialize map input fields, default location is Oklahoma to view filter toggling
 	
 	// Set Map Zoom
@@ -694,9 +669,6 @@ var feature_data = {
 	});
 
 	//Set Center on Bounds
-	// Washington state
-	// southWest: lat: 45.219775279334364, lon: -130.3802490234375 
-	//northEast: lat: 50.67296494038485, lon: -116.4385986328125 
 	var $bounds_sw_lat				= $('#bounds-sw-lat');
 	var $bounds_sw_lon				= $('#bounds-sw-lon');
 	var $bounds_ne_lat				= $('#bounds-ne-lat');
@@ -840,11 +812,21 @@ var launchSecondTracker = function  (findResultsResponseJSON) {
    }
 }
 
+var prepareMessage = function (message) {
+  if (typeof message === 'string') {
+      message = JSON.parse(message);
+  }
+  console.log("inside widget: JSON.parse(message): ");
+  console.log(message);
+  return message;
+};
+
 // Display an error when a widget cannot be located
 var failWidgetLookupError= function (widgetLookupErrorMessage) {
 	errorMessage = "Launch Failure: [" + widgetToLaunch +"]: " + widgetLookupErrorMessage;
 	$error_panel.empty().append(errorMessage);
 }
+
 
 // Widget Launching callback function indicating success or failure
 function callbackOnLaunch (resultJson) {
@@ -870,22 +852,17 @@ function callbackOnLaunch (resultJson) {
    $widgetChannel.empty().append(widgetChannel);
 	 $launchResults.empty().append(launchResultsMessage);
 
+	
+}
 
-		var prepareMessage = function (message) {
-	    if (typeof message === 'string') {
-	        message = JSON.parse(message);
-	    }
-	    console.log("here is the payload message prepared from JSON: ");
-	    console.log(message);
-	    return message;
-		};
+function startListeners() {
 
 		/************************ Start Map Error ************************/
 		var mapError 		= "";
 		var $mapErrorDisplay = $('#map-error');
 
 		OWF.Eventing.subscribe("map.error", function (sender, message) {
-			console.log("inside map.error subscribe - message %O", message);
+			console.log("inside widget map.error subscribe - message %O", message);
 			message = prepareMessage(message);
 			$('#error-sender').html("sender: "+ message.sender);
 			$('#error-type').html("type: "+ message.type);
@@ -901,14 +878,10 @@ function callbackOnLaunch (resultJson) {
 		});
 		/************************ End Map Error ************************/
 
-
-
-	  /************************ Start Map View Clicked ************************/
-	  var viewClicked 		= "";
-		var $viewClickedDisplay = $('#view-clicked-display');
+		/************************ Start Map View Clicked ************************/
 
 		OWF.Eventing.subscribe("map.view.clicked", function (sender, message) {
-			console.log("inside map.view.clicked subscribe - message %O", message);
+			console.log("inside widget map.view.clicked subscribe - message %O", message);
 			message = prepareMessage(message);
 			$('#clicked-lat').html("lat: " + message.lat);
 			$('#clicked-lon').html("lon: " + message.lon);
@@ -920,14 +893,12 @@ function callbackOnLaunch (resultJson) {
 
 	   /************************ End Map View Clicked ************************/
 
-	 
-
-	 /************************ Start Map Status Listener Channels ************************/
+	    /************************ Start Map Status Listener Channels ************************/
 	var mapStatus 		= "";
 	var $mapStatusDisplay = $('#map-status-display');
 
 	OWF.Eventing.subscribe("map.status.view", function (sender, message) {
-		console.log("inside map.status.view subscribe - message %O", message);
+		console.log("inside widget map.status.view subscribe - message %O", message);
 		message = prepareMessage(message);
 		mapStatus  = "<div><h3>Map View Status</h3><ul>";
 		mapStatus += "<li>bounds.southWest.lat: " + message.bounds.southWest.lat + "</li>";
@@ -961,7 +932,7 @@ function callbackOnLaunch (resultJson) {
 	});
 
 	OWF.Eventing.subscribe("map.status.about", function (sender, message) {
-		console.log("inside map.status.about subscribe - message %O", message);
+		console.log("inside widget map.status.about subscribe - message %O", message);
 		message = prepareMessage(message);
 		mapStatus  = "<div><h3>Map About Status</h3><ul>";
 		mapStatus += "<li>version: " + message.version + "</li>";
@@ -977,7 +948,7 @@ function callbackOnLaunch (resultJson) {
 
 	OWF.Eventing.subscribe("map.status.selected", function (sender, message) {
 			message = prepareMessage(message);
-			console.log("inside map.status.selected message %O", message);
+			console.log("inside widget map.status.selected message %O", message);
 			var featuresSelected = "";
 			for (i = 0; i < message.selectedFeatures.length; i++) {
 				if (i < message.selectedFeatures.length -1 ){
@@ -1029,7 +1000,7 @@ function callbackOnLaunch (resultJson) {
 
 		/************************ Start Map Overlay Show ************************/
 			OWF.Eventing.subscribe("jpeo.map.overlay.show", function (sender, message) {
-				console.log("inside jpeo.map.overlay.show subscribe - message %O", message);
+				console.log("inside widget jpeo.map.overlay.show subscribe - message %O", message);
 				message = prepareMessage(message);
 				$('#listen-overlay-show-layerId').empty().html("layerId: " + message.layerId);
 				$('#listen-overlay-show-layerDescription').empty().html("layerDescription: " + message.layerDescription);
@@ -1040,7 +1011,7 @@ function callbackOnLaunch (resultJson) {
 
 		/************************ Start Map Overlay Hide ************************/
 			OWF.Eventing.subscribe("jpeo.map.overlay.hide", function (sender, message) {
-				console.log("inside jpeo.map.overlay.hide subscribe - message %O", message);
+				console.log("inside widget jpeo.map.overlay.hide subscribe - message %O", message);
 				message = prepareMessage(message);
         $('#listen-overlay-hide-layerId').empty().html("layerId: " + message.layerId);
 				$('#listen-overlay-hide-layerDescription').empty().html("layerDescription: " + message.layerDescription);
@@ -1051,7 +1022,7 @@ function callbackOnLaunch (resultJson) {
 
  		/************************ Start Map Center on Hazard ************************/
 			OWF.Eventing.subscribe("jpeo.map.view.center.hazard", function (sender, message) {
-				console.log("inside jpeo.map.view.center.hazard subscribe - message %O", message);
+				console.log("inside widget jpeo.map.view.center.hazard subscribe - message %O", message);
 				message = prepareMessage(message);
 				$('#listen-center-on-hazard-hazardId').empty().html("hazardId: " + message.hazardId);
 				$('#listen-center-on-hazard-zoom').empty().html("zoom: " + message.zoom);
@@ -1063,7 +1034,7 @@ function callbackOnLaunch (resultJson) {
 
 	   // /************************ Start Map Center on Location ************************/
 			OWF.Eventing.subscribe("map.view.center.location", function (sender, message) {
-				console.log("inside map.view.center.location subscribe - message %O", message);
+				console.log("inside widget map.view.center.location subscribe - message %O", message);
 				message = prepareMessage(message);
 				$('#listen-center-on-location-lat').empty().html("location.lat: " + message.location.lat);
 				$('#listen-center-on-location-lon').empty().html("location.lon: " + message.location.lon);
@@ -1074,7 +1045,7 @@ function callbackOnLaunch (resultJson) {
 
  		// /************************ Start Map Center on Bounds ************************/
 			OWF.Eventing.subscribe("map.view.center.bounds", function (sender, message) {
-				console.log("inside map.view.center.bounds subscribe - message %O", message);
+				console.log("inside widget map.view.center.bounds subscribe - message %O", message);
 				message = prepareMessage(message);
 				$('#listen-center-on-bounds-southWest-lat').empty().html("southWest.lat: " + message.southWest.lat);
 				$('#listen-center-on-bounds-southWest-lon').empty().html("southWest.lon: " + message.southWest.lon);
@@ -1087,8 +1058,18 @@ function callbackOnLaunch (resultJson) {
 
 /************************ End Event Listener Channels ************************/
 
+} // end startListeners
 
+
+function setupNav() {
+	$('#disaster').hide();
+	$('#overlay').hide();
+	$('#feature').hide();
+	$('#view').hide();
+	$('#status').hide();
+	$('#listeners').hide();
 }
+
 
 function logInit() {
 
@@ -1122,12 +1103,8 @@ function onGetFailure(error,status) {
 function initPage() { 
  	logInit();
  	initPrefs();
- 	$('#disaster').hide();
-	$('#overlay').hide();
-	$('#feature').hide();
-	$('#view').hide();
-	$('#status').hide();
-	$('#listeners').hide();
+ 	startListeners();
+ 	setupNav();
   $isRunning.empty().append('Running in OWF: ' + (OWF.Util.isRunningInOWF()?"Yes":"No"));
 }
 
@@ -1136,10 +1113,6 @@ owfdojo.addOnLoad(function() {
 });
 
 /************************ End Launch Related Functions & Status Display  ************************/
-
-
-
-
 
 
 
