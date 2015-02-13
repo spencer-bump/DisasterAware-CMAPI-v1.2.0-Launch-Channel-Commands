@@ -7,12 +7,20 @@
 # list 
 #DisasterAware - CMAPI v1.2.0
 #### DisasterAware Launch with Payload: [launch](#launch) 
-## DisasterAware Channels
+## DisasterAware Submit Channels
 #### Set Language Translation: ["gbsp.localeChannel"](#gbsp_locale_channel)
 #### Add Layer Filter: ["layer.filter.add"](#layer_filter_add)
 #### Toggle Layer Filter:["layer.filter.toggle"](#layer_filter_toggle)
 #### Load Bookmark: ["org.pdc.bookmark.load"](#org_pdc_bookmark_load)
 #### Set Animation Time: ["map.animation.time"](#map_animation_time)
+## DisasterAware Publish Channels
+#### Set Language Translation: ["jpeo.map.overlay.show"](#jpeo_map_overlay_show)
+#### Add Layer Filter: ["jpeo.map.overlay.hide"](#jpeo_map_overlay_hide)
+#### Toggle Layer Filter:["jpeo.map.center.hazard"](#jpeo_map_center_hazard)
+#### Load Bookmark: ["map.view.center.location"](#map_view_center_location)
+#### Set Animation Time: ["map.view.center.bounds"](#map_view_center_bounds)
+
+
 ## [CMAPI v1.2.0 API Core Specification](http://cmapi.org/versions/v1.2.0/index.html)
 ### [DisasterAware Errata to CMAPI v1.2.0 Specification](#Errata)
 <br>
@@ -29,7 +37,8 @@ The DisasterAware widget can be launched from an external widget with a call to 
 Within the call to OWF.Launch.launcher() an object containing the GUID of the widget to launch,
 data, and a boolean if set to true will only launch an unopened widget.
 
-If the data for the launch is set to the bookmark channel and specific bookmark payload the DisasterAware application will lauch and load that bookmark. The bookmark payload is not required for the application to launch.
+DisasterAware accepts a bookmark payload and will load that bookmark after launch. 
+The bookmark payload is not required for the application to launch.
 
 ###Example launch code:
 	
@@ -56,15 +65,13 @@ It can be launched with the following:
        {
          guid: guidOfWidgetToLaunch,  // The retrieved GUID of the widget to launch
          launchOnlyIfClosed: true,    // If true will only launch an unopened widget.
-         data: dataString             // Initial launch config data to be passed to 
-                                      // a widget only if the widget is opened.  
-                                      // The data must be a string!
+         data: dataString             // Initial launch config data (channel 
+         							  // and payload) to be passed to the
+                                      // widget as it is opened.  
        }, 
          callbackOnLaunch
       );
 	
-The callbackOnLaunch function can be used for success and/or error messages.
-
 
 <hr>
 #Chanels:
@@ -274,7 +281,6 @@ Load DisasterAware at specified bookmark location.
 		"bookmarkUrl": "http://local.msmv.pdc.org:8080/msmvng/msmvng/?bookmark=9853"
 	}
 <hr>
-
 #### map_animation_time
 #map.animation.time 
 ####[back to list](#list)
@@ -318,6 +324,235 @@ UNIX timestamp in milliseconds.
 	}
 	
 	would result in a date of: 2014-10-25T21:00:00.000Z
+
+<hr>
+
+#### jpeo_map_overlay_show
+#jpeo.map.overlay.show
+####[back to list](#list)
+###Purpose:
+
+DisasterAware publishes information (id, description, state, and sender) about the layer that was added.
+###Channel:
+
+
+`jpeo.map.overlay.show`
+
+###Payload:
+
+	{
+		layerId: string,
+		layerDescription: string,
+		layerState: string,
+		sender: string
+	}
+
+
+###Properties
+<table>
+<tr>
+<th>Properties</th><th>Type</th><th>Description</th>
+</tr>
+<tr>
+<td>layerId</td><td>string</td><td>Id for layer added.</td>
+</tr>
+<tr>
+<td>layerDescription</td><td>string</td><td>Brief description of layer added.</td>
+</tr>
+<tr>
+<td>layerState</td><td>string</td><td>True or False...</td>
+</tr>
+<tr>
+<td>sender</td><td>string</td><td>GUID of sending widget.</td>
+</tr>
+</table>
+
+
+<hr>
+#### jpeo_map_overlay_hide
+#jpeo.map.overlay.hide
+####[back to list](#list)
+###Purpose:
+
+DisasterAware publishes information (id, description, state, and sender) about the layer that was removed.
+
+###Channel:
+
+
+`jpeo.map.overlay.hide`
+
+###Payload:
+
+	{
+		layerId: string,
+		layerDescription: string,
+		layerState: string,
+		sender: string
+	}
+
+
+###Properties
+<table>
+<tr>
+<th>Properties</th><th>Type</th><th>Description</th>
+</tr>
+
+<tr>
+<td>layerId</td><td>string</td><td>Id for layer removed.</td>
+</tr>
+<tr>
+<td>layerDescription</td><td>string</td><td>Brief description of layer removed.</td>
+</tr>
+<tr>
+<td>layerState</td><td>string</td><td>True or False...</td>
+</tr>
+<tr>
+<td>sender</td><td>string</td><td>GUID of sending widget.</td>
+</tr>
+</table>
+
+
+<hr>
+#### jpeo_map_center_hazard
+#jpeo.map.center.hazard
+####[back to list](#list)
+###Purpose:
+
+DisasterAware publishes the location of the hazard when the hazard is selected (double click on icon) or edited.
+
+###Channel:
+
+
+`jpeo.map.center.hazard`
+
+###Payload:
+
+	{
+		hazardId: string,
+		location.lat: string,
+		location.lon: string,
+		zoom: string,
+		sender: string
+	}
+
+
+###Properties
+<table>
+<tr>
+<th>Properties</th><th>Type</th><th>Description</th>
+</tr>
+
+<tr>
+<td>hazardId</td><td>string</td><td>Id of the Hazard selected or edited.</td>
+</tr>
+<tr>
+<td>location.lat</td><td>string</td><td>Latitude of Hazard location.</td>
+</tr>
+<tr>
+<td>location.lon</td><td>string</td><td>Longitude of Hazard location.</td>
+</tr>
+<tr>
+<td>zoom</td><td>string</td><td>Zoom level in meters of map view.</td>
+</tr>
+<tr>
+<td>sender</td><td>string</td><td>GUID of sending widget.</td>
+</tr>
+</table>
+
+
+<hr>
+#### map_view_center_location
+#map.view.center.location 
+####[back to list](#list)
+###Purpose:
+
+DisasterAware publishes the latitude, logitude and zoom for the center location of the map when there is a change to any one of the parameters.
+
+###Channel:
+
+
+`map.view.center.location`
+
+###Payload:
+
+	{
+		location.lat: string,
+		location.lon: string,
+		zoom: string,
+		sender: string
+	}
+
+
+###Properties
+<table>
+<tr>
+<th>Properties</th><th>Type</th><th>Description</th>
+</tr>
+
+<tr>
+<td>location.lat</td><td>string</td><td>Latitude of center of map.</td>
+</tr>
+<tr>
+<td>location.lon</td><td>string</td><td>Longitude of center of map.</td>
+</tr>
+<tr>
+<td>zoom</td><td>string</td><td>Zoom level for current map view.</td>
+</tr>
+<tr>
+<td>sender</td><td>string</td><td>GUID of sending widget.</td>
+</tr>
+</table>
+
+
+<hr>
+#### map_view_center_bounds
+#map.view.center.bounds
+####[back to list](#list)
+###Purpose:
+
+DisasterAware publishes the rectangular map bounds when the "Area Brief", "Identify", or "ZoomTo" modes are selected.
+
+###Channel:
+
+
+`map.view.center.bounds`
+
+###Payload:
+
+	{
+		southWest.lat: string,
+		southWest.lon: string,
+		northEast.lat: string,
+		northEast.lon: string,
+		zoom: string,
+		sender: string
+	}
+
+
+###Properties
+<table>
+<tr>
+<th>Properties</th><th>Type</th><th>Description</th>
+</tr>
+
+<tr>
+<td>southWest.lat</td><td>string</td><td>SouthWest latitude of current map view.</td>
+</tr>
+<tr>
+<td>southWest.lon</td><td>string</td><td>SouthWest longitude of current map view.</td>
+</tr>
+<tr>
+<td>northEast.lat</td><td>string</td><td>NorthEast latitude of current map view.</td>
+</tr>
+<tr>
+<td>northEast.lon</td><td>string</td><td>NorthEast longitude of current map view.</td>
+</tr>
+<tr>
+<td>zoom</td><td>string</td><td>Zoom level for current map view.</td>
+</tr>
+<td>sender</td><td>string</td><td>GUID of sending widget.</td>
+</tr>
+</table>
 
 <hr>
 
