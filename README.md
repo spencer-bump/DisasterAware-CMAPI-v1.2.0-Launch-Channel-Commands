@@ -14,11 +14,11 @@
 #### Load Bookmark: ["org.pdc.bookmark.load"](#org_pdc_bookmark_load)
 #### Set Animation Time: ["map.animation.time"](#map_animation_time)
 ## DisasterAware Publish Channels
-#### Set Language Translation: ["jpeo.map.overlay.show"](#jpeo_map_overlay_show)
-#### Add Layer Filter: ["jpeo.map.overlay.hide"](#jpeo_map_overlay_hide)
-#### Toggle Layer Filter:["jpeo.map.center.hazard"](#jpeo_map_center_hazard)
-#### Load Bookmark: ["map.view.center.location"](#map_view_center_location)
-#### Set Animation Time: ["map.view.center.bounds"](#map_view_center_bounds)
+#### Show Map Overlay: ["jpeo.map.overlay.show"](#jpeo_map_overlay_show)
+#### Hide Map Overlay: ["jpeo.map.overlay.hide"](#jpeo_map_overlay_hide)
+#### Center Map on Hazard:["jpeo.map.center.hazard"](#jpeo_map_center_hazard)
+#### View Center Location: ["map.view.center.location"](#map_view_center_location)
+#### View Center Bounds: ["map.view.center.bounds"](#map_view_center_bounds)
 
 
 ## [CMAPI v1.2.0 API Core Specification](http://cmapi.org/versions/v1.2.0/index.html)
