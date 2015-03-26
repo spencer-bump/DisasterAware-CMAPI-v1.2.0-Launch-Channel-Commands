@@ -239,7 +239,14 @@
             </tr>
             <tr>
               <td class="property">feature</td>
-              <td class="value"><input type="text" id="plot-feature"/> required </td>
+              <td class="value">
+                <select id="plot-feature" style="width: 60%">
+                  <option value="feature_data_1" selected="selected">feature_data_1 (geojson)</option>
+                  <option value="feature_data_2">feature_data_2 (geojson)</option>
+                  <option value="feature_data_3">feature_data_3 (kml)</option>
+                  <option value="feature_data_4">feature_data_4 (kml)</option>
+                </select> required </td>
+                <!-- <input type="text" id="plot-feature"/> required </td> -->
             </tr>
             <tr>
               <td class="property">zoom</td>

@@ -71,6 +71,7 @@ var $error_panel 		      = $('#error-panel');
 		$widgetChannel.empty().append("Channel: " + channel);
 		$widgetPayload.empty().append("Payload: " + JSON.stringify(message));
 		$launchResults.empty(); // clear display
+		logger.debug('Publishing channel: '+ channel + ', Publishing message: ' + JSON.stringify(message));
 		console.log(JSON.stringify(message));
 		$('#error-sender').html("sender: ");
 		$('#error-type').html("type: ");
@@ -285,7 +286,8 @@ var $error_panel 		      = $('#error-panel');
 /************************ Start Feature Channels ************************/
 /************** data *******************/
 
-var feature_data = { 
+// Two geojson features in the Singapore area with slight variations
+var feature_data_1 = { 
 	"type": "FeatureCollection",
     "features": [
       { "type": "Feature",
@@ -320,6 +322,61 @@ var feature_data = {
        ]
      };
 
+ var feature_data_2 = { 
+	"type": "FeatureCollection",
+    "features": [
+      { "type": "Feature",
+        "geometry": {"type": "Point", "coordinates": [104.0, 2.0]},
+        "properties": {"prop0": "value0"}
+        },
+      { "type": "Feature",
+        "geometry": {
+          "type": "LineString",
+          "coordinates": [
+            [104.0, 3.0], [105.0, 0.0], [106.0, 3.0], [107.0, 0.0]
+            ]
+          },
+        "properties": {
+          "prop0": "value0",
+          "prop1": 0.0
+          }
+        },
+      { "type": "Feature",
+         "geometry": {
+           "type": "Polygon",
+           "coordinates": [
+             [ [100.0, 0.0], [101.0, 1.0], [101.0, 2.0],
+               [100.0, 1.0], [100.0, 0.0] ]
+             ]
+         },
+         "properties": {
+           "prop0": "value0",
+           "prop1": {"this": "that"}
+           }
+         }
+       ]
+     };
+
+  // Two KML features - blue markers at slightly different locations in the eastern Pacific
+	var feature_data_3 = "<?xml version=\"1.0\" encoding=\"UTF-8\" ?><kml xmlns=\"http://www.opengis.net/kml/2.2\"><Document><Style id=\"1\"><IconStyle><scale>1</scale><Icon><href>assets/images/draw_placemarkers/blue_01.png</href></Icon><hotSpot x=\"0.5\" y=\"1\" xunits=\"fraction\" yunits=\"fraction\" /><LabelStyle><color>ff0e0ef5</color></LabelStyle></IconStyle></Style><Placemark><name>Placemarkasdf</name><description><![CDATA[]]></description><styleUrl>#1</styleUrl><Point><tesselate>1</tesselate><coordinates>159.88203125,45.88833017263426,0</coordinates></Point></Placemark></Document></kml>";
+	var feature_data_4 = "<?xml version=\"1.0\" encoding=\"UTF-8\" ?><kml xmlns=\"http://www.opengis.net/kml/2.2\"><Document><Style id=\"1\"><IconStyle><scale>1</scale><Icon><href>assets/images/draw_placemarkers/blue_01.png</href></Icon><hotSpot x=\"0.5\" y=\"1\" xunits=\"fraction\" yunits=\"fraction\" /><LabelStyle><color>ff0e0ef5</color></LabelStyle></IconStyle></Style><Placemark><name>Placemarkasdf</name><description><![CDATA[]]></description><styleUrl>#1</styleUrl><Point><tesselate>1</tesselate><coordinates>159.08203125,45.08833017263426,0</coordinates></Point></Placemark></Document></kml>";
+
+ var features = {
+ 	"feature_data_1": feature_data_1,
+ 	"feature_data_2": feature_data_2,
+ 	"feature_data_3": feature_data_3,
+ 	"feature_data_4": feature_data_4
+ };
+
+ var formats = {
+ 	"feature_data_1": "geojson",
+ 	"feature_data_2": "geojson",
+ 	"feature_data_3": "kml",
+ 	"feature_data_4": "kml"
+ };
+
+
+
 /************** data *******************/
 	// Plot Feature - pass an object
 	var $plotFeatureOverlayId			= $('#plot-feature-overlayId');
@@ -329,7 +386,7 @@ var feature_data = {
 	$plotFeatureOverlayId.val("myOverlay");
 	$plotFeatureFeatureId.val("myFeature");
 	$plotFeatureName.val("myFeatureName");
-	$plotFeature.val("feature_data");
+	$plotFeature.val("feature_data_1");
 	var plotZoom = true;
 	// change zoom value for Plot Feature - true zoom map to feature
 	$('#plot_feature_true').on('change', function () {
@@ -343,20 +400,24 @@ var feature_data = {
 	});
 	$button_field.on('click', '#plot_feature', function(){
 		console.log("plot feature, zoom: " + plotZoom) ;
-		console.log(feature_data);
+		console.log($plotFeature.val());
+		console.log(features[$plotFeature.val()]);
 		cmapi_channel = "map.feature.plot";
 		cmapi_message = {  
 			"overlayId": $plotFeatureOverlayId.val(),
 			"featureId": $plotFeatureFeatureId.val(),
 			"name": $plotFeatureName.val(),
-			"format": "geojson",
-			"feature": feature_data,
+			"format":  formats[$plotFeature.val()],
+			"feature": features[$plotFeature.val()],
 			"zoom": plotZoom
 		};
 		publishChannel(cmapi_channel, cmapi_message);
 	});
 
 	// Plot URL Feature - send a URL
+
+	// http://192.168.1.184:8080/kml/Point1.kml
+ //  http://192.168.1.184:8080/kml/Point2.kml
 	var $plotUrlOverlayId			= $('#plot-url-overlayId');
 	var $plotUrlFeatureId			= $('#plot-url-featureId');
 	var $plotUrlName					= $('#plot-url-name');
