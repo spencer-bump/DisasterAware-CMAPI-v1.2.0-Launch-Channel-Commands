@@ -358,8 +358,65 @@ var feature_data_1 = {
      };
 
   // Two KML features - blue markers at slightly different locations in the eastern Pacific
-	var feature_data_3 = "<?xml version=\"1.0\" encoding=\"UTF-8\" ?><kml xmlns=\"http://www.opengis.net/kml/2.2\"><Document><Style id=\"1\"><IconStyle><scale>1</scale><Icon><href>assets/images/draw_placemarkers/blue_01.png</href></Icon><hotSpot x=\"0.5\" y=\"1\" xunits=\"fraction\" yunits=\"fraction\" /><LabelStyle><color>ff0e0ef5</color></LabelStyle></IconStyle></Style><Placemark><name>Placemarkasdf</name><description><![CDATA[]]></description><styleUrl>#1</styleUrl><Point><tesselate>1</tesselate><coordinates>159.88203125,45.88833017263426,0</coordinates></Point></Placemark></Document></kml>";
-	var feature_data_4 = "<?xml version=\"1.0\" encoding=\"UTF-8\" ?><kml xmlns=\"http://www.opengis.net/kml/2.2\"><Document><Style id=\"1\"><IconStyle><scale>1</scale><Icon><href>assets/images/draw_placemarkers/blue_01.png</href></Icon><hotSpot x=\"0.5\" y=\"1\" xunits=\"fraction\" yunits=\"fraction\" /><LabelStyle><color>ff0e0ef5</color></LabelStyle></IconStyle></Style><Placemark><name>Placemarkasdf</name><description><![CDATA[]]></description><styleUrl>#1</styleUrl><Point><tesselate>1</tesselate><coordinates>159.08203125,45.08833017263426,0</coordinates></Point></Placemark></Document></kml>";
+
+	var feature_data_3 = '' +
+						'<?xml version="1.0" encoding="UTF-8" ?>' +
+							'<kml xmlns="http://www.opengis.net/kml/2.2">' +
+							    '<Document>' +
+							        '<Style id="1">' +
+							            '<IconStyle>' +
+							                '<scale>1</scale>' +
+							                '<Icon>' +
+							                    '<href>assets/images/draw_placemarkers/blue_01.png</href>' +
+							                '</Icon>' +
+							                '<hotSpot x="0.5" y="1" xunits="fraction" yunits="fraction" />' +
+							                '<LabelStyle>' +
+							                    '<color>ff0e0ef5</color>' +
+							                '</LabelStyle>' +
+							            '</IconStyle>' +
+							        '</Style>' +
+							        '<Placemark>' +
+							            '<name>Placemarkasdf</name>' +
+							            '<description><![CDATA[]]></description>' +
+							            '<styleUrl>#1</styleUrl>' +
+							            '<Point>' +
+							                '<tesselate>1</tesselate>' +
+							                '<coordinates>159.88203125,45.88833017263426,0</coordinates>' +
+							            '</Point>' +
+							        '</Placemark>' +
+							   ' </Document>' +
+							'</kml>' +
+						'';
+
+
+	var feature_data_4 = '' +
+						'<?xml version="1.0" encoding="UTF-8" ?>' +
+							'<kml xmlns="http://www.opengis.net/kml/2.2">' +
+							    '<Document>' +
+							        '<Style id="1">' +
+							            '<IconStyle>' +
+							                '<scale>1</scale>' +
+							                '<Icon>' +
+							                    '<href>assets/images/draw_placemarkers/blue_01.png</href>' +
+							                '</Icon>' +
+							                '<hotSpot x="0.5" y="1" xunits="fraction" yunits="fraction" />' +
+							                '<LabelStyle>' +
+							                    '<color>ff0e0ef5</color>' +
+							                '</LabelStyle>' +
+							            '</IconStyle>' +
+							        '</Style>' +
+							        '<Placemark>' +
+							            '<name>Placemarkasdf</name>' +
+							            '<description><![CDATA[]]></description>' +
+							            '<styleUrl>#1</styleUrl>' +
+							            '<Point>' +
+							                '<tesselate>1</tesselate>' +
+							                '<coordinates>159.08203125,45.08833017263426,0</coordinates>' +
+							            '</Point>' +
+							        '</Placemark>' +
+							   ' </Document>' +
+							'</kml>' +
+						'';
 
  var features = {
  	"feature_data_1": feature_data_1,
@@ -386,7 +443,7 @@ var feature_data_1 = {
 	$plotFeatureOverlayId.val("myOverlay");
 	$plotFeatureFeatureId.val("myFeature");
 	$plotFeatureName.val("myFeatureName");
-	$plotFeature.val("feature_data_1");
+	// $plotFeature.val("feature_data_1");
 	var plotZoom = true;
 	// change zoom value for Plot Feature - true zoom map to feature
 	$('#plot_feature_true').on('change', function () {
