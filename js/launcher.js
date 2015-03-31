@@ -418,19 +418,69 @@ var feature_data_1 = {
 							'</kml>' +
 						'';
 
+// var feature_data_5 = {
+// "overlayId":"gbspTestCaseOverlayId",
+// "featureId":"gbspTestCaseFeatureId",
+// "feature":"<kml xmlns=\"http://www.opengis.net/kml/2.2\" xmlns:gx=\"http://www.google.com/kml/ext/2.2\" xmlns:kml=\"http://www.opengis.net/kml/2.2\" xmlns:atom=\"http://www.w3.org/2005/Atom\"><Placemark id=\"gbspTestCaseFeatureId\"><name>gbspTestCase</name><description><![CDATA[gbspTestCase Description]]></description><Style><IconStyle><scale>0.1</scale><Icon><href>data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPAAAADSCAYAAAB0MU2vAAAgAElEQ…71VAvN3xGJgxa5r4b/QS+ZwAQCEhgkEmARBhWZPcL2hO7/AV1tNyuKimWpAAAAAElFTkSuQmCC</href></Icon><hotSpot x=\"0.5\" y=\"0\" xunits=\"fraction\" yunits=\"fraction\"></hotSpot></IconStyle></Style><Point><coordinates>10,10,0 </coordinates></Point></Placemark></kml>",
+// "name":"gbspTestCase"
+// };
+
+var feature_data_5 = "<kml xmlns=\"http://www.opengis.net/kml/2.2\" xmlns:gx=\"http://www.google.com/kml/ext/2.2\" xmlns:kml=\"http://www.opengis.net/kml/2.2\" xmlns:atom=\"http://www.w3.org/2005/Atom\">" + 
+												"<Placemark id=\"gbspTestCaseFeatureId\">" + 
+													"<name>gbspTestCase</name>" + 
+													"<description><![CDATA[gbspTestCase Description]]></description>" + 
+													"<Style>" + 
+														"<IconStyle>" + 
+															"<scale>0.1</scale>" + 
+															"<Icon>" + 
+																"<href>data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPAAAADSCAYAAAB0MU2vAAAgAElEQ…71VAvN3xGJgxa5r4b/QS+ZwAQCEhgkEmARBhWZPcL2hO7/AV1tNyuKimWpAAAAAElFTkSuQmCC</href>" + 
+															"</Icon>" + 
+															"<hotSpot x=\"0.5\" y=\"0\" xunits=\"fraction\" yunits=\"fraction\"></hotSpot>" + 
+														"</IconStyle>" + 
+													"</Style>" + 
+													"<Point>" +
+														"<coordinates>10,10,0 </coordinates>" + 
+													"</Point>" + 
+												"</Placemark>" + 
+											"</kml>";
+
+
+var feature_data_6 = '<?xml version="1.0" encoding="UTF-8"?><kml xmlns="http://www.opengis.net/kml/2.2"><Document><Style id="1"><LineStyle><color>ff000000</color><width>2</width></LineStyle><PolyStyle><color>7f000000</color></PolyStyle></Style><Placemark><name>GPSP Example</name><description><![CDATA[GPSP Example]]></description><styleUrl>#1</styleUrl><Polygon><tesselate>1</tesselate><outerBoundaryIs><LinearRing><coordinates>9.989662170410156,9.991843267457002,0\n10.009231567382812,9.991843267457002,0\n10.009231567382812,10.00638190424161,0\n9.989662170410156,10.00638190424161,0\n9.989662170410156,9.991843267457002,0</coordinates></LinearRing></outerBoundaryIs></Polygon></Placemark></Document></kml>';
+// "<?xml version=\"1.0\" encoding=\"UTF-8\"?><kml xmlns=\"http://www.opengis.net/kml/2.2\"><Document><Style id=\"1\"><LineStyle><color>ff000000</color><width>2</width></LineStyle><PolyStyle><color>7f000000</color></PolyStyle></Style><Placemark><name>GPSP Example</name><description><![CDATA[GPSP Example]]></description><styleUrl>#1</styleUrl><Polygon><tesselate>1</tesselate><outerBoundaryIs><LinearRing><coordinates>9.989662170410156,9.991843267457002,0\n10.009231567382812,9.991843267457002,0\n10.009231567382812,10.00638190424161,0\n9.989662170410156,10.00638190424161,0\n9.989662170410156,9.991843267457002,0</coordinates></LinearRing></outerBoundaryIs></Polygon></Placemark></Document></kml>”;
+
+
+
+
+
  var features = {
  	"feature_data_1": feature_data_1,
  	"feature_data_2": feature_data_2,
  	"feature_data_3": feature_data_3,
- 	"feature_data_4": feature_data_4
+ 	"feature_data_4": feature_data_4,
+ 	"feature_data_5": feature_data_5,
+ 	"feature_data_6": feature_data_6
  };
 
  var formats = {
  	"feature_data_1": "geojson",
  	"feature_data_2": "geojson",
  	"feature_data_3": "kml",
- 	"feature_data_4": "kml"
+ 	"feature_data_4": "kml",
+ 	"feature_data_5": "kml",
+ 	"feature_data_6": "kml"
  };
+
+ window.setInterval(function() {
+            var channelMsg = {
+                            overlayId: 'gbspTestCaseOverlayId',
+                            featureId: 'gbspTestCaseFeatureId',
+                            feature: feature_data_6,
+                            name: 'gbspTestCase',
+                            zoom: true
+                        };
+            console.log(channelMsg);
+            OWF.Eventing.publish('map.feature.plot', channelMsg);
+        }, 30000);
 
 
 
