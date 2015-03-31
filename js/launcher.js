@@ -470,17 +470,17 @@ var feature_data_6 = '<?xml version="1.0" encoding="UTF-8"?><kml xmlns="http://w
  	"feature_data_6": "kml"
  };
 
- window.setInterval(function() {
-            var channelMsg = {
-                            overlayId: 'gbspTestCaseOverlayId',
-                            featureId: 'gbspTestCaseFeatureId',
-                            feature: feature_data_6,
-                            name: 'gbspTestCase',
-                            zoom: true
-                        };
-            console.log(channelMsg);
-            OWF.Eventing.publish('map.feature.plot', channelMsg);
-        }, 30000);
+ // window.setInterval(function() {
+ //            var channelMsg = {
+ //                            overlayId: 'gbspTestCaseOverlayId',
+ //                            featureId: 'gbspTestCaseFeatureId',
+ //                            feature: feature_data_6,
+ //                            name: 'gbspTestCase',
+ //                            zoom: true
+ //                        };
+ //            console.log(channelMsg);
+ //            OWF.Eventing.publish('map.feature.plot', channelMsg);
+ //        }, 30000);
 
 
 
