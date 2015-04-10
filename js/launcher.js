@@ -933,6 +933,7 @@ var feature_data_6 = '<?xml version="1.0" encoding="UTF-8"?><kml xmlns="http://w
 	// launch the widget if successful
 	$button_field.on('click', '#launch-widget', function(){
 		widgetToLaunch = $widget_name.val(); // set to "MSMV" by default
+		console.log("widgetToLaunch: ", widgetToLaunch);
 		$widgetPayload.empty().append("Payload: " + JSON.stringify(data.payload));
 		lookupSecondTracker();
 	});
@@ -964,8 +965,13 @@ var launchSecondTracker = function  (findResultsResponseJSON) {
       // Did not find Widget
       failWidgetLookupError("Widget was not found in user profile.  User may not have access.");
    }
-   else {
-      var guidOfWidgetToLaunch = findResultsResponseJSON[0].path;
+   else { // look for exact match on widget name
+			for (i = 0; i < findResultsResponseJSON.length; i++) {
+				if (findResultsResponseJSON[i].value.namespace === widgetToLaunch) {
+					var guidOfWidgetToLaunch = findResultsResponseJSON[i].path;
+					break;
+				}
+			}
       logger.debug('Search result [GUID]:'+ guidOfWidgetToLaunch);
               
       var dataString = OWF.Util.toString(data);
