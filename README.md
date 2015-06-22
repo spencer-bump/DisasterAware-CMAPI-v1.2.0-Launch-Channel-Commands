@@ -19,7 +19,7 @@
 #### Center Map on Hazard:["jpeo.map.center.hazard"](#jpeo_map_center_hazard)
 #### View Center Location: ["map.view.center.location"](#map_view_center_location)
 #### View Center Bounds: ["map.view.center.bounds"](#map_view_center_bounds)
-#### Application Launched: ["org.pdc.app.didLaunch"](#org_pdc_app_didLoad)
+#### Application Launched: ["org.pdc.app.didLoad"](#org_pdc_app_didLoad)
 
 
 ## [CMAPI v1.2.0 API Core Specification](http://cmapi.org/versions/v1.2.0/index.html)
