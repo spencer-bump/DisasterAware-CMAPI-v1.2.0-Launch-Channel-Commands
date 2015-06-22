@@ -19,6 +19,7 @@
 #### Center Map on Hazard:["jpeo.map.center.hazard"](#jpeo_map_center_hazard)
 #### View Center Location: ["map.view.center.location"](#map_view_center_location)
 #### View Center Bounds: ["map.view.center.bounds"](#map_view_center_bounds)
+#### Application Launched: ["org.pdc.app.didLaunch"](#org_pdc_app_didLoad)
 
 
 ## [CMAPI v1.2.0 API Core Specification](http://cmapi.org/versions/v1.2.0/index.html)
@@ -553,6 +554,28 @@ DisasterAware publishes the rectangular map bounds when the "Area Brief", "Ident
 <td>sender</td><td>string</td><td>GUID of sending widget.</td>
 </tr>
 </table>
+
+<hr>
+
+#### org_pdc_app_didLoad
+#org.pdc.app.didLoad
+####[back to list](#list)
+###Purpose:
+
+DisasterAware publishes to this channel when the app has completed loading. The payload message is empty.
+
+###Channel:
+
+`org.pdc.app.didLoad`
+
+###Payload:
+
+	{ }
+
+
+###Properties
+	none
+
 
 <hr>
 

@@ -1174,7 +1174,16 @@ function callbackOnLaunch (resultJson) {
 				$('#listen-center-on-bounds-northEast-lon').empty().html("northEast.lon: " );
 				$('#listen-center-on-bounds-zoom').empty().html("zoom: " );
 				$('#listen-center-on-bounds-sender').empty().html("sender: ");
+				$('#listen-app-didload-sender').empty().html("sender: ");
 		});
+		
+
+		/************************ Start Launch Listener ************************/
+			OWF.Eventing.subscribe("org.pdc.app.didLoad", function (sender, message) {
+				console.log("inside widget org.pdc.app.didLoad subscribe");
+				$('#listen-app-didload-sender').empty().html("sender: " + sender);
+			});
+		/************************ End Launch Listener ************************/
 
 		/************************ Start Map Overlay Show ************************/
 			OWF.Eventing.subscribe("jpeo.map.overlay.show", function (sender, message) {
