@@ -63,7 +63,7 @@
           <button class="button-extralarge" id="change_locale" >To Spanish</button>
           <div class="channel">Channels: "gbsp.localeChannel"</div>
         </div>
-        
+
         <div class="area-border">
            <button class="button-medium" id="add_filter" >Add Filter</button>
            <div class="channel">Channel: "layer.filter.add"</div>
@@ -101,7 +101,7 @@
             </tr>
           </table>
         </div>
-          
+
         <div class="area-border">
           <button class="button-large" id="load_bookmark" >Load Bookmark by Id</button>
           <div class="channel">Channel: "org.pdc.bookmark.load"</div>
@@ -130,7 +130,7 @@
             </tr>
           </table>
         </div>
-          
+
         <div class="area-border">
           <button class="button-large" id="animation_time" >Set Animation Time</button>
           <div class="channel">Channel: "map.view.animation.time"</div>
@@ -231,7 +231,7 @@
             </tr>
             <tr>
               <td class="property">featureId</td>
-              <td class="value"><input type="text" id="plot-feature-featureId"/> required </td> 
+              <td class="value"><input type="text" id="plot-feature-featureId"/> required </td>
             </tr>
             <tr>
               <td class="property">name</td>
@@ -256,7 +256,7 @@
               <td class="value">
                 <input type="radio" name="plot_feature_zoom" id="plot_feature_true" value="true" checked="checked" > true
                 <input type="radio" name="plot_feature_zoom" id="plot_feature_false" value="false" > false
-              </td> 
+              </td>
             </tr>
           </table>
         </div>
@@ -274,7 +274,7 @@
             </tr>
             <tr>
               <td class="property">featureId</td>
-              <td class="value"><input type="text" id="plot-url-featureId"/> required </td> 
+              <td class="value"><input type="text" id="plot-url-featureId"/> required </td>
             </tr>
             <tr>
               <td class="property">name</td>
@@ -289,7 +289,7 @@
               <td class="value">
                 <input type="radio" name="plot_url_zoom" id="plot_url_true" value="true" checked="checked" > true
                 <input type="radio" name="plot_url_zoom" id="plot_url_false" value="false" > false
-              </td> 
+              </td>
             </tr>
           </table>
         </div>
@@ -307,7 +307,7 @@
             </tr>
             <tr>
               <td class="property">featureId</td>
-              <td class="value"><input type="text" id="unplot-feature-featureId"/> required </td> 
+              <td class="value"><input type="text" id="unplot-feature-featureId"/> required </td>
             </tr>
           </table>
         </div>
@@ -325,7 +325,7 @@
             </tr>
             <tr>
               <td class="property">featureId</td>
-              <td class="value"><input type="text" id="hide-feature-featureId"/> required </td> 
+              <td class="value"><input type="text" id="hide-feature-featureId"/> required </td>
             </tr>
           </table>
         </div>
@@ -343,14 +343,14 @@
             </tr>
             <tr>
               <td class="property">featureId</td>
-              <td class="value"><input type="text" id="show-feature-featureId"/> required </td> 
+              <td class="value"><input type="text" id="show-feature-featureId"/> required </td>
             </tr>
             <tr>
               <td class="property">zoom</td>
               <td class="value">
                 <input type="radio" name="plot_show_zoom" id="plot_show_true" value="true" checked="checked" > true
                 <input type="radio" name="plot_show_zoom" id="plot_show_false" value="false" > false
-              </td> 
+              </td>
             </tr>
           </table>
         </div>
@@ -368,7 +368,7 @@
             </tr>
             <tr>
               <td class="property">selectedName</td>
-              <td class="value"><input type="text" id="feature-selectedName"/> not supported </td> 
+              <td class="value"><input type="text" id="feature-selectedName"/> not supported </td>
             </tr>
             <tr>
               <td class="property">featureId</td>
@@ -394,7 +394,7 @@
             </tr>
             <tr>
               <td class="property">deSelectedName</td>
-              <td class="value"><input type="text" id="feature-deSelectedName"/> not supported </td> 
+              <td class="value"><input type="text" id="feature-deSelectedName"/> not supported </td>
             </tr>
             <tr>
               <td class="property">featureId</td>
@@ -420,7 +420,7 @@
             </tr>
             <tr>
               <td class="property">featureId</td>
-              <td class="value"><input type="text" id="feature-updated-featureId"/> required </td> 
+              <td class="value"><input type="text" id="feature-updated-featureId"/> required </td>
             </tr>
             <tr>
               <td class="property">name</td>
@@ -447,7 +447,7 @@
             </tr>
             <tr>
               <td class="property">featureId</td>
-              <td class="value"><input type="text" id="feature-edit-featureId"/> required </td> 
+              <td class="value"><input type="text" id="feature-edit-featureId"/> required </td>
             </tr>
             <tr>
               <td class="property">messageId</td>
@@ -566,6 +566,20 @@
           </table>
         </div>
         <div class="area-border">
+          <button class="button-large" id="map_center_mgrs" >Center on MGRS SF</button>
+          <div class="channel">Channel: "map.view.center.mgrs"</div>
+          <table>
+            <tr>
+              <th class="property">Property</th>
+              <th class="value">Value</th>
+            </tr>
+            <tr>
+              <td class="property">mgrs</td>
+              <td class="value"><input type="text" id="mgrs-coordinate"/> required </td>
+            </tr>
+          </table>
+        </div>
+        <div class="area-border">
           <div id="view-clicked-display">
             <div>
               <h3>Map View Clicked</h3>
@@ -579,7 +593,7 @@
                 <li id="clicked-sender">sender: </li>
               </ul>
             </div>"
-          </div> 
+          </div>
         </div>
       </div>
 
@@ -607,7 +621,7 @@
           <div class="channel">Channel: "map.status.request"</div>
         </div>
         <div class="area-border">
-          <div id="map-status-display"></div> 
+          <div id="map-status-display"></div>
         </div>
       </div>
 
@@ -657,7 +671,7 @@
         <div class="area-border">
           <div class="listener">
             <div>Map Center on Hazard</div>
-            <div class="channel">Channel: "jpeo.view.center.hazard"</div>
+            <div class="channel">Channel: "jpeo.map.view.center.hazard"</div>
             <ul>
               <li id="listen-center-on-hazard-hazardId">hazardId: </li>
               <li id="listen-center-on-hazard-lat">location.lat: </li>
@@ -696,7 +710,7 @@
           </div>
         </div>
       </div>
-    
+
     <div id="message-panel" class="message-panel" >
       <h3>Message Panel</h3>
       <div id="isRunning"> </div>
@@ -720,7 +734,7 @@
             <li id="error-error">error: </li>
           </ul>
         </div>
-      </div> 
+      </div>
     </div>
 
     <script type="text/javascript" src="js/owf-widget-min.js"></script>

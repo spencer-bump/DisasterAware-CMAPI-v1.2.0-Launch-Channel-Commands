@@ -6,20 +6,20 @@ var appender;
 
 // message variables
 var widgetPayloadSpan 		= "";
-var errorMessage 					= "";
+var errorMessage 			= "";
 var widgetNameLaunched 		= "";
-var widgetChannel 				= "";
+var widgetChannel 			= "";
 var launchResultsMessage 	= "";
 
 // jQuery variables
-var $button_field 				= $('#button_field');
+var $button_field 			= $('#button_field');
 // Message Display Area
-var $isRunning  					= $('#isRunning');
-var $widgetPayload 				= $('#widgetPayload');
-var $widgetName 					= $('#widgetName');
-var $widgetChannel 	      = $('#widgetChannel');
-var $launchResults 	      = $('#launchResults');
-var $error_panel 		      = $('#error-panel');
+var $isRunning  			= $('#isRunning');
+var $widgetPayload 			= $('#widgetPayload');
+var $widgetName 			= $('#widgetName');
+var $widgetChannel 	        = $('#widgetChannel');
+var $launchResults 	        = $('#launchResults');
+var $error_panel 		     = $('#error-panel');
 
 /************************ Start Navigation ************************/
 	var clearAll = function () {
@@ -31,7 +31,7 @@ var $error_panel 		      = $('#error-panel');
  		$('#status').hide();
  		$('#listeners').hide();
 	};
-	
+
   $('#launch-nav').on('click',function() {
   	clearAll();
   	$('#launch').show();
@@ -60,7 +60,7 @@ var $error_panel 		      = $('#error-panel');
   	clearAll();
   	$('#listeners').show();
   });
-  
+
 /************************ End Navigation ************************/
 
 
@@ -84,15 +84,15 @@ var $error_panel 		      = $('#error-panel');
 
 /************************ Start DisasterAware Channels  ************************/
 	// DisasterAware Channels
-	
-	var $layerId							= $('#filter-layerId');
-	var $filter_fieldName			= $('#filter-fieldName');
-	var $filter_text					= $('#filter-text');
-	var $layerId_toggle				= $('#filter-layerId-toggle');
-	var $channelBookmarkId 	  = $('#channelBookmarkId');
-	var $channelBookmarkUrl 	= $('#channelBookmarkUrl');
-	 /*** Locale Translation Code ***/
-	 // Initialize Translation Locale default to Spanish 
+	var $layerId               = $('#filter-layerId');
+	var $filter_fieldName      = $('#filter-fieldName');
+	var $filter_text           = $('#filter-text');
+	var $layerId_toggle	       = $('#filter-layerId-toggle');
+	var $channelBookmarkId     = $('#channelBookmarkId');
+	var $channelBookmarkUrl    = $('#channelBookmarkUrl');
+
+     /*** Locale Translation Code ***/
+	 // Initialize Translation Locale default to Spanish
 	 var locale_selected = "ES";
 	 var locale_button_text = "Spanish"
 
@@ -126,25 +126,25 @@ var $error_panel 		      = $('#error-panel');
 	$filter_fieldName.val("region");
 	$filter_text.val("oklahoma");
 
-	$button_field.on('click', '#add_filter', function(){ 
+	$button_field.on('click', '#add_filter', function(){
 		console.log("add filter");
 		cmapi_channel = "layer.filter.add";
 		// Filter 'Recent_Earthquakes' layer in the 'oklahoma' 'region'.
-		cmapi_message = { 
-			"layerId": $layerId.val(), 
+		cmapi_message = {
+			"layerId": $layerId.val(),
 			"filter": {
 				"region": {
 					"fieldName": $filter_fieldName.val(),
 					"text": $filter_text.val()
 				}
-			} 
+			}
 		};
 		publishChannel(cmapi_channel, cmapi_message);
 	});
 
 	// Toggle Filter
 	// Use the programmed "map.view.center.location" to position map to view toggle results.
-	$button_field.on('click', '#toggle_filter', function(){ 
+	$button_field.on('click', '#toggle_filter', function(){
 		console.log("toggle filter");
 		cmapi_channel = "layer.filter.toggle";
 		cmapi_message = { "layerId": $layerId_toggle.val() };
@@ -166,7 +166,7 @@ var $error_panel 		      = $('#error-panel');
 		channelBookmarkIdPayload[$(this).val()] = $('#channelBookmarkId').val();
 		console.log(channelBookmarkIdPayload);
 		$('#load_bookmark').text("Load Bookmark by ID");
-		
+
 	});
 
 	// change channel payload to use bookmarkUrl with radio button
@@ -200,10 +200,10 @@ var $error_panel 		      = $('#error-panel');
 
 
 	/*** Animation Code ***/
-	
+
 	var $startTime 					= $('#start-time');
 	$startTime.val("1414270861000");
-	$button_field.on('click', '#animation_time', function(){ 
+	$button_field.on('click', '#animation_time', function(){
 		console.log("animation time");
 		cmapi_channel = "map.animation.time";
 		cmapi_message = { "time": $startTime.val() };
@@ -215,24 +215,24 @@ var $error_panel 		      = $('#error-panel');
 
 /************************ Start Overlay Channels ************************/
 // Overlay Channels
-	var $overlayName					= $('#overlay-name');
-	var $overlayId					  = $('#overlay-overlayId');
-	var $parentId					  	= $('#overlay-parentId');
-	var $ovelayIdAction				= $('#overlay-overlayId-action');
+	var $overlayName			= $('#overlay-name');
+	var $overlayId				= $('#overlay-overlayId');
+	var $parentId				= $('#overlay-parentId');
+	var $ovelayIdAction			= $('#overlay-overlayId-action');
 	var $overlayNameUpdate		= $('#overlay-name-update');
-	var $overlayIdUpdate			= $('#overlay-overlayId-update');
-	var $parentIdUpdate				= $('#overlay-parentId-update');
-	var $overlayUrl 		      = $('#overlayUrl');
+	var $overlayIdUpdate		= $('#overlay-overlayId-update');
+	var $parentIdUpdate			= $('#overlay-parentId-update');
+	var $overlayUrl 		    = $('#overlayUrl');
 
 	// default overlay url
 	$overlayName.val("myOverlayName");
 	$overlayId.val("myOverlay");
 	$parentId.val("myParentID");
-	$button_field.on('click', '#create_overlay', function(){ 
+	$button_field.on('click', '#create_overlay', function(){
 		console.log("create overlay");
 		overlayUrl = $overlayUrl.val();
 		cmapi_channel = "map.overlay.create";
-		cmapi_message = { 
+		cmapi_message = {
 						"name":  			$overlayName.val(),
 						"overlayId": 	$overlayId.val(),
 						"parentId":   $parentId.val()
@@ -243,7 +243,7 @@ var $error_panel 		      = $('#error-panel');
 	// Set input field for Overlay Actions: Show, Hide, Remove
 	$ovelayIdAction.val("myOverlay");
 	// Show Overlay
-	$button_field.on('click', '#show_overlay', function(){ 
+	$button_field.on('click', '#show_overlay', function(){
 		console.log("show overlay");
 		cmapi_channel = "map.overlay.show";
 		cmapi_message = { "overlayId": 	$ovelayIdAction.val() };
@@ -251,7 +251,7 @@ var $error_panel 		      = $('#error-panel');
 	});
 
 	// Hide Overlay
-	$button_field.on('click', '#hide_overlay', function(){ 
+	$button_field.on('click', '#hide_overlay', function(){
 		console.log("hide overlay");
 		cmapi_channel = "map.overlay.hide";
 		cmapi_message = { "overlayId": 	$ovelayIdAction.val() };
@@ -259,7 +259,7 @@ var $error_panel 		      = $('#error-panel');
 	});
 
 	// Remove Overlay
-	$button_field.on('click', '#remove_overlay', function(){ 
+	$button_field.on('click', '#remove_overlay', function(){
 		console.log("remove overlay");
 		cmapi_channel = "map.overlay.remove";
 		cmapi_message = { "overlayId": 	$ovelayIdAction.val() };
@@ -270,10 +270,10 @@ var $error_panel 		      = $('#error-panel');
 	$overlayNameUpdate.val("updatedOverlayName");
 	$overlayIdUpdate.val("myOverlay");
 	$parentIdUpdate.val("updatedParentId");
-	$button_field.on('click', '#update_overlay', function(){ 
+	$button_field.on('click', '#update_overlay', function(){
 		console.log("update overlay");
 		cmapi_channel = "map.overlay.update";
-		cmapi_message = { 
+		cmapi_message = {
 						"name":  			$overlayNameUpdate.val(),
 						"overlayId": 	$overlayIdUpdate.val(),
 						"parentId":   $parentIdUpdate.val()
@@ -287,7 +287,7 @@ var $error_panel 		      = $('#error-panel');
 /************** data *******************/
 
 // Two geojson features in the Singapore area with slight variations
-var feature_data_1 = { 
+var feature_data_1 = {
 	"type": "FeatureCollection",
     "features": [
       { "type": "Feature",
@@ -322,7 +322,7 @@ var feature_data_1 = {
        ]
      };
 
- var feature_data_2 = { 
+ var feature_data_2 = {
 	"type": "FeatureCollection",
     "features": [
       { "type": "Feature",
@@ -425,23 +425,23 @@ var feature_data_1 = {
 // "name":"gbspTestCase"
 // };
 
-var feature_data_5 = "<kml xmlns=\"http://www.opengis.net/kml/2.2\" xmlns:gx=\"http://www.google.com/kml/ext/2.2\" xmlns:kml=\"http://www.opengis.net/kml/2.2\" xmlns:atom=\"http://www.w3.org/2005/Atom\">" + 
-												"<Placemark id=\"gbspTestCaseFeatureId\">" + 
-													"<name>gbspTestCase</name>" + 
-													"<description><![CDATA[gbspTestCase Description]]></description>" + 
-													"<Style>" + 
-														"<IconStyle>" + 
-															"<scale>0.1</scale>" + 
-															"<Icon>" + 
-																"<href>data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPAAAADSCAYAAAB0MU2vAAAgAElEQ…71VAvN3xGJgxa5r4b/QS+ZwAQCEhgkEmARBhWZPcL2hO7/AV1tNyuKimWpAAAAAElFTkSuQmCC</href>" + 
-															"</Icon>" + 
-															"<hotSpot x=\"0.5\" y=\"0\" xunits=\"fraction\" yunits=\"fraction\"></hotSpot>" + 
-														"</IconStyle>" + 
-													"</Style>" + 
+var feature_data_5 = "<kml xmlns=\"http://www.opengis.net/kml/2.2\" xmlns:gx=\"http://www.google.com/kml/ext/2.2\" xmlns:kml=\"http://www.opengis.net/kml/2.2\" xmlns:atom=\"http://www.w3.org/2005/Atom\">" +
+												"<Placemark id=\"gbspTestCaseFeatureId\">" +
+													"<name>gbspTestCase</name>" +
+													"<description><![CDATA[gbspTestCase Description]]></description>" +
+													"<Style>" +
+														"<IconStyle>" +
+															"<scale>0.1</scale>" +
+															"<Icon>" +
+																"<href>data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPAAAADSCAYAAAB0MU2vAAAgAElEQ…71VAvN3xGJgxa5r4b/QS+ZwAQCEhgkEmARBhWZPcL2hO7/AV1tNyuKimWpAAAAAElFTkSuQmCC</href>" +
+															"</Icon>" +
+															"<hotSpot x=\"0.5\" y=\"0\" xunits=\"fraction\" yunits=\"fraction\"></hotSpot>" +
+														"</IconStyle>" +
+													"</Style>" +
 													"<Point>" +
-														"<coordinates>10,10,0 </coordinates>" + 
-													"</Point>" + 
-												"</Placemark>" + 
+														"<coordinates>10,10,0 </coordinates>" +
+													"</Point>" +
+												"</Placemark>" +
 											"</kml>";
 
 
@@ -510,7 +510,7 @@ var feature_data_6 = '<?xml version="1.0" encoding="UTF-8"?><kml xmlns="http://w
 		console.log($plotFeature.val());
 		console.log(features[$plotFeature.val()]);
 		cmapi_channel = "map.feature.plot";
-		cmapi_message = {  
+		cmapi_message = {
 			"overlayId": $plotFeatureOverlayId.val(),
 			"featureId": $plotFeatureFeatureId.val(),
 			"name": $plotFeatureName.val(),
@@ -547,7 +547,7 @@ var feature_data_6 = '<?xml version="1.0" encoding="UTF-8"?><kml xmlns="http://w
 	$button_field.on('click', '#plot_url', function(){
 		console.log("plot url");
 		cmapi_channel = "map.feature.plot.url";
-		cmapi_message = {  
+		cmapi_message = {
 			"overlayId": $plotUrlOverlayId.val(),
 			"featureId": $plotUrlFeatureId.val(),
 			"name": $plotUrlName.val(),
@@ -565,29 +565,29 @@ var feature_data_6 = '<?xml version="1.0" encoding="UTF-8"?><kml xmlns="http://w
 	$button_field.on('click', '#feature-unplot', function(){
 		console.log("unplot feature");
 		cmapi_channel = "map.feature.unplot";
-		cmapi_message = {  
+		cmapi_message = {
 			"overlayId": $unplotOverlayId.val(),
 			"featureId": $unplotFeatureId.val()
 		};
 		publishChannel(cmapi_channel, cmapi_message);
 	});
 
-	// Hide Feature 
+	// Hide Feature
 	var $hideOverlayId				= $('#hide-feature-overlayId');
 	var $hideFeatureId				= $('#hide-feature-featureId');
-	$hideOverlayId.val("myOverlay");	
+	$hideOverlayId.val("myOverlay");
 	$hideFeatureId.val("myFeature");
 	$button_field.on('click', '#feature_hide', function(){
 		console.log("hide feature");
 		cmapi_channel = "map.feature.hide";
-		cmapi_message = {  
+		cmapi_message = {
 			"overlayId": $hideOverlayId.val(),
 			"featureId": $hideFeatureId.val()
 		};
 		publishChannel(cmapi_channel, cmapi_message);
 	});
 
-	// Show Feature 
+	// Show Feature
 	var $showOverlayId				= $('#show-feature-overlayId');
 	var $showFeatureId				= $('#show-feature-featureId');
 	$showOverlayId.val("myOverlay");
@@ -606,13 +606,13 @@ var feature_data_6 = '<?xml version="1.0" encoding="UTF-8"?><kml xmlns="http://w
 	$button_field.on('click', '#feature_show', function(){
 		console.log("show feature");
 		cmapi_channel = "map.feature.show";
-		cmapi_message = {  
+		cmapi_message = {
 			"overlayId": $showOverlayId.val(),
 			"featureId": $showFeatureId.val(),
 			"zoom": showZoom
 		};
 		publishChannel(cmapi_channel, cmapi_message);
-	});	
+	});
 
 	// Feature Selected
 	var $feature_selectedId				= $('#feature-selectedId');
@@ -626,14 +626,14 @@ var feature_data_6 = '<?xml version="1.0" encoding="UTF-8"?><kml xmlns="http://w
 	$button_field.on('click', '#feature_selected', function(){
 		console.log("feature selected");
 		cmapi_channel = "map.feature.selected";
-		cmapi_message = {  
+		cmapi_message = {
 			"selectedId": 	$feature_selectedId.val(),
 			"selectedName": $feature_selectedName.val(),
 			"featureId": 		$selected_featureId.val(),
 			"overlayId": 		$selected_overlayId.val()
 		};
 		publishChannel(cmapi_channel, cmapi_message);
-	});	
+	});
 
 	// Feature De-Selected
 	var $feature_deSelectedId				= $('#feature-deSelectedId');
@@ -647,14 +647,14 @@ var feature_data_6 = '<?xml version="1.0" encoding="UTF-8"?><kml xmlns="http://w
 	$button_field.on('click', '#feature_deselected', function(){
 		console.log("feature deSelected");
 		cmapi_channel = "map.feature.deselected";
-		cmapi_message = {  
+		cmapi_message = {
 			"deSelectedId": 	$feature_deSelectedId.val(),
 			"deSelectedName": $feature_deSelectedName.val(),
 			"featureId": 		$deSelected_featureId.val(),
 			"overlayId": 		$deSelected_overlayId.val()
 		};
 		publishChannel(cmapi_channel, cmapi_message);
-	});	
+	});
 
 	// Update Feature Data
 	var $feature_updated_overlayId				= $('#feature-updated-overlayId');
@@ -665,18 +665,18 @@ var feature_data_6 = '<?xml version="1.0" encoding="UTF-8"?><kml xmlns="http://w
 	$feature_updated_featureId.val("myFeature");
 	$feature_updated_name.val("newFeatureName");
 	$feature_updated_newOverlayId.val("newOverlayId");
-	
+
 	$button_field.on('click', '#feature_updated', function(){
 		console.log("feature updated");
 		cmapi_channel = "map.feature.update";
-		cmapi_message = {  
+		cmapi_message = {
 			"overlayId": 		$feature_updated_overlayId.val(),
 			"featureId": 		$feature_updated_featureId.val(),
 			"name": 				$feature_updated_name.val(),
 			"newOverlayId": $feature_updated_newOverlayId.val()
 		};
 		publishChannel(cmapi_channel, cmapi_message);
-	});	
+	});
 
 	// Edit Feature Data
 	var $feature_edit_overlayId				= $('#feature-edit-overlayId');
@@ -685,31 +685,31 @@ var feature_data_6 = '<?xml version="1.0" encoding="UTF-8"?><kml xmlns="http://w
 	$feature_edit_overlayId.val("myOverlay");
 	$feature_edit_featureId.val("myFeature");
 	$feature_edit_messageId.val("feature_edit_messageId");
-	
+
 	$button_field.on('click', '#feature_edit', function(){
 		console.log("feature edit");
 		// cmapi_channel = "map.feature.edit";
-		// cmapi_message = {  
+		// cmapi_message = {
 		// 	"overlayId": 		$feature_edit_overlayId.val(),
 		// 	"featureId": 		$feature_edit_featureId.val(),
 		// 	"messageId": 				$feature_edit_messageId.val()
 		// };
 		// publishChannel(cmapi_channel, cmapi_message);
-	});	
+	});
 
 /************************ End Feature Channels ************************/
 
 
 /************************ Start Map View Channels ************************/
 	// initialize map input fields, default location is Oklahoma to view filter toggling
-	
+
 	// Set Map Zoom
 	var $range			  		    = $('#map-range');
 	$range.val(5000);
 	$button_field.on('click', '#map_set_zoom', function(){
 		console.log("map set zoom");
 		cmapi_channel = "map.view.zoom";
-		cmapi_message = { "range": $range.val() };
+		cmapi_message = { "range": parseInt($range.val(), 10) };
 		publishChannel(cmapi_channel, cmapi_message);
 	});
 
@@ -756,10 +756,18 @@ var feature_data_6 = '<?xml version="1.0" encoding="UTF-8"?><kml xmlns="http://w
 	$button_field.on('click', '#map_center_location', function(){
 		console.log("map center on location");
 		cmapi_channel = "map.view.center.location";
-		cmapi_message = {  
-			"location": { "lat": parseFloat( $latitude.val() ), "lon": parseFloat( $longitude.val() )},
-			"zoom": parseInt( $zoom.val() )
-		};
+        if ($zoom.val() === "auto") {
+            cmapi_message = {
+                "location": { "lat": parseFloat( $latitude.val() ), "lon": parseFloat( $longitude.val() )},
+                "zoom": "auto"
+            };
+        } else {
+            cmapi_message = {
+                "location": { "lat": parseFloat( $latitude.val() ), "lon": parseFloat( $longitude.val() )},
+                "zoom": parseInt( $zoom.val() )
+            };
+        }
+
 		publishChannel(cmapi_channel, cmapi_message);
 	});
 
@@ -787,6 +795,20 @@ var feature_data_6 = '<?xml version="1.0" encoding="UTF-8"?><kml xmlns="http://w
 		publishChannel(cmapi_channel, cmapi_message);
 	});
 
+    //Set Center on MGRS
+    var $mgrsCoordinate              = $('#mgrs-coordinate');
+    $mgrsCoordinate.val("10SEG49208184"); // SF
+    // $mgrsCoordinate.val("30UXC95880770"); // London
+
+    $button_field.on('click', '#map_center_mgrs', function(){
+        console.log("map center on mgrs");
+        cmapi_channel = "map.view.center.mgrs";
+        cmapi_message = {
+            "mgrs": $mgrsCoordinate.val()
+        };
+        publishChannel(cmapi_channel, cmapi_message);
+    });
+
 	// Map View Clicked
 	var $map_clicked_lat					= $('#map-clicked-latitude');
 	var $map_clicked_lon					= $('#map-clicked-longitude');
@@ -811,7 +833,7 @@ var feature_data_6 = '<?xml version="1.0" encoding="UTF-8"?><kml xmlns="http://w
 		publishChannel(cmapi_channel, cmapi_message);
 	});
 
-	
+
 /************************ End Map View Channels ************************/
 
 
@@ -871,9 +893,9 @@ var feature_data_6 = '<?xml version="1.0" encoding="UTF-8"?><kml xmlns="http://w
 	var cmapi_channel;
 	var cmapi_message;
 	var bookmarkLaunchType = "";
-	// default launch bookmark 
-	var bookmarkIdPayload = { "bookmarkId": 9853 };
-	var bookmarkUrlPayload = { "bookmarkUrl": "http://local.msmv.pdc.org:8080/msmvng/msmvng/?bookmark=9853" };
+	// default launch bookmark
+	var bookmarkIdPayload = { "bookmarkId": 11475 };
+	var bookmarkUrlPayload = { "bookmarkUrl": "http://local.msmv.pdc.org:8080/msmvng/msmvng/?bookmark=11475" };
 	var $widget_name					= $('#widget-name');
 	var $bookmarkId 		      = $('#bookmarkId');
 	var $bookmarkUrl 		      = $('#bookmarkUrl');
@@ -947,15 +969,15 @@ var feature_data_6 = '<?xml version="1.0" encoding="UTF-8"?><kml xmlns="http://w
 // if successful call the launchSecondTracker function
 var lookupSecondTracker = function() {
 	var searchConfig = {
-	  searchParams:  { widgetName: widgetToLaunch }, 
-	  onSuccess: launchSecondTracker, 
+	  searchParams:  { widgetName: widgetToLaunch },
+	  onSuccess: launchSecondTracker,
 	  onFailure: failWidgetLookupError
 	};
 	logger.debug('Looking up:'+searchConfig.searchParams.widgetName);
 
 	OWF.Preferences.findWidgets(searchConfig);
 };
-         
+
 // Launch the widget based on the found GUID
 // on success callback from lookupSecondTracker function
 var launchSecondTracker = function  (findResultsResponseJSON) {
@@ -973,16 +995,16 @@ var launchSecondTracker = function  (findResultsResponseJSON) {
 				}
 			}
       logger.debug('Search result [GUID]:'+ guidOfWidgetToLaunch);
-              
+
       var dataString = OWF.Util.toString(data);
-      
+
       OWF.Launcher.launch(
          {
             guid: guidOfWidgetToLaunch,  // The retrieved GUID of the widget to launch
             launchOnlyIfClosed: true, // If true will only launch the widget if it is not already opened.
-            data: dataString  // Initial launch config data to be passed to 
+            data: dataString  // Initial launch config data to be passed to
                               //   a widget only if the widget is opened.  This must be a string!
-         }, 
+         },
          callbackOnLaunch
       );
    }
@@ -996,12 +1018,12 @@ var failWidgetLookupError= function (widgetLookupErrorMessage) {
 
 // Widget Launching callback function indicating success or failure
 function callbackOnLaunch (resultJson) {
-   
+
    if(resultJson.error) {
       // if there was an error, print that out on the launching widget
       launchResultsMessage += ("Launch Error:" + resultJson.message);
    }
-      
+
    if(resultJson.newWidgetLaunched) {
       // if the new widget was launched, say so
       widgetNameLaunched =  "Widget Launched: " + widgetToLaunch;
@@ -1010,14 +1032,14 @@ function callbackOnLaunch (resultJson) {
    }
    else {
       // if the new widget was not launched, say so and explain why not
-      launchResultsMessage = ("Launch Error: " + resultJson.message  + 
-                            " Widget exists already with id: " + resultJson.uniqueId);               
+      launchResultsMessage = ("Launch Error: " + resultJson.message  +
+                            " Widget exists already with id: " + resultJson.uniqueId);
    }
    $widgetName.empty().append(widgetNameLaunched);
    $widgetPayload.empty().append("Payload: " + JSON.stringify(data.payload));
    $widgetChannel.empty().append(widgetChannel);
 	 $launchResults.empty().append(launchResultsMessage);
-	
+
 }
 
 /************************ End Launch Related Functions ************************/
@@ -1176,7 +1198,7 @@ function callbackOnLaunch (resultJson) {
 				$('#listen-center-on-bounds-sender').empty().html("sender: ");
 				$('#listen-app-didload-sender').empty().html("sender: ");
 		});
-		
+
 
 		/************************ Start Launch Listener ************************/
 			OWF.Eventing.subscribe("org.pdc.app.didLoad", function (sender, message) {
@@ -1234,10 +1256,10 @@ function callbackOnLaunch (resultJson) {
 			OWF.Eventing.subscribe("map.view.center.bounds", function (sender, message) {
 				console.log("inside widget map.view.center.bounds subscribe - message %O", message);
 				message = prepareMessage(message);
-				$('#listen-center-on-bounds-southWest-lat').empty().html("southWest.lat: " + message.southWest.lat);
-				$('#listen-center-on-bounds-southWest-lon').empty().html("southWest.lon: " + message.southWest.lon);
-				$('#listen-center-on-bounds-northEast-lat').empty().html("northEast.lat: " + message.northEast.lat);
-				$('#listen-center-on-bounds-northEast-lon').empty().html("northEast.lon: " + message.northEast.lon);
+				$('#listen-center-on-bounds-southWest-lat').empty().html("southWest.lat: " + message.bounds.southWest.lat);
+				$('#listen-center-on-bounds-southWest-lon').empty().html("southWest.lon: " + message.bounds.southWest.lon);
+				$('#listen-center-on-bounds-northEast-lat').empty().html("northEast.lat: " + message.bounds.northEast.lat);
+				$('#listen-center-on-bounds-northEast-lon').empty().html("northEast.lon: " + message.bounds.northEast.lon);
 				$('#listen-center-on-bounds-zoom').empty().html("zoom: " + message.zoom);
 				$('#listen-center-on-bounds-sender').empty().html("sender: " + sender);
 			});
@@ -1260,7 +1282,7 @@ function setupNav() {
 
 function logInit() {
 
-   //logger = OWF.Log.getLogger('DynamicLauncher');
+   logger = OWF.Log.getLogger('DynamicLauncher');
    logger = OWF.Log.getDefaultLogger();
    OWF.Log.setEnabled(true);
 
@@ -1274,10 +1296,10 @@ function onSetFailure(error,status){
 
 function initPrefs() {
     OWF.Preferences.getUserPreference(
-            {namespace:'com.mycompany.AnnouncingClock', 
+            {namespace:'com.mycompany.AnnouncingClock',
              onSuccess:function(){
               console.log('great success');
-             }, 
+             },
              onFailure:onGetFailure});
 }
 
@@ -1287,7 +1309,7 @@ function onGetFailure(error,status) {
     }
 }
 
-function initPage() { 
+function initPage() {
  	logInit();
  	initPrefs();
  	startListeners();
