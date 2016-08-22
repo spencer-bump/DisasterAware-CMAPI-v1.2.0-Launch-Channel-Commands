@@ -110,7 +110,7 @@ var $error_panel 		     = $('#error-panel');
 	  .change();
 
 	// Translate language based on selection
-	$button_field.on('click', '#change_locale', function(){
+	$('#change_locale').on('click', function(){
 		console.log("change locale");
 		cmapi_channel = "gbsp.localeChannel";
 		cmapi_message = { "locale": locale_selected };
@@ -154,8 +154,8 @@ var $error_panel 		     = $('#error-panel');
 
 	/*** Bookmark Code ***/
 	// default bookmarks for channel commands
-	var channelBookmarkIdPayload = { "bookmarkId": 10018 }; // good location to test filter toggle
-	var channelBookmarkUrlPayload = { "bookmarkUrl": "http://local.msmv.pdc.org:8080/msmvng/msmvng/?bookmark=10017" };
+	var channelBookmarkIdPayload = { "bookmarkId": 8102 }; // good location to test filter toggle
+	var channelBookmarkUrlPayload = { "bookmarkUrl": "http://local.msmv.pdc.org:8080/msmvng/msmvng/?bookmark=8102" };
 	// load bookmark channel input fields with default values
 	$channelBookmarkId.val(channelBookmarkIdPayload.bookmarkId);
 	$channelBookmarkUrl.val(channelBookmarkUrlPayload.bookmarkUrl);
@@ -190,7 +190,7 @@ var $error_panel 		     = $('#error-panel');
 	});
 
 	// Load Bookmark
-	$button_field.on('click', '#load_bookmark', function(){ // Alaska
+	$('#load_bookmark').on('click', function(){ // SF
 		console.log("load bookmark");
 		cmapi_channel = "org.pdc.bookmark.load";
 		cmapi_message = channelBookmarkIdPayload;
@@ -894,8 +894,8 @@ var feature_data_6 = '<?xml version="1.0" encoding="UTF-8"?><kml xmlns="http://w
 	var cmapi_message;
 	var bookmarkLaunchType = "";
 	// default launch bookmark
-	var bookmarkIdPayload = { "bookmarkId": 11475 };
-	var bookmarkUrlPayload = { "bookmarkUrl": "http://local.msmv.pdc.org:8080/msmvng/msmvng/?bookmark=11475" };
+	var bookmarkIdPayload = { "bookmarkId": 8102 };
+	var bookmarkUrlPayload = { "bookmarkUrl": "http://local.msmv.pdc.org:8080/msmvng/msmvng/?bookmark=8102" };
 	var $widget_name					= $('#widget-name');
 	var $bookmarkId 		      = $('#bookmarkId');
 	var $bookmarkUrl 		      = $('#bookmarkUrl');
@@ -903,7 +903,7 @@ var feature_data_6 = '<?xml version="1.0" encoding="UTF-8"?><kml xmlns="http://w
 	// load bookmark launch input fields with default values
 	$bookmarkId.val(bookmarkIdPayload.bookmarkId);
 	$bookmarkUrl.val(bookmarkUrlPayload.bookmarkUrl);
-	$widget_name.val("MSMV");
+	$widget_name.val("Quantum SDK");
 
 	// radio button to select launch type: bookmarkId or bookmarkUrl
 	$("input[type='radio'][name='launch-type']").on('checked', function() {
@@ -1088,7 +1088,7 @@ function callbackOnLaunch (resultJson) {
 			$('#clicked-button').html("button: " + message.button);
 			$('#clicked-type').html("type: " + message.type);
 			$('#clicked-keys').html("keys: " + message.keys);
-			$('#clicked-sender').html("sender: " + message.sender);
+			$('#clicked-sender').html("sender: " + sender);
 		});
 
 	   /************************ End Map View Clicked ************************/
@@ -1296,7 +1296,7 @@ function onSetFailure(error,status){
 
 function initPrefs() {
     OWF.Preferences.getUserPreference(
-            {namespace:'com.mycompany.AnnouncingClock',
+            {namespace:'org.pdc.disasterAware',
              onSuccess:function(){
               console.log('great success');
              },

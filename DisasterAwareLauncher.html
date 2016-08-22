@@ -20,7 +20,7 @@
       <div id="launch">
         <h2>Widget Launcher to Bookmark</h2>
         <div class="area-border">
-          <button class="button-large" id="launch-widget" >Launch MSMV by ID</button>
+          <button class="button-large" id="launch-widget" >Launch Quantum SDK by ID</button>
           <table>
             <tr>
               <th class="property">Property</th>
@@ -47,6 +47,17 @@
               </td>
             </tr>
           </table>
+
+          </div>
+          <div class="area-border">
+            <div class="listener">
+            <h3>App Launched: </h3>
+              <div class="channel">Channel: "org.pdc.app.didLoad"</div>
+              <ul>
+                <li id="listen-app-didload-sender">sender: </li>
+              </ul>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -102,7 +113,7 @@
           </table>
         </div>
 
-        <div class="area-border">
+        <div class="area-border" id="bookmark_button">
           <button class="button-large" id="load_bookmark" >Load Bookmark by Id</button>
           <div class="channel">Channel: "org.pdc.bookmark.load"</div>
           <table>
@@ -631,16 +642,7 @@
 
       <h2>Map Channel Listeners</h2>
       <button class="button-large" id="clear-listeners" >Clear Listeners</button>
-        <div class="area-border">
-          <div class="listener">
-            <div>App Launched</div>
-            <div class="channel">Channel: "org.pdc.app.didLoad"</div>
-            <ul>
-              <!-- <li id="listen-app-didload-application">application: </li> -->
-              <li id="listen-app-didload-sender">sender: </li>
-            </ul>
-          </div>
-        </div>
+
 
         <div class="area-border">
           <div class="listener">
