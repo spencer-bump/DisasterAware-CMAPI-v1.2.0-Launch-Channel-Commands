@@ -75,7 +75,7 @@ It can be launched with the following:
 	
 
 <hr>
-#Chanels:
+#Channels:
 #### gbsp_locale_channel
 #gbsp.localeChannel 
 ####[back to list](#list)
